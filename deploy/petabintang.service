@@ -1,0 +1,25 @@
+# Peta Bintang — systemd unit
+#
+# Install to /etc/systemd/system/petabintang.service
+# See docs/DEPLOY.md (Fase 11) for full instructions.
+#
+# Adjust:
+#   - User / WorkingDirectory  -> your deploy user + app path
+#   - ExecStart               -> path to node binary (which node)
+
+[Unit]
+Description=Peta Bintang (Express + Puppeteer)
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/home/deploy/apps/petabintang
+EnvironmentFile=/home/deploy/apps/petabintang/.env
+ExecStart=/usr/bin/node dist/server.mjs
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

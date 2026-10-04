@@ -1,0 +1,22 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+checkpoints/
+dist-preview/
+.playwright-mcp/
+
+# Local archive of non-deployment artifacts (logs, session dumps, planning
+# docs, temp scripts, generated previews). Kept on disk for reference but not
+# part of the deployable repo.
+_archive/
+
+# Local-only screenshots for design reference
+*.png
+supabase/.temp/
+
+supabase/.temp/

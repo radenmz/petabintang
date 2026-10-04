@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Typography (Nunito display + Plus Jakarta Sans body) */
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Nunito', 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
+
+  /* ============================================================
+     PALET — sesuai logo (White Linen / Jacarta / Wisteria / Casablanca)
+     Web only. PDF & chart SVG punya palet hardcode sendiri.
+     ============================================================ */
+
+  /* Base palette */
+  --color-paper: #faf1ec;          /* White Linen */
+  --color-ink: #1c1a2e;            /* Jacarta gelap (teks) */
+  --color-botanical: #2a306c;      /* Jacarta (aksen utama) */
+  --color-botanical-tint: #e8e9f3;
+  --color-starlight: #f8bb53;      /* Casablanca */
+  --color-stone: #6b6787;
+
+  /* Semantic roles */
+  --color-primary: #2a306c;        /* Jacarta */
+  --color-on-primary: #faf1ec;
+  --color-primary-container: #e3e4f2;
+  --color-on-primary-container: #1a1e46;
+  --color-secondary: #846bb5;      /* Wisteria */
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #ece6f6;
+  --color-on-secondary-container: #32215a;
+  --color-tertiary: #f8bb53;       /* Casablanca */
+  --color-on-tertiary: #3a2a08;
+  --color-tertiary-container: #fde8bf;
+  --color-on-tertiary-container: #4a3406;
+  --color-surface: #faf1ec;
+  --color-surface-container: #f3e8e0;
+  --color-surface-container-high: #eddfd5;
+  --color-on-surface: #1c1a2e;
+  --color-on-surface-variant: #6b6787;
+  --color-outline: #8f8aa8;
+  --color-outline-variant: #d9cfc7;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+
+  /* Deep shades for hover states */
+  --color-botanical-deep: #1a1e46;
+  --color-starlight-deep: #d99a2b;
+  --color-wa: #25d366;
+  --color-wa-deep: #1a9e4b;
+
+  /* Compatibility aliases for existing utilities */
+  --color-navy: #1c1a2e;
+  --color-blue: #2a306c;
+  --color-mist: #faf1ec;
+  --color-cream: #faf1ec;
+  --color-royal: #2a306c;
+  --color-azure: #846bb5;
+  --color-gold: #f8bb53;
+  --color-sage: #846bb5;
+}
+
+/* Global typography baseline */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-on-surface);
+  background: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* ===========================================================================
+   LAYOUT SYSTEM
+   One source of truth for horizontal rhythm so each phase can adopt a
+   different *shape* instead of every screen sharing the same stacked column.
+   =========================================================================== */
+:root {
+  --shell-pad: clamp(1rem, 4vw, 2rem);
+  --measure-read: 68ch;   /* optimal reading measure for document views */
+  --measure-prose: 60ch;  /* tighter measure for editorial intros */
+}
+
+/* Width scale — use these instead of ad-hoc max-w-* values. */
+.shell { width: 100%; margin-inline: auto; padding-inline: var(--shell-pad); }
+.shell--wide { max-width: 1180px; }   /* marketing / reader shell */
+.shell--content { max-width: 960px; } /* result / checkout */
+.shell--narrow { max-width: 720px; }  /* wizard / focused forms */
+.shell--prose { max-width: var(--measure-prose); }
+
+/* Editorial helpers */
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+.rule {
+  border: 0;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* Custom Scrollbar Styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-surface-container);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-outline);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Markdown typography styling */
+.markdown-body h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.markdown-body h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body p {
+  margin-bottom: 0.85rem;
+  line-height: 1.7;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.markdown-body ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+  padding-left: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body li {
+  margin-bottom: 0.35rem;
+}
+
+.markdown-body blockquote {
+  border-left: 4px solid var(--color-primary);
+  padding-left: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.markdown-body th, .markdown-body td {
+  border: 1px solid var(--color-outline-variant);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.markdown-body th {
+  background-color: var(--color-surface-container);
+  font-weight: 600;
+}
+
+/* Star dividers — style all <hr> (rendered from markdown '---') as decorative stars */
+.markdown-body hr {
+  border: none;
+  text-align: center;
+  margin: 2.5rem 0;
+}
+.markdown-body hr::after {
+  content: "✦ ✦ ✦ ✦ ✦";
+  color: var(--color-tertiary);
+  font-size: 1.2rem;
+  letter-spacing: 0.3em;
+  display: block;
+}
+
+/* Push buttons — flat, editorial. No 3D toy shadow; hierarchy comes from fill
+   vs outline vs quiet text. Kept UNLAYERED so the class beats the unlayered
+   `button { font: inherit }` reset. */
+.btn3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.btn3d:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn3d:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.btn3d-primary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.btn3d-primary:hover:not(:disabled) {
+  background: var(--color-botanical-deep);
+}
+
+.btn3d-gold {
+  background: var(--color-tertiary);
+  color: var(--color-ink);
+}
+.btn3d-gold:hover:not(:disabled) {
+  background: var(--color-starlight-deep);
+  color: #fff;
+}
+
+.btn3d-wa {
+  background: var(--color-wa);
+  color: #fff;
+}
+.btn3d-wa:hover:not(:disabled) {
+  background: var(--color-wa-deep);
+}
+
+.btn3d-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-outline-variant);
+}
+.btn3d-ghost:hover:not(:disabled) {
+  background: var(--color-surface-container);
+  border-color: var(--color-outline);
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .print-container {
+    padding: 0 !important;
+  }
+  .page-break-after {
+    page-break-after: always;
+  }
+}
+
+/* Mobile responsive for markdown content */
+@media (max-width: 640px) {
+  .markdown-body table {
+    font-size: 0.875rem;
+  }
+  .markdown-body th, .markdown-body td {
+    padding: 0.3rem 0.4rem;
+  }
+  .markdown-body svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  .markdown-body img {
+    max-width: 100%;
+    height: auto;
+  }
+  .markdown-body pre, .markdown-body code {
+    overflow-x: auto;
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+}
