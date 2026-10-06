@@ -3,7 +3,15 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang bercahaya dan penuh wibawa: kombinasi Ekstraversi sangat tinggi ({{oceanE}}/10, {{statusE}}) dan Sensitivitas Emosi rendah ({{oceanN}}/10, {{statusN}}), berpadu dengan Keterbukaan sedang-tinggi ({{oceanO}}/10, {{statusO}}). Artinya, {{childName}} bertemu dunia dengan kepala terangkat dan suara yang mantap — bukan dengan ragu-ragu di pinggir, melainkan dengan melangkah ke depan dan mengajak orang lain mengikuti. Ekstraversi sangat tinggi membuatnya memancarkan karisma yang sulit diabaikan: ia alami mengambil inisiatif, menunjuk arah, dan mengisi ruangan dengan kehadiran yang membuat anak lain menoleh dan ikut. Sensitivitas Emosi yang rendah menjadi fondasi kekuatannya — ia tidak mudah patah, cepat bangkit dari kegagalan, dan jarang terbenam lama dalam kekecewaan. Namun di balik cahaya ini ada bayangan: dengan Keramahan sedang-rendah ({{oceanA}}/10, {{statusA}}) dan Ketelitian sedang ({{oceanC}}/10, {{statusC}}), {{childName}} bisa mendominasi permainan tanpa sadar, kurang sabar pada teman yang lebih lambat, dan kesulitan menerima saat bukan yang terbaik. Kepemimpinan dan resiliensinya adalah kekuatan terbesarnya — sekaligus bayangan yang perlu didampingi agar singa kecil ini tumbuh menjadi pemimpin yang bijaksana, bukan hanya yang kuat.
+Skor OCEAN {{childName}} mengungkapkan profil yang bercahaya dan penuh wibawa: kombinasi Ekstraversi sangat tinggi ({{oceanE}}/10, {{statusE}}) dan Sensitivitas Emosi rendah ({{oceanN}}/10, {{statusN}}), berpadu dengan Keterbukaan sedang-tinggi ({{oceanO}}/10, {{statusO}}).
+
+Artinya, {{childName}} bertemu dunia dengan kepala terangkat dan suara yang mantap — bukan dengan ragu-ragu di pinggir, melainkan dengan melangkah ke depan dan mengajak orang lain mengikuti. Ekstraversi sangat tinggi membuatnya memancarkan karisma yang sulit diabaikan: ia alami mengambil inisiatif, menunjuk arah, dan mengisi ruangan dengan kehadiran yang membuat anak lain menoleh dan ikut.
+
+Sensitivitas Emosi yang rendah menjadi fondasi kekuatannya — ia tidak mudah patah, cepat bangkit dari kegagalan, dan jarang terbenam lama dalam kekecewaan.
+
+Namun di balik cahaya ini ada bayangan: dengan Keramahan sedang-rendah ({{oceanA}}/10, {{statusA}}) dan Ketelitian sedang ({{oceanC}}/10, {{statusC}}), {{childName}} bisa mendominasi permainan tanpa sadar, kurang sabar pada teman yang lebih lambat, dan kesulitan menerima saat bukan yang terbaik.
+
+Kepemimpinan dan resiliensinya adalah kekuatan terbesarnya — sekaligus bayangan yang perlu didampingi agar singa kecil ini tumbuh menjadi pemimpin yang bijaksana, bukan hanya yang kuat.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +39,11 @@ Skor OCEAN {{childName}} mengungkapkan profil yang bercahaya dan penuh wibawa: k
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah diperingatkan bahwa {{childName}} "terlalu mendominasi", "tidak mau kalah", atau "keras kepala". Mungkin ada guru atau kerabat yang menyebutnya "arogan" atau "nakal" saat ia merebut pimpinan permainan atau kecewa karena bukan pemenang. Tenang — gejolak itu bukan tanda keburukan, melainkan bayangan alami dari kekuatan kepemimpinan yang sedang tumbuh. Di balik suaranya yang lantang dan tuntutannya untuk jadi yang terdepan, sedang terbentuk sosok pemimpin dengan resiliensi luar biasa — anak yang akan bangkit setiap kali jatuh dan berani menghadapi tantangan yang membuat anak lain mundur. Tugas Ayah Bunda bukan memadamkan api kepemimpinannya atau meredam kompetitifnya, melainkan menyalurkannya: ajarkan bahwa singa sejati bukan hanya yang paling kuat, melainkan yang melindungi kawanan; bahwa menang mulia, kalah terhormat; bahwa mendengarkan pendapat orang lain bukan kelemahan, melainkan kekuatan pemimpin besar. Anak ini tidak butuh dijinakkan; ia butuh dituntun agar cahayanya bersinar tanpa menyilaukan.
+{{parentName}}, mungkin Ayah Bunda pernah diperingatkan bahwa {{childName}} "terlalu mendominasi", "tidak mau kalah", atau "keras kepala". Mungkin ada guru atau kerabat yang menyebutnya "arogan" atau "nakal" saat ia merebut pimpinan permainan atau kecewa karena bukan pemenang. Tenang — gejolak itu bukan tanda keburukan, melainkan bayangan alami dari kekuatan kepemimpinan yang sedang tumbuh.
+
+Di balik suaranya yang lantang dan tuntutannya untuk jadi yang terdepan, sedang terbentuk sosok pemimpin dengan resiliensi luar biasa — anak yang akan bangkit setiap kali jatuh dan berani menghadapi tantangan yang membuat anak lain mundur.
+
+Tugas Ayah Bunda bukan memadamkan api kepemimpinannya atau meredam kompetitifnya, melainkan menyalurkannya: ajarkan bahwa singa sejati bukan hanya yang paling kuat, melainkan yang melindungi kawanan; bahwa menang mulia, kalah terhormat; bahwa mendengarkan pendapat orang lain bukan kelemahan, melainkan kekuatan pemimpin besar. Anak ini tidak butuh dijinakkan; ia butuh dituntun agar cahayanya bersinar tanpa menyilaukan.
 
 ---
 
@@ -110,7 +122,9 @@ Setelah emosinya turun, tanamkan kalimat kunci: "Pemimpin hebat tahu cara menang
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, hukuman yang merendahkan bukan sekadar tidak efektif — ia langsung melukai egonya dan memicu perlawanan atau penarikan diri yang dalam. Anak dengan resiliensi kuat tidak akan patah oleh bentakan, tapi ia akan menyimpan rasa tidak dihargai sebagai luka yang mempengaruhi perilakunya berhari-hari. Karena itu, disiplin untuknya harus dilakukan dengan tegas namun hormat — jelas dan langsung, tanpa basa-basi, tanpa merendahkan. Disiplin yang efektif bagi {{childName}} adalah yang memberinya peran kepemimpinan dalam memperbaiki situasi, mengaitkan konsekuensi dengan tanggung jawab logis, dan mengajarinya mendengarkan serta menerima kekalahan sebagai bagian dari tumbuh. Ia bukan anak yang patuh karena takut — ia anak yang menaati pemimpin yang ia hormati. Jadi jadilah pemimpin yang tegas, jelas, dan adil: ia akan mengikuti dengan setia.
+Bagi {{childName}}, hukuman yang merendahkan bukan sekadar tidak efektif — ia langsung melukai egonya dan memicu perlawanan atau penarikan diri yang dalam. Anak dengan resiliensi kuat tidak akan patah oleh bentakan, tapi ia akan menyimpan rasa tidak dihargai sebagai luka yang mempengaruhi perilakunya berhari-hari. Karena itu, disiplin untuknya harus dilakukan dengan tegas namun hormat — jelas dan langsung, tanpa basa-basi, tanpa merendahkan.
+
+Disiplin yang efektif bagi {{childName}} adalah yang memberinya peran kepemimpinan dalam memperbaiki situasi, mengaitkan konsekuensi dengan tanggung jawab logis, dan mengajarinya mendengarkan serta menerima kekalahan sebagai bagian dari tumbuh. Ia bukan anak yang patuh karena takut — ia anak yang menaati pemimpin yang ia hormati. Jadi jadilah pemimpin yang tegas, jelas, dan adil: ia akan mengikuti dengan setia.
 
 ---
 
@@ -150,7 +164,13 @@ Selipkan penghargaan pada hal-hal di luar kemenangan: keberanian mencoba hal bar
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} adalah magnet sosial yang berkharisma. Ia masuk ruangan seperti singa memasuki padang — dengan langkah mantap, kepala terangkat, dan aura yang membuat anak lain secara alami menoleh dan mengikuti. Berteman baginya bukan hal yang menakutkan; ia mudah memulai permainan, mengajak orang lain bergabung, dan menjadi pusat perhatian kelompok tanpa harus berusaha. Karismanya menular — anak lain terdorong ikut bersemangat di dekatnya, dan ia sering ditunjuk atau secara spontan menjadi "ketua" dalam permainan. Pertemanannya luas, dan ia memiliki kemampuan alami memengaruhi suasana hati kelompok. Namun bayangannya jelas: karena ia bergerak cepat, penuh inisiatif, dan terbiasa memimpin, ia cenderung mendominasi permainan tanpa sadar, mengambil alih keputusan, kurang sabar dengan teman yang lebih lambat, dan kesulitan menerima saat bukan yang terbaik di antara teman. Ia bukan tidak peduli — ia hanya belum terbiasa melambat untuk mendengarkan. Di sinilah ia butuh dampingan: belajar bahwa pemimpin sejati bukan hanya yang memerintah, melainkan yang melindungi dan mengangkat yang lain. Saat ia menguasai keterampilan mendengarkan dan kolaborasi, karismanya akan berubah dari dominasi menjadi inspirasi — dan pertemanannya akan berkualitas, bukan hanya luas.
+{{childName}} adalah magnet sosial yang berkharisma. Ia masuk ruangan seperti singa memasuki padang — dengan langkah mantap, kepala terangkat, dan aura yang membuat anak lain secara alami menoleh dan mengikuti. Berteman baginya bukan hal yang menakutkan; ia mudah memulai permainan, mengajak orang lain bergabung, dan menjadi pusat perhatian kelompok tanpa harus berusaha.
+
+Karismanya menular — anak lain terdorong ikut bersemangat di dekatnya, dan ia sering ditunjuk atau secara spontan menjadi "ketua" dalam permainan. Pertemanannya luas, dan ia memiliki kemampuan alami memengaruhi suasana hati kelompok.
+
+Namun bayangannya jelas: karena ia bergerak cepat, penuh inisiatif, dan terbiasa memimpin, ia cenderung mendominasi permainan tanpa sadar, mengambil alih keputusan, kurang sabar dengan teman yang lebih lambat, dan kesulitan menerima saat bukan yang terbaik di antara teman. Ia bukan tidak peduli — ia hanya belum terbiasa melambat untuk mendengarkan.
+
+Di sinilah ia butuh dampingan: belajar bahwa pemimpin sejati bukan hanya yang memerintah, melainkan yang melindungi dan mengangkat yang lain. Saat ia menguasai keterampilan mendengarkan dan kolaborasi, karismanya akan berubah dari dominasi menjadi inspirasi — dan pertemanannya akan berkualitas, bukan hanya luas.
 
 ---
 

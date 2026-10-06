@@ -3,7 +3,15 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang luar biasa lembut dan peka: kombinasi Keramahan sangat tinggi ({{oceanA}}/10, {{statusA}}) dan Keterbukaan tinggi ({{oceanO}}/10, {{statusO}}), berpadu dengan Sensitivitas Emosi sangat tinggi ({{oceanN}}/10, {{statusN}}). Artinya, {{childName}} merasakan dunia bukan hanya lewat kata-kata, melainkan lewat getaran hati — setiap senyum, setiap nada suara, setiap perubahan kecil di suasana ruangan ia serap seperti spons. Keramahan sangat tinggi membuatnya berempati begitu mendalam: ia bisa sedih melihat temannya sedih, gelisah mendengar orang bertengkar, dan secara alami tergerak menolong makhluk yang menderita. Keterbukaan tinggi membuatnya memandang dunia sebagai kanvas keindahan — ia terpukau warna senja, tersentuh melodi musik, dan sering menemukan keindahan kecil yang luput dari anak lain. Namun bayangan dari kepekaan luar biasa ini adalah Sensitivitas Emosi yang juga sangat tinggi: satu nada suara keras bisa menggetarkan keseimbangannya berhari-hari, satu kritik ia renungkan lama, dan konflik orang lain sering ia bawa pulang sebagai beban di dadanya. Dengan Ketelitian sedang ({{oceanC}}/10, {{statusC}}) dan Ekstraversi rendah-sedang ({{oceanE}}/10, {{statusE}}), {{childName}} berkembang paling indah dalam lingkungan yang aman dan hangat — bukan yang ramai dan menuntut.
+Skor OCEAN {{childName}} mengungkapkan profil yang luar biasa lembut dan peka: kombinasi Keramahan sangat tinggi ({{oceanA}}/10, {{statusA}}) dan Keterbukaan tinggi ({{oceanO}}/10, {{statusO}}), berpadu dengan Sensitivitas Emosi sangat tinggi ({{oceanN}}/10, {{statusN}}).
+
+Artinya, {{childName}} merasakan dunia bukan hanya lewat kata-kata, melainkan lewat getaran hati — setiap senyum, setiap nada suara, setiap perubahan kecil di suasana ruangan ia serap seperti spons. Keramahan sangat tinggi membuatnya berempati begitu mendalam: ia bisa sedih melihat temannya sedih, gelisah mendengar orang bertengkar, dan secara alami tergerak menolong makhluk yang menderita.
+
+Keterbukaan tinggi membuatnya memandang dunia sebagai kanvas keindahan — ia terpukau warna senja, tersentuh melodi musik, dan sering menemukan keindahan kecil yang luput dari anak lain.
+
+Namun bayangan dari kepekaan luar biasa ini adalah Sensitivitas Emosi yang juga sangat tinggi: satu nada suara keras bisa menggetarkan keseimbangannya berhari-hari, satu kritik ia renungkan lama, dan konflik orang lain sering ia bawa pulang sebagai beban di dadanya.
+
+Dengan Ketelitian sedang ({{oceanC}}/10, {{statusC}}) dan Ekstraversi rendah-sedang ({{oceanE}}/10, {{statusE}}), {{childName}} berkembang paling indah dalam lingkungan yang aman dan hangat — bukan yang ramai dan menuntut.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +39,11 @@ Skor OCEAN {{childName}} mengungkapkan profil yang luar biasa lembut dan peka: k
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah merasa bingung melihat {{childName}} menangis karena temannya ditegur guru, atau murung berhari-hari setelah mendapat teguran nada tinggi. Mungkin ada yang menyebutnya "terlalu baper", "cengeng", atau "lemah". Tenang — kelembutan hati {{childName}} bukan kelemahan, melainkan kekuatan paling langka dan paling indah. Di balik matanya yang mudah berkaca-kaca, bekerja hati yang mampu merasakan penderitaan orang lain seolah itu penderitaan sendiri. Dunia yang sering keras dan bising justru membutuhkan anak seperti ini — mereka yang menjadi tempat berlindung bagi yang lelah, suara bagi yang bisu, dan kehangatan bagi yang kedinginan. Tugas Ayah Bunda bukan mengeraskan hatinya agar tak cedera, melainkan menjadi pelindung lembut yang memvalidasi setiap perasaannya. Jangan pernah menyebutnya cengeng. Hormati kepekaannya. Saat ia merasa aman bersama Ayah Bunda, kelembutan itu akan tumbuh menjadi kekuatan yang menyembuhkan dunia di sekitarnya.
+{{parentName}}, mungkin Ayah Bunda pernah merasa bingung melihat {{childName}} menangis karena temannya ditegur guru, atau murung berhari-hari setelah mendapat teguran nada tinggi. Mungkin ada yang menyebutnya "terlalu baper", "cengeng", atau "lemah". Tenang — kelembutan hati {{childName}} bukan kelemahan, melainkan kekuatan paling langka dan paling indah.
+
+Di balik matanya yang mudah berkaca-kaca, bekerja hati yang mampu merasakan penderitaan orang lain seolah itu penderitaan sendiri. Dunia yang sering keras dan bising justru membutuhkan anak seperti ini — mereka yang menjadi tempat berlindung bagi yang lelah, suara bagi yang bisu, dan kehangatan bagi yang kedinginan. Tugas Ayah Bunda bukan mengeraskan hatinya agar tak cedera, melainkan menjadi pelindung lembut yang memvalidasi setiap perasaannya.
+
+Jangan pernah menyebutnya cengeng. Hormati kepekaannya. Saat ia merasa aman bersama Ayah Bunda, kelembutan itu akan tumbuh menjadi kekuatan yang menyembuhkan dunia di sekitarnya.
 
 ---
 
@@ -110,7 +122,11 @@ Setelah emosinya mulai turun (bisa 20–40 menit, atau lebih lama dari anak lain
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, kritik pedas atau nada keras bukan sekadar tidak nyaman — ia mengalaminya seperti goresan di hati yang membekas berhari-hari, bahkan berminggu-minggu. Satu bentakan bisa menutup pintu komunikasinya selama berhari-hari; ia akan menarik diri, menyimpan luka, dan sulit mempercayai kembali. Karena itu, disiplin untuknya harus dilakukan dengan kelembutan setinggi mungkin — bukan dengan tegas setinggi mungkin. Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" dengan nada selambut bisikan, memberi waktu sangat lama untuk memproses, dan mengaitkan konsekuensi dengan logika yang ia pahami melalui hatinya. Hindari kompetisi ketat atau perbandingan dengan kakak, adik, maupun teman — itu mengoyak rasa amannya. Ia bukan anak yang membangkang — ia anak yang sangat ingin berbuat baik, namun perlu dipandu dengan tangan yang sangat lembut. Begitu ia mengerti bahwa teguran Ayah Bunda datang dari kasih, ia akan menaatinya dengan kesadaran penuh, bukan ketakutan.
+Bagi {{childName}}, kritik pedas atau nada keras bukan sekadar tidak nyaman — ia mengalaminya seperti goresan di hati yang membekas berhari-hari, bahkan berminggu-minggu. Satu bentakan bisa menutup pintu komunikasinya selama berhari-hari; ia akan menarik diri, menyimpan luka, dan sulit mempercayai kembali. Karena itu, disiplin untuknya harus dilakukan dengan kelembutan setinggi mungkin — bukan dengan tegas setinggi mungkin.
+
+Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" dengan nada selambut bisikan, memberi waktu sangat lama untuk memproses, dan mengaitkan konsekuensi dengan logika yang ia pahami melalui hatinya. Hindari kompetisi ketat atau perbandingan dengan kakak, adik, maupun teman — itu mengoyak rasa amannya. Ia bukan anak yang membangkang — ia anak yang sangat ingin berbuat baik, namun perlu dipandu dengan tangan yang sangat lembut.
+
+Begitu ia mengerti bahwa teguran Ayah Bunda datang dari kasih, ia akan menaatinya dengan kesadaran penuh, bukan ketakutan.
 
 ---
 
@@ -151,7 +167,11 @@ Bagi {{childName}}, kritik pedas atau nada keras bukan sekadar tidak nyaman — 
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} bukan anak yang masuk ruangan dengan teriak riang. Ia masuk perlahan, mengamati dulu, mencium suasana — memastikan bahwa tempat itu aman sebelum ia membiarkan hatinya terbuka. Situasi baru menegangkannya: kelas baru, teman baru, lingkungan baru bisa memicu kecemasan yang berlangsung berhari-hari. Namun di balik kehati-hatiannya ini, tersembunyi kualitas pertemanan yang paling langka. Begitu ia merasa aman dengan seseorang, ia menjadi sahabat paling setia dan paling empatik yang bisa dimiliki anak. Ia mengingat tanggal ulang tahun temannya, merasakan sedihnya sebelum temannya mengaku, dan menepati janji dengan setulus hati. {{childName}} berkembang bukan dalam lingkaran pertemanan yang luas, melainkan dalam lingkaran kecil yang sangat dalam dan hangat. Jangan ditafsirkan sebagai ketakutan kronis — ini cara ia menjaga kehangatan yang ia bagikan hanya pada yang benar-benar ia percaya.
+{{childName}} bukan anak yang masuk ruangan dengan teriak riang. Ia masuk perlahan, mengamati dulu, mencium suasana — memastikan bahwa tempat itu aman sebelum ia membiarkan hatinya terbuka. Situasi baru menegangkannya: kelas baru, teman baru, lingkungan baru bisa memicu kecemasan yang berlangsung berhari-hari. Namun di balik kehati-hatiannya ini, tersembunyi kualitas pertemanan yang paling langka.
+
+Begitu ia merasa aman dengan seseorang, ia menjadi sahabat paling setia dan paling empatik yang bisa dimiliki anak. Ia mengingat tanggal ulang tahun temannya, merasakan sedihnya sebelum temannya mengaku, dan menepati janji dengan setulus hati. {{childName}} berkembang bukan dalam lingkaran pertemanan yang luas, melainkan dalam lingkaran kecil yang sangat dalam dan hangat.
+
+Jangan ditafsirkan sebagai ketakutan kronis — ini cara ia menjaga kehangatan yang ia bagikan hanya pada yang benar-benar ia percaya.
 
 ---
 

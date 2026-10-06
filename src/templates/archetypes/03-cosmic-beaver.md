@@ -3,7 +3,13 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang khas dan kuat: kombinasi Ketelitian sangat tinggi ({{oceanC}}/10, {{statusC}}) dan Sensitivitas Emosi rendah ({{oceanN}}/10, {{statusN}}), berpadu dengan Keterbukaan sedang ({{oceanO}}/10, {{statusO}}). Artinya, {{childName}} bertemu dunia dengan cetak biru di kepalanya — bukan dengan terjun bebas, melainkan dengan menyusun, mengurutkan, lalu menyelesaikan satu langkah demi satu langkah. Ketelitian sangat tinggi membuatnya menghargai keteraturan, rutinitas, dan struktur: setiap potong puzzle punya tempatnya, setiap proyek punya urutannya, setiap aturan punya alasannya. Sensitivitas Emosi yang rendah menjadi fondasi resiliensinya — ia tidak mudah goyah, mampu bangkit kembali setelah kegagalan, dan biasanya menyelesaikan apa yang ia mulai. Sementara Keterbukaan sedang membuatnya lebih menghargai keteraturan daripada eksplorasi tanpa arah; ia tetap kreatif, tapi dalam kerangka yang jelas. Dengan Ekstraversi sedang-rendah ({{oceanE}}/10, {{statusE}}) dan Keramahan sedang ({{oceanA}}/10, {{statusA}}), {{childName}} mampu fokus mendalam pada tugas yang ia pilih dan bekerja kooperatif, namun kurang nyaman di situasi sosial yang ambigu atau tidak terstruktur. Bayangan dari kekuatan luar biasa ini ada dua: perfeksionisme yang membuatnya mudah frustrasi saat hasil tidak sesuai harapan, dan kekakuan saat rencana berubah mendadak. Di sinilah ia butuh dampingan — bukan untuk melunakkan ketelitiannya, melainkan membantunya menemukan keseimbangan antara "sempurna" dan "cukup baik".
+Skor OCEAN {{childName}} mengungkapkan profil yang khas dan kuat: kombinasi Ketelitian sangat tinggi ({{oceanC}}/10, {{statusC}}) dan Sensitivitas Emosi rendah ({{oceanN}}/10, {{statusN}}), berpadu dengan Keterbukaan sedang ({{oceanO}}/10, {{statusO}}). Artinya, {{childName}} bertemu dunia dengan cetak biru di kepalanya — bukan dengan terjun bebas, melainkan dengan menyusun, mengurutkan, lalu menyelesaikan satu langkah demi satu langkah.
+
+Ketelitian sangat tinggi membuatnya menghargai keteraturan, rutinitas, dan struktur: setiap potong puzzle punya tempatnya, setiap proyek punya urutannya, setiap aturan punya alasannya. Sensitivitas Emosi yang rendah menjadi fondasi resiliensinya — ia tidak mudah goyah, mampu bangkit kembali setelah kegagalan, dan biasanya menyelesaikan apa yang ia mulai.
+
+Sementara Keterbukaan sedang membuatnya lebih menghargai keteraturan daripada eksplorasi tanpa arah; ia tetap kreatif, tapi dalam kerangka yang jelas. Dengan Ekstraversi sedang-rendah ({{oceanE}}/10, {{statusE}}) dan Keramahan sedang ({{oceanA}}/10, {{statusA}}), {{childName}} mampu fokus mendalam pada tugas yang ia pilih dan bekerja kooperatif, namun kurang nyaman di situasi sosial yang ambigu atau tidak terstruktur.
+
+Bayangan dari kekuatan luar biasa ini ada dua: perfeksionisme yang membuatnya mudah frustrasi saat hasil tidak sesuai harapan, dan kekakuan saat rencana berubah mendadak. Di sinilah ia butuh dampingan — bukan untuk melunakkan ketelitiannya, melainkan membantunya menemukan keseimbangan antara "sempurna" dan "cukup baik".
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +37,11 @@ Skor OCEAN {{childName}} mengungkapkan profil yang khas dan kuat: kombinasi Kete
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah khawatir melihat {{childName}} terlalu rapi, terlalu teliti, atau "kaku" dengan urutannya. Mungkin ada kerabat atau guru yang menyebutnya "terlalu serius", "tidak bisa santai saja", atau "susah diajak ubah rencana" — dan diam-diam Ayah Bunda bertanya-tanya apakah ada yang salah. Tenang — ketelitian dan ketekunan yang Ayah Bunda lihat bukan kelemahan, melainkan kekuatan yang langka. Di balik rutinitasnya yang rapi, sedang bekerja otak insinyur kecil yang membangun dunia langkah demi langkah. Tugas Ayah Bunda bukan menjadikannya lebih santai atau lebih spontan, melainkan menyediakan struktur yang konsisten tempat kekuatannya bisa berkembang. Hormati urutannya. Jangan mengubah aturan mendadak tanpa alasan. Saat ia frustrasi karena hasil tidak sempurna, dampingi ia belajar bahwa "cukup baik" juga bentuk kesempurnaan. Anak ini tidak butuh diperbaiki; ia butuh dipahami.
+{{parentName}}, mungkin Ayah Bunda pernah khawatir melihat {{childName}} terlalu rapi, terlalu teliti, atau "kaku" dengan urutannya. Mungkin ada kerabat atau guru yang menyebutnya "terlalu serius", "tidak bisa santai saja", atau "susah diajak ubah rencana" — dan diam-diam Ayah Bunda bertanya-tanya apakah ada yang salah. Tenang — ketelitian dan ketekunan yang Ayah Bunda lihat bukan kelemahan, melainkan kekuatan yang langka.
+
+Di balik rutinitasnya yang rapi, sedang bekerja otak insinyur kecil yang membangun dunia langkah demi langkah. Tugas Ayah Bunda bukan menjadikannya lebih santai atau lebih spontan, melainkan menyediakan struktur yang konsisten tempat kekuatannya bisa berkembang. Hormati urutannya. Jangan mengubah aturan mendadak tanpa alasan. Saat ia frustrasi karena hasil tidak sempurna, dampingi ia belajar bahwa "cukup baik" juga bentuk kesempurnaan.
+
+Anak ini tidak butuh diperbaiki; ia butuh dipahami.
 
 ---
 
@@ -110,7 +120,9 @@ Setelah emosinya mereda, ajak ia menyusun ulang: "Sekarang, mari kita pikirkan. 
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, aturan yang berubah-ubah atau konsekuensi yang tidak logis bukan sekadar tidak adil — ia mengalaminya seperti keruntuhan struktur yang ia andalkan untuk memahami dunia. Perubahan aturan mendadak bisa membuatnya kehilangan rasa aman dan menutup komunikasi berhari-hari. Karena itu, disiplin untuknya harus dilakukan dengan logika yang jelas, konsistensi yang tinggi, dan penjelasan rasional yang bisa ia ikuti. Disiplin yang efektif bagi {{childName}} adalah yang menjelaskan "mengapa" dengan tenang, menegakkan konsekuensi logis yang sudah disepakati sebelumnya, dan menghargai ketekunannya. Ia bukan anak yang membangkang — ia anak yang butuh memahami sistem. Begitu ia mengerti logika sebuah aturan dan melihat konsistensinya, ia akan menaatinya dengan kesadaran penuh, bahkan menjadi penjaga aturan itu sendiri.
+Bagi {{childName}}, aturan yang berubah-ubah atau konsekuensi yang tidak logis bukan sekadar tidak adil — ia mengalaminya seperti keruntuhan struktur yang ia andalkan untuk memahami dunia. Perubahan aturan mendadak bisa membuatnya kehilangan rasa aman dan menutup komunikasi berhari-hari. Karena itu, disiplin untuknya harus dilakukan dengan logika yang jelas, konsistensi yang tinggi, dan penjelasan rasional yang bisa ia ikuti.
+
+Disiplin yang efektif bagi {{childName}} adalah yang menjelaskan "mengapa" dengan tenang, menegakkan konsekuensi logis yang sudah disepakati sebelumnya, dan menghargai ketekunannya. Ia bukan anak yang membangkang — ia anak yang butuh memahami sistem. Begitu ia mengerti logika sebuah aturan dan melihat konsistensinya, ia akan menaatinya dengan kesadaran penuh, bahkan menjadi penjaga aturan itu sendiri.
 
 ---
 
@@ -151,7 +163,11 @@ Bagi {{childName}}, aturan yang berubah-ubah atau konsekuensi yang tidak logis b
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} bukan anak yang melompat ke tengah keramaian tanpa peta. Ia masuk situasi sosial seperti insinyur masuk ke lokasi proyek — mengamati dulu siapa di mana, apa perannya, apa aturan mainnya, baru memutuskan bagaimana terlibat. Saat situasi terstruktur dengan peran jelas, ia bisa sangat kooperatif, andal, dan bahkan menjadi penjaga konsistensi kelompok. Tapi saat situasi sosial ambigu — pesta tanpa agenda, permainan bebas tanpa aturan, atau percakapan kecil tanpa topik jelas — ia cenderung menarik diri, terlihat kaku, atau pura-pura sibuk. Jangan ditafsirkan sebagai ketakutan atau arogansi; ini cara ia menjaga diri dari kekacauan yang tidak bisa ia petakan. Pertemanan {{childName}} berkualitas tinggi: ia setia pada sahabatnya, mengingat detail kesepakatan, dan bisa diandalkan untuk menyelesaikan bagian bersamanya. Ia mungkin bukan anak yang punya paling banyak teman, tapi ia yang paling bisa diandalkan saat ada proyek nyata.
+{{childName}} bukan anak yang melompat ke tengah keramaian tanpa peta. Ia masuk situasi sosial seperti insinyur masuk ke lokasi proyek — mengamati dulu siapa di mana, apa perannya, apa aturan mainnya, baru memutuskan bagaimana terlibat. Saat situasi terstruktur dengan peran jelas, ia bisa sangat kooperatif, andal, dan bahkan menjadi penjaga konsistensi kelompok.
+
+Tapi saat situasi sosial ambigu — pesta tanpa agenda, permainan bebas tanpa aturan, atau percakapan kecil tanpa topik jelas — ia cenderung menarik diri, terlihat kaku, atau pura-pura sibuk. Jangan ditafsirkan sebagai ketakutan atau arogansi; ini cara ia menjaga diri dari kekacauan yang tidak bisa ia petakan.
+
+Pertemanan {{childName}} berkualitas tinggi: ia setia pada sahabatnya, mengingat detail kesepakatan, dan bisa diandalkan untuk menyelesaikan bagian bersamanya. Ia mungkin bukan anak yang punya paling banyak teman, tapi ia yang paling bisa diandalkan saat ada proyek nyata.
 
 ---
 

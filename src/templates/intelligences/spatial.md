@@ -23,7 +23,9 @@ Berikut hasil distribusi skor kecerdasan **{{childName}}** (skala 0-100):
 
 ## Lingkungan & Gaya Belajar Ideal
 
-Lingkungan belajar ideal untuk {{childName}} adalah ruangan yang kaya visual tetapi tidak berantakan. Sediakan sudut menggambar permanen — meja kecil dengan krayon, pensil warna, spidol, kertas A4 dan A3, serta papan tempel untuk memajang karyanya. Letakkan rak terbuka berisi Lego, balok kayu, puzzle, dan tanah liat yang mudah dijangkau, agar dorongan membangun muncul tanpa hambatan. Pasang gulungan kertas besar di salah satu dinding — ajak ia menggambar sambil berdiri saat ide mengalir. Hindari ruangan berdekorasi berlebihan yang membuat mata lelah; pilih warna dinding tenang dan pencahayaan alami yang cukup. Saat belajar, dampingi dengan diagram, peta konsep, atau video bergambar, bukan ceramah panjang. Bagi {{childName}}, kertas kosong dan alat gambar yang selalu siap adalah "oase" tempat ide mengalir bebas.
+Lingkungan belajar ideal untuk {{childName}} adalah ruangan yang kaya visual tetapi tidak berantakan. Sediakan sudut menggambar permanen — meja kecil dengan krayon, pensil warna, spidol, kertas A4 dan A3, serta papan tempel untuk memajang karyanya. Letakkan rak terbuka berisi Lego, balok kayu, puzzle, dan tanah liat yang mudah dijangkau, agar dorongan membangun muncul tanpa hambatan.
+
+Pasang gulungan kertas besar di salah satu dinding — ajak ia menggambar sambil berdiri saat ide mengalir. Hindari ruangan berdekorasi berlebihan yang membuat mata lelah; pilih warna dinding tenang dan pencahayaan alami yang cukup. Saat belajar, dampingi dengan diagram, peta konsep, atau video bergambar, bukan ceramah panjang. Bagi {{childName}}, kertas kosong dan alat gambar yang selalu siap adalah "oase" tempat ide mengalir bebas.
 
 ---
 

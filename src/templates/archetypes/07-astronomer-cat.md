@@ -3,7 +3,13 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang langka dan memukau: kombinasi Keterbukaan sangat tinggi ({{oceanO}}/10, {{statusO}}) dan Ketelitian sangat tinggi ({{oceanC}}/10, {{statusC}}), berpadu dengan Ekstraversi rendah ({{oceanE}}/10, {{statusE}}). Artinya, {{childName}} bertemu dunia bukan dengan tangan terulur, melainkan dengan mata yang membedah dan pikiran yang menyusun pertanyaan. Keterbukaan sangat tinggi membuatnya lapar akan pengetahuan — setiap benda, setiap fenomena, setiap "mengapa" adalah teka-teki yang harus dipecahkan, dan ia tidak akan berhenti sebelum menemukan jawabannya. Ketelitian sangat tinggi membuatnya sistematis dan tekun: ia bisa menggali satu topik selama berjam-jam, menyusun data, mengulang eksperimen, dan menolak puas sebelum semuanya masuk akal. Namun Ekstraversi rendah adalah bayangan alaminya — energi sosialnya terbatas, dan keramaian terasa seperti derau yang mengganggu konsentrasinya. Dengan Keramahan rendah-sedang ({{oceanA}}/10, {{statusA}}) dan Sensitivitas Emosi sedang ({{oceanN}}/10, {{statusN}}), {{childName}} terkadang tampak dingin atau acuh terhadap emosi orang lain, padahal sebenarnya ia sedang sibuk memproses informasi di kepalanya. Ia juga cenderung terlalu keras pada diri sendiri — satu kesalahan kecil bisa ia otopsi berulang-ulang seperti peneliti yang gagal menemukan cacat dalam datanya.
+Skor OCEAN {{childName}} mengungkapkan profil yang langka dan memukau: kombinasi Keterbukaan sangat tinggi ({{oceanO}}/10, {{statusO}}) dan Ketelitian sangat tinggi ({{oceanC}}/10, {{statusC}}), berpadu dengan Ekstraversi rendah ({{oceanE}}/10, {{statusE}}). Artinya, {{childName}} bertemu dunia bukan dengan tangan terulur, melainkan dengan mata yang membedah dan pikiran yang menyusun pertanyaan.
+
+Keterbukaan sangat tinggi membuatnya lapar akan pengetahuan — setiap benda, setiap fenomena, setiap "mengapa" adalah teka-teki yang harus dipecahkan, dan ia tidak akan berhenti sebelum menemukan jawabannya. Ketelitian sangat tinggi membuatnya sistematis dan tekun: ia bisa menggali satu topik selama berjam-jam, menyusun data, mengulang eksperimen, dan menolak puas sebelum semuanya masuk akal.
+
+Namun Ekstraversi rendah adalah bayangan alaminya — energi sosialnya terbatas, dan keramaian terasa seperti derau yang mengganggu konsentrasinya. Dengan Keramahan rendah-sedang ({{oceanA}}/10, {{statusA}}) dan Sensitivitas Emosi sedang ({{oceanN}}/10, {{statusN}}), {{childName}} terkadang tampak dingin atau acuh terhadap emosi orang lain, padahal sebenarnya ia sedang sibuk memproses informasi di kepalanya.
+
+Ia juga cenderung terlalu keras pada diri sendiri — satu kesalahan kecil bisa ia otopsi berulang-ulang seperti peneliti yang gagal menemukan cacat dalam datanya.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +37,13 @@ Skor OCEAN {{childName}} mengungkapkan profil yang langka dan memukau: kombinasi
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah merasa bingung melihat {{childName}} lebih memilih menyendiri dengan buku ensiklopedianya daripada bermain dengan anak lain. Mungkin ada kerabat atau guru yang menyebutnya "dingin", "tidak peduli", atau "kurang bersosialisasi" — dan Ayah Bunda diam-diam bertanya-tanya apakah ada yang perlu diperbaiki. Tenang — keheningan dan ketertarikan mendalam itu bukan kelemahan, melainkan tanda otak peneliti yang luar biasa sedang bekerja. Di balik tatapannya yang tenang, sedang berlangsung proses analisis dan penyelidikan yang jauh lebih dalam dari yang terlihat. {{childName}} bukan tidak peduli — ia hanya memproses dunia lewat pikiran, bukan lewat reaksi emosional. Tugas Ayah Bunda bukan menjadikannya lebih ramai atau lebih ekspresif, melainkan menyediakan ruang dan sumber pengetahuan tempat kecerdasannya bisa tumbuh. Hormati otonominya. Jangan paksa ia berbicara tentang perasaan sebelum ia siap. Saat ia membagikan temuannya — entah tentang bintang, serangga, atau angka — dengarkan dengan serius, karena itu adalah caranya berhubungan dengan Ayah Bunda. Anak ini tidak butuh diperbaiki; ia butuh dipahami dan diberi ruang untuk menyelidiki dunia dengan caranya sendiri.
+{{parentName}}, mungkin Ayah Bunda pernah merasa bingung melihat {{childName}} lebih memilih menyendiri dengan buku ensiklopedianya daripada bermain dengan anak lain. Mungkin ada kerabat atau guru yang menyebutnya "dingin", "tidak peduli", atau "kurang bersosialisasi" — dan Ayah Bunda diam-diam bertanya-tanya apakah ada yang perlu diperbaiki.
+
+Tenang — keheningan dan ketertarikan mendalam itu bukan kelemahan, melainkan tanda otak peneliti yang luar biasa sedang bekerja. Di balik tatapannya yang tenang, sedang berlangsung proses analisis dan penyelidikan yang jauh lebih dalam dari yang terlihat. {{childName}} bukan tidak peduli — ia hanya memproses dunia lewat pikiran, bukan lewat reaksi emosional.
+
+Tugas Ayah Bunda bukan menjadikannya lebih ramai atau lebih ekspresif, melainkan menyediakan ruang dan sumber pengetahuan tempat kecerdasannya bisa tumbuh. Hormati otonominya. Jangan paksa ia berbicara tentang perasaan sebelum ia siap. Saat ia membagikan temuannya — entah tentang bintang, serangga, atau angka — dengarkan dengan serius, karena itu adalah caranya berhubungan dengan Ayah Bunda.
+
+Anak ini tidak butuh diperbaiki; ia butuh dipahami dan diberi ruang untuk menyelidiki dunia dengan caranya sendiri.
 
 ---
 
@@ -110,7 +122,11 @@ Kadang {{childName}} tenggelam terlalu dalam dalam fokus obsesifnya — mengulan
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, teguran emosional atau hukuman yang tidak logis bukan sekadar tidak adil — ia mengalaminya sebagai kegagalan sistem yang mengganggu rasa keadilan intelektualnya. Ia menolak aturan yang tidak bisa ia pahami alasannya, bukan karena membangkang, melainkan karena otak analitisnya butuh logika. Karena itu, disiplin untuknya harus dilakukan dengan penjelasan rasional dan konsekuensi logis yang bisa ia telusuri sebab-akibatnya. Jelaskan "mengapa" dengan jelas, hubungkan konsekuensi dengan tindakannya, dan beri ia ruang untuk memproses. Ia bukan anak yang patuh karena takut — ia patuh karena mengerti. Hormati otonominya: beri ia kesempatan memperbaiki, bukan sekadar dihukum. Bimbing keterampilan sosial dan empati secara perlahan, lewat penjelasan logis tentang dampak tindakannya pada orang lain — bukan lewat paksaan. Saat ia memahami alasan, ia akan menaatinya dengan kesadaran, bukan kepasrahan.
+Bagi {{childName}}, teguran emosional atau hukuman yang tidak logis bukan sekadar tidak adil — ia mengalaminya sebagai kegagalan sistem yang mengganggu rasa keadilan intelektualnya. Ia menolak aturan yang tidak bisa ia pahami alasannya, bukan karena membangkang, melainkan karena otak analitisnya butuh logika. Karena itu, disiplin untuknya harus dilakukan dengan penjelasan rasional dan konsekuensi logis yang bisa ia telusuri sebab-akibatnya.
+
+Jelaskan "mengapa" dengan jelas, hubungkan konsekuensi dengan tindakannya, dan beri ia ruang untuk memproses. Ia bukan anak yang patuh karena takut — ia patuh karena mengerti. Hormati otonominya: beri ia kesempatan memperbaiki, bukan sekadar dihukum. Bimbing keterampilan sosial dan empati secara perlahan, lewat penjelasan logis tentang dampak tindakannya pada orang lain — bukan lewat paksaan.
+
+Saat ia memahami alasan, ia akan menaatinya dengan kesadaran, bukan kepasrahan.
 
 ---
 
@@ -154,7 +170,11 @@ Bagi {{childName}}, teguran emosional atau hukuman yang tidak logis bukan sekada
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} bukan anak yang mencari keramaian. Energi sosialnya terbatas, dan ia merasa paling nyaman saat bisa menyelidiki minatnya dalam keheningan. Saat masuk ruangan baru atau bertemu orang asing, ia cenderung mengamati dari pinggir, memetakan situasi, dan menunggu hingga ada alasan logis untuk berinteraksi. Jangan ditafsirkan sebagai ketakutan atau ketidakpedulian — ini cara ia menjaga fokus dan keseimbangan internalnya. Pertemanan bagi {{childName}} tumbuh bukan dari jumlah, melainkan dari kedalaman minat bersama. Ia bisa berbicara berjam-jam dengan satu anak yang sama-sama tertarik pada dinosaurus, tata surya, atau eksperimen sains — tapi terdiam membeku di pesta ulang tahun yang ramai. Berkualitas tinggi: begitu ia menganggap seseorang "sefrekuensi", ia setia, jujur, dan menemani dengan caranya sendiri. Ia mungkin bukan anak yang punya paling banyak teman, tapi ia punya teman yang benar-benar dipahaminya. Tugas Ayah Bunda bukan memaksanya masuk keramaian, melainkan menyediakan situasi sosial yang terstruktur dan berbasis minat bersama.
+{{childName}} bukan anak yang mencari keramaian. Energi sosialnya terbatas, dan ia merasa paling nyaman saat bisa menyelidiki minatnya dalam keheningan. Saat masuk ruangan baru atau bertemu orang asing, ia cenderung mengamati dari pinggir, memetakan situasi, dan menunggu hingga ada alasan logis untuk berinteraksi. Jangan ditafsirkan sebagai ketakutan atau ketidakpedulian — ini cara ia menjaga fokus dan keseimbangan internalnya.
+
+Pertemanan bagi {{childName}} tumbuh bukan dari jumlah, melainkan dari kedalaman minat bersama. Ia bisa berbicara berjam-jam dengan satu anak yang sama-sama tertarik pada dinosaurus, tata surya, atau eksperimen sains — tapi terdiam membeku di pesta ulang tahun yang ramai. Berkualitas tinggi: begitu ia menganggap seseorang "sefrekuensi", ia setia, jujur, dan menemani dengan caranya sendiri.
+
+Ia mungkin bukan anak yang punya paling banyak teman, tapi ia punya teman yang benar-benar dipahaminya. Tugas Ayah Bunda bukan memaksanya masuk keramaian, melainkan menyediakan situasi sosial yang terstruktur dan berbasis minat bersama.
 
 ---
 

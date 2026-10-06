@@ -3,7 +3,13 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang sangat hangat dan hidup: kombinasi Ekstraversi sangat tinggi ({{oceanE}}/10, {{statusE}}) dan Keramahan sangat tinggi ({{oceanA}}/10, {{statusA}}), berpadu dengan Keterbukaan sedang-tinggi ({{oceanO}}/10, {{statusO}}). Artinya, {{childName}} bertemu dunia dengan tangan terulur dan hati terbuka — bukan dengan mengamati dari pinggir, melainkan dengan melompat langsung ke tengah kawanan. Ekstraversi sangat tinggi membuatnya memancarkan energi ceria yang menular; ia mengisi ruangan dengan sapaan, tawa, dan kehangatan yang membuat setiap orang merasa diterima. Keramahan sangat tinggi membuatnya peka pada perasaan teman — ia menangkap sedih sebelum diucapkan, dan sering menempatkan kebutuhan orang lain di atas dirinya sendiri. Namun di balik kehangatan ini ada bayangan: Ketelitian yang rendah ({{oceanC}}/10, {{statusC}}) membuatnya mudah terdistraksi oleh aktivitas sosial hingga kesulitan fokus pada tugas individual, sementara keinginan kuat untuk menyenangkan orang lain bisa berubah menjadi terlalu menyenangkan orang lain yang mengorbankan dirinya sendiri. Dengan Sensitivitas Emosi sedang ({{oceanN}}/10, {{statusN}}), {{childName}} umumnya tangguh dan cepat pulih, namun bisa sedih mendalam saat sendirian atau merasa tidak diterima oleh kawanannya.
+Skor OCEAN {{childName}} mengungkapkan profil yang sangat hangat dan hidup: kombinasi Ekstraversi sangat tinggi ({{oceanE}}/10, {{statusE}}) dan Keramahan sangat tinggi ({{oceanA}}/10, {{statusA}}), berpadu dengan Keterbukaan sedang-tinggi ({{oceanO}}/10, {{statusO}}). Artinya, {{childName}} bertemu dunia dengan tangan terulur dan hati terbuka — bukan dengan mengamati dari pinggir, melainkan dengan melompat langsung ke tengah kawanan.
+
+Ekstraversi sangat tinggi membuatnya memancarkan energi ceria yang menular; ia mengisi ruangan dengan sapaan, tawa, dan kehangatan yang membuat setiap orang merasa diterima. Keramahan sangat tinggi membuatnya peka pada perasaan teman — ia menangkap sedih sebelum diucapkan, dan sering menempatkan kebutuhan orang lain di atas dirinya sendiri.
+
+Namun di balik kehangatan ini ada bayangan: Ketelitian yang rendah ({{oceanC}}/10, {{statusC}}) membuatnya mudah terdistraksi oleh aktivitas sosial hingga kesulitan fokus pada tugas individual, sementara keinginan kuat untuk menyenangkan orang lain bisa berubah menjadi terlalu menyenangkan orang lain yang mengorbankan dirinya sendiri.
+
+Dengan Sensitivitas Emosi sedang ({{oceanN}}/10, {{statusN}}), {{childName}} umumnya tangguh dan cepat pulih, namun bisa sedih mendalam saat sendirian atau merasa tidak diterima oleh kawanannya.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +37,11 @@ Skor OCEAN {{childName}} mengungkapkan profil yang sangat hangat dan hidup: komb
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah merasa resah melihat {{childName}} begitu bersemangat menyenangkan semua orang, hingga kerap mengorbankan keinginannya sendiri. Mungkin ada kerabat atau guru yang menyebutnya "terlalu ikut-ikutan", "tidak bisa menolak", atau "mudah beralih mainan" — dan Ayah Bunda diam-diam bertanya-tanya apakah sifat sosialnya ini tanda kelemahan atau sekadar mencari perhatian. Tenang — kehangatan yang memancar dari {{childName}} bukan kelemahan, bukan pula manipulasi. Ia adalah kekuatan sosial yang langka: kemampuan menyatukan orang, membaca perasaan teman, dan membuat setiap orang merasa diterima. Tugas Ayah Bunda bukan mendinginkan hatinya atau mengajarinya berhenti peduli, melainkan membantunya menemukan keseimbangan — bahwa dirinya juga penting, bahwa mengatakan "tidak" bukan berarti berhenti menjadi baik. Hormati kehangatannya, rayakan empatinya, lalu dampingi ia belajar menetapkan batas. Anak ini tidak butuh diredam; ia butuh dituntun agar cahayanya bersinar tanpa membakar dirinya sendiri.
+{{parentName}}, mungkin Ayah Bunda pernah merasa resah melihat {{childName}} begitu bersemangat menyenangkan semua orang, hingga kerap mengorbankan keinginannya sendiri. Mungkin ada kerabat atau guru yang menyebutnya "terlalu ikut-ikutan", "tidak bisa menolak", atau "mudah beralih mainan" — dan Ayah Bunda diam-diam bertanya-tanya apakah sifat sosialnya ini tanda kelemahan atau sekadar mencari perhatian.
+
+Tenang — kehangatan yang memancar dari {{childName}} bukan kelemahan, bukan pula manipulasi. Ia adalah kekuatan sosial yang langka: kemampuan menyatukan orang, membaca perasaan teman, dan membuat setiap orang merasa diterima. Tugas Ayah Bunda bukan mendinginkan hatinya atau mengajarinya berhenti peduli, melainkan membantunya menemukan keseimbangan — bahwa dirinya juga penting, bahwa mengatakan "tidak" bukan berarti berhenti menjadi baik.
+
+Hormati kehangatannya, rayakan empatinya, lalu dampingi ia belajar menetapkan batas. Anak ini tidak butuh diredam; ia butuh dituntun agar cahayanya bersinar tanpa membakar dirinya sendiri.
 
 ---
 
@@ -110,7 +120,11 @@ Setelah emosinya turun dan ia merasa didengar, jangan biarkan ia mengurung diri.
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, teguran bernada keras dan dingin bukan sekadar tidak nyaman — ia merasakannya seperti penolakan dari orang yang ia cintai, dan itu melukai hatinya lebih dalam daripada anak lain. Satu kalimat bernada tinggi bisa membuatnya menutup diri dan berusaha berlebihan menyenangkan Ayah Bunda, bukan memahami pelajarannya. Karena itu, disiplin untuknya harus dilakukan dengan nada serendah dan sehangat mungkin, dalam suasana kolaboratif, bukan konfrontatif. Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" dengan mengaitkan dampak sosialnya, menghargai niat baiknya, lalu membimbingnya menetapkan batas yang sehat — termasuk keberanian berkata "tidak" dan fokus pada tugas individual. Ia bukan anak yang membangkang; ia anak yang butuh tahu bagaimana menjadi baik tanpa kehilangan dirinya. Begitu ia mengerti, ia akan menaatinya dengan kesadaran dan kehangatan, bukan ketakutan.
+Bagi {{childName}}, teguran bernada keras dan dingin bukan sekadar tidak nyaman — ia merasakannya seperti penolakan dari orang yang ia cintai, dan itu melukai hatinya lebih dalam daripada anak lain. Satu kalimat bernada tinggi bisa membuatnya menutup diri dan berusaha berlebihan menyenangkan Ayah Bunda, bukan memahami pelajarannya.
+
+Karena itu, disiplin untuknya harus dilakukan dengan nada serendah dan sehangat mungkin, dalam suasana kolaboratif, bukan konfrontatif. Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" dengan mengaitkan dampak sosialnya, menghargai niat baiknya, lalu membimbingnya menetapkan batas yang sehat — termasuk keberanian berkata "tidak" dan fokus pada tugas individual.
+
+Ia bukan anak yang membangkang; ia anak yang butuh tahu bagaimana menjadi baik tanpa kehilangan dirinya. Begitu ia mengerti, ia akan menaatinya dengan kesadaran dan kehangatan, bukan ketakutan.
 
 ---
 
@@ -154,7 +168,13 @@ Ini pujian paling penting dan paling sering terlewat. Saat {{childName}} berani 
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} adalah perekat sosial alami. Ia masuk ruangan seperti gelombang samudra yang hangat — menyapa setiap orang, menggabungkan kelompok yang terpisah, dan membuat yang malu merasa berani. Berteman baginya semudah bernapas: senyum lebar, sapaan hangat, dan ajakan "ayo main bareng!" sering cukup untuk memulai interaksi. Energinya positif dan menular; anak lain ikut ceria di dekatnya, dan ia sering menjadi perekat yang menyatukan teman yang tadinya tidak akrab. Pertemanannya luas sekaligus dalam — ia punya banyak teman namun mengingat detail kecil tentang masing-masing, peka saat salah satu sedih, dan setia. Namun bayangannya: karena ia ingin semua orang senang, ia cenderung terlalu menyenangkan orang lain — menekan keinginannya sendiri, sulit berkata "tidak", dan kelelahan ketika terus berinteraksi tanpa jeda. Ia juga mudah terdistraksi oleh aktivitas sosial hingga kesulitan fokus pada tugas individual. Di sinilah ia butuh dampingan: belajar bahwa keseimbangan adalah kunci — ia butuh teman, tapi juga butuh waktu sendiri untuk mengisi ulang. Saat ia menguasai keterampilan ini, kekuatan sosialnya akan menjadi sumber kebahagiaan, bukan kelelahan.
+{{childName}} adalah perekat sosial alami. Ia masuk ruangan seperti gelombang samudra yang hangat — menyapa setiap orang, menggabungkan kelompok yang terpisah, dan membuat yang malu merasa berani. Berteman baginya semudah bernapas: senyum lebar, sapaan hangat, dan ajakan "ayo main bareng!" sering cukup untuk memulai interaksi.
+
+Energinya positif dan menular; anak lain ikut ceria di dekatnya, dan ia sering menjadi perekat yang menyatukan teman yang tadinya tidak akrab. Pertemanannya luas sekaligus dalam — ia punya banyak teman namun mengingat detail kecil tentang masing-masing, peka saat salah satu sedih, dan setia.
+
+Namun bayangannya: karena ia ingin semua orang senang, ia cenderung terlalu menyenangkan orang lain — menekan keinginannya sendiri, sulit berkata "tidak", dan kelelahan ketika terus berinteraksi tanpa jeda. Ia juga mudah terdistraksi oleh aktivitas sosial hingga kesulitan fokus pada tugas individual. Di sinilah ia butuh dampingan: belajar bahwa keseimbangan adalah kunci — ia butuh teman, tapi juga butuh waktu sendiri untuk mengisi ulang.
+
+Saat ia menguasai keterampilan ini, kekuatan sosialnya akan menjadi sumber kebahagiaan, bukan kelelahan.
 
 ---
 

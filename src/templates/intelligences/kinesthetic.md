@@ -23,7 +23,11 @@ Berikut hasil distribusi skor kecerdasan **{{childName}}** (skala 0-100):
 
 ## Lingkungan & Gaya Belajar Ideal
 
-Lingkungan belajar ideal untuk {{childName}} adalah rumah yang memberi ruang untuk bergerak, bukan menahan gerak. Sediakan area terbuka di ruang keluarga atau kamar — sepetak lantai bebas dari karpet licin — tempat ia bisa melompat, berguling, dan berlatih keseimbangan tanpa takut membentur benda. Siapkan sudut bongkar-pasang permanen berisi balok kayu, Lego, dan kardus bekas dalam berbagai ukuran, agar dorongan membangun dan merakit muncul tanpa hambatan. Letakkan meja kerja rendah dengan tanah liat, playdough, plastisin, gunting anak, dan kertas tebal yang mudah dijangkau, untuk melatih motorik halus. Pilih perabot yang aman dan kokoh — yang boleh dipanjat, didaki, atau dijadikan "jalur rintangan" saat hujan. Saat belajar, dampingi dengan praktik langsung dan eksperimen fisik, bukan ceramah panjang; selipkan jeda gerak rutin setiap 20–30 menit — lari kecil, peregangan, atau melompat di tempat — sebelum melanjutkan. Hindari memaksa {{childName}} duduk diam lebih lama dari kemampuannya; bagi tubuhnya yang selalu ingin bergerak, gerak bukan gangguan, melainkan jalan menuju pemahaman.
+Lingkungan belajar ideal untuk {{childName}} adalah rumah yang memberi ruang untuk bergerak, bukan menahan gerak. Sediakan area terbuka di ruang keluarga atau kamar — sepetak lantai bebas dari karpet licin — tempat ia bisa melompat, berguling, dan berlatih keseimbangan tanpa takut membentur benda.
+
+Siapkan sudut bongkar-pasang permanen berisi balok kayu, Lego, dan kardus bekas dalam berbagai ukuran, agar dorongan membangun dan merakit muncul tanpa hambatan. Letakkan meja kerja rendah dengan tanah liat, playdough, plastisin, gunting anak, dan kertas tebal yang mudah dijangkau, untuk melatih motorik halus. Pilih perabot yang aman dan kokoh — yang boleh dipanjat, didaki, atau dijadikan "jalur rintangan" saat hujan.
+
+Saat belajar, dampingi dengan praktik langsung dan eksperimen fisik, bukan ceramah panjang; selipkan jeda gerak rutin setiap 20–30 menit — lari kecil, peregangan, atau melompat di tempat — sebelum melanjutkan. Hindari memaksa {{childName}} duduk diam lebih lama dari kemampuannya; bagi tubuhnya yang selalu ingin bergerak, gerak bukan gangguan, melainkan jalan menuju pemahaman.
 
 ---
 

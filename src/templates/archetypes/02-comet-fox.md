@@ -3,7 +3,13 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang penuh gejolak dan keceriaan: kombinasi Keterbukaan sangat tinggi ({{oceanO}}/10, {{statusO}}) dan Ekstraversi sangat tinggi ({{oceanE}}/10, {{statusE}}), berpadu dengan Ketelitian rendah-sedang ({{oceanC}}/10, {{statusC}}). Artinya, {{childName}} bertemu dunia dengan tangan terulur dan kaki yang siap berlari — bukan dengan mengamati dari pinggir, melainkan dengan melompat langsung ke tengahnya. Keterbukaan sangat tinggi membuatnya lapar akan hal baru: setiap sudut, setiap benda, setiap orang adalah peluang petualangan yang tak boleh dilewatkan. Ekstraversi sangat tinggi membuatnya memancarkan energi ceria yang menular — ia mengisi ruangan dengan tawa, gerak, dan antusiasme yang sulit diabaikan. Namun Ketelitian yang rendah-sedang menjadi bayangan dari kekuatan ini: ia sering terburu-buru, melompati detail, dan menyelesaikan sesuatu setengah jalan karena pikirannya sudah melayang ke petualangan berikutnya. Dengan Keramahan sedang-tinggi ({{oceanA}}/10, {{statusA}}) dan Sensitivitas Emosi sedang ({{oceanN}}/10, {{statusN}}), {{childName}} umumnya tangguh dan cepat pulih, namun bisa frustrasi hebat saat geraknya dibatasi atau saat dunia tiba-tiba terasa membosankan dan berjalan terlalu lambat baginya.
+Skor OCEAN {{childName}} mengungkapkan profil yang penuh gejolak dan keceriaan: kombinasi Keterbukaan sangat tinggi ({{oceanO}}/10, {{statusO}}) dan Ekstraversi sangat tinggi ({{oceanE}}/10, {{statusE}}), berpadu dengan Ketelitian rendah-sedang ({{oceanC}}/10, {{statusC}}). Artinya, {{childName}} bertemu dunia dengan tangan terulur dan kaki yang siap berlari — bukan dengan mengamati dari pinggir, melainkan dengan melompat langsung ke tengahnya.
+
+Keterbukaan sangat tinggi membuatnya lapar akan hal baru: setiap sudut, setiap benda, setiap orang adalah peluang petualangan yang tak boleh dilewatkan. Ekstraversi sangat tinggi membuatnya memancarkan energi ceria yang menular — ia mengisi ruangan dengan tawa, gerak, dan antusiasme yang sulit diabaikan.
+
+Namun Ketelitian yang rendah-sedang menjadi bayangan dari kekuatan ini: ia sering terburu-buru, melompati detail, dan menyelesaikan sesuatu setengah jalan karena pikirannya sudah melayang ke petualangan berikutnya.
+
+Dengan Keramahan sedang-tinggi ({{oceanA}}/10, {{statusA}}) dan Sensitivitas Emosi sedang ({{oceanN}}/10, {{statusN}}), {{childName}} umumnya tangguh dan cepat pulih, namun bisa frustrasi hebat saat geraknya dibatasi atau saat dunia tiba-tiba terasa membosankan dan berjalan terlalu lambat baginya.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +37,11 @@ Skor OCEAN {{childName}} mengungkapkan profil yang penuh gejolak dan keceriaan: 
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda sering merasa lelah hanya mengikuti langkah {{childName}} yang seolah tidak pernah habis. Mungkin ada kerabat atau guru yang menyebutnya "terlalu aktif", "tidak bisa diam", atau "kurang fokus" — dan Ayah Bunda diam-diam bertanya-tanya apakah ada yang salah. Tenang — energi yang memancar dari {{childName}} bukan tanda kekurangan, melainkan kelebihan yang luar biasa. Di balik kaki yang terus berlari dan tangan yang tak henti menyentuh, sedang bekerja otak penjelajah yang haus akan dunia. Tugas Ayah Bunda bukan membuatnya duduk diam lebih lama atau mematikan apinya, melainkan menyalurkan energi itu ke arah yang bermakna. Jangan terjebak menyalahkan geraknya — alihkan. Beri dunia yang cukup luas untuk dijelajah, lalu dampingi ia belajar mengerem tepat saat perlu. Anak ini tidak butuh diredam; ia butuh dituntun agar cahayanya bersinar tanpa menabrak.
+{{parentName}}, mungkin Ayah Bunda sering merasa lelah hanya mengikuti langkah {{childName}} yang seolah tidak pernah habis. Mungkin ada kerabat atau guru yang menyebutnya "terlalu aktif", "tidak bisa diam", atau "kurang fokus" — dan Ayah Bunda diam-diam bertanya-tanya apakah ada yang salah. Tenang — energi yang memancar dari {{childName}} bukan tanda kekurangan, melainkan kelebihan yang luar biasa.
+
+Di balik kaki yang terus berlari dan tangan yang tak henti menyentuh, sedang bekerja otak penjelajah yang haus akan dunia. Tugas Ayah Bunda bukan membuatnya duduk diam lebih lama atau mematikan apinya, melainkan menyalurkan energi itu ke arah yang bermakna. Jangan terjebak menyalahkan geraknya — alihkan. Beri dunia yang cukup luas untuk dijelajah, lalu dampingi ia belajar mengerem tepat saat perlu.
+
+Anak ini tidak butuh diredam; ia butuh dituntun agar cahayanya bersinar tanpa menabrak.
 
 ---
 
@@ -110,7 +120,9 @@ Setelah energinya turun, pantulkan perasaannya dengan singkat: "Tadi kamu pengen
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, hukuman yang menyuruh duduk diam berlama-lama bukan sekadar tidak efektif — ia bertentangan langsung dengan naluri geraknya, seperti meminta sungai untuk berhenti mengalir. Semakin lama ia ditahan diam, semakin besar ledakan yang menanti. Karena itu, disiplin untuknya harus berbentuk konsekuensi logis yang AKTIF dan konkret — sesuatu yang ia kerjakan dengan tubuh, bukan sesuatu yang ia tahan. Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" dengan singkat dan dinamis, lalu mengarahkan energinya ke aksi perbaikan: membersihkan yang berantakan, memperbaiki yang rusak, atau menyelesaikan yang setengah jadi. Ia bukan anak yang membangkang — ia anak yang butuh tahu apa langkah berikutnya. Beri ia gerak yang bermakna, dan ia akan menaatinya dengan semangat, bukan kepasrahan.
+Bagi {{childName}}, hukuman yang menyuruh duduk diam berlama-lama bukan sekadar tidak efektif — ia bertentangan langsung dengan naluri geraknya, seperti meminta sungai untuk berhenti mengalir. Semakin lama ia ditahan diam, semakin besar ledakan yang menanti. Karena itu, disiplin untuknya harus berbentuk konsekuensi logis yang AKTIF dan konkret — sesuatu yang ia kerjakan dengan tubuh, bukan sesuatu yang ia tahan.
+
+Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" dengan singkat dan dinamis, lalu mengarahkan energinya ke aksi perbaikan: membersihkan yang berantakan, memperbaiki yang rusak, atau menyelesaikan yang setengah jadi. Ia bukan anak yang membangkang — ia anak yang butuh tahu apa langkah berikutnya. Beri ia gerak yang bermakna, dan ia akan menaatinya dengan semangat, bukan kepasrahan.
 
 ---
 
@@ -151,7 +163,11 @@ Berbeda dari anak pendiam, {{childName}} menyukai perhatian positif. Pujian yang
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} adalah magnet sosial yang alami. Ia masuk ruangan seperti matahari masuk ke ruang — hangat, terang, dan membuat semua orang menoleh. Berteman baginya semudah bernapas: senyum lebar, sapaan cepat, dan ajakan "ayok main!" sering cukup untuk memulai interaksi. Energinya menular; anak lain ikut bersemangat di dekatnya, dan ia sering menjadi pusat permainan kelompok tanpa harus berusaha. Pertemanannya luas — ia punya banyak teman di berbagai sudut, bukan hanya satu lingkaran kecil. Namun bayangannya: karena ia bergerak cepat dan penuh inisiatif, ia cenderung mendominasi permainan, mengambil alih percakapan, atau berpindah ke teman baru sebelum sahabatnya selesai bicara. Ia bukan tidak peduli — ia hanya belum sempat melambat untuk mendengarkan. Di sinilah ia butuh dampingan: belajar bahwa pertemanan yang sehat bukan hanya tentang bergerak bersama, tapi juga tentang diam dan mendengarkan sesekali. Saat ia menguasai keterampilan ini, pertemanannya yang luas akan berubah menjadi berkualitas.
+{{childName}} adalah magnet sosial yang alami. Ia masuk ruangan seperti matahari masuk ke ruang — hangat, terang, dan membuat semua orang menoleh. Berteman baginya semudah bernapas: senyum lebar, sapaan cepat, dan ajakan "ayok main!" sering cukup untuk memulai interaksi. Energinya menular; anak lain ikut bersemangat di dekatnya, dan ia sering menjadi pusat permainan kelompok tanpa harus berusaha.
+
+Pertemanannya luas — ia punya banyak teman di berbagai sudut, bukan hanya satu lingkaran kecil. Namun bayangannya: karena ia bergerak cepat dan penuh inisiatif, ia cenderung mendominasi permainan, mengambil alih percakapan, atau berpindah ke teman baru sebelum sahabatnya selesai bicara. Ia bukan tidak peduli — ia hanya belum sempat melambat untuk mendengarkan.
+
+Di sinilah ia butuh dampingan: belajar bahwa pertemanan yang sehat bukan hanya tentang bergerak bersama, tapi juga tentang diam dan mendengarkan sesekali. Saat ia menguasai keterampilan ini, pertemanannya yang luas akan berubah menjadi berkualitas.
 
 ---
 

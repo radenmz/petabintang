@@ -23,7 +23,13 @@ Berikut hasil distribusi skor kecerdasan **{{childName}}** (skala 0-100):
 
 ## Lingkungan & Gaya Belajar Ideal
 
-Lingkungan belajar ideal untuk {{childName}} adalah ruang yang membuka pintu ke alam, bukan menutupnya. Sediakan sudut tanaman di rumah — beberapa pot kecil yang ia rawat sendiri, atau taman mini di balkon dan teras. Letakkan terrarium mini di mejanya: botol kaca berisi lumut, batu, dan tanaman kecil yang bisa ia amati tumbuh dari dekat. Siapkan "kotak koleksi alam" terbuka berisi daun kering, biji, batu, kerang, dan ranting yang ia kumpulkan dari jalan-jalan, lengkap dengan kaca pembesar agar ia bisa melihat detail serangga dan urat daun. Tambahkan beberapa buku ensiklopedia alam bergambar — tentang serangga, burung, pohon, dan cuaca — yang mudah ia jangkau saat rasa ingin tahu muncul. Sediakan juga jurnal alam kosong: buku bersampul sederhana tempat ia menggambar dan mencatat apa yang ia temui hari itu. Yang paling penting, pastikan ada akses aman ke luar ruang — halaman, taman dekat rumah, atau jalur pejalan kaki berpohon — agar ia bisa keluar menjelajah kapan pun dorongan eksplorasinya muncul. Hindari mengurung {{childName}} di dalam ruangan ber-AC sepanjang hari; bawalah belajar ke teras, ke taman, atau ke bawah pohon sesering mungkin. Bagi {{childName}}, angin, sinar matahari, dan suara daun bukanlah gangguan — melainkan kondisi belajar yang optimal.
+Lingkungan belajar ideal untuk {{childName}} adalah ruang yang membuka pintu ke alam, bukan menutupnya. Sediakan sudut tanaman di rumah — beberapa pot kecil yang ia rawat sendiri, atau taman mini di balkon dan teras. Letakkan terrarium mini di mejanya: botol kaca berisi lumut, batu, dan tanaman kecil yang bisa ia amati tumbuh dari dekat.
+
+Siapkan "kotak koleksi alam" terbuka berisi daun kering, biji, batu, kerang, dan ranting yang ia kumpulkan dari jalan-jalan, lengkap dengan kaca pembesar agar ia bisa melihat detail serangga dan urat daun. Tambahkan beberapa buku ensiklopedia alam bergambar — tentang serangga, burung, pohon, dan cuaca — yang mudah ia jangkau saat rasa ingin tahu muncul.
+
+Sediakan juga jurnal alam kosong: buku bersampul sederhana tempat ia menggambar dan mencatat apa yang ia temui hari itu. Yang paling penting, pastikan ada akses aman ke luar ruang — halaman, taman dekat rumah, atau jalur pejalan kaki berpohon — agar ia bisa keluar menjelajah kapan pun dorongan eksplorasinya muncul.
+
+Hindari mengurung {{childName}} di dalam ruangan ber-AC sepanjang hari; bawalah belajar ke teras, ke taman, atau ke bawah pohon sesering mungkin. Bagi {{childName}}, angin, sinar matahari, dan suara daun bukanlah gangguan — melainkan kondisi belajar yang optimal.
 
 ---
 

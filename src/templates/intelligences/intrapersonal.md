@@ -23,7 +23,13 @@ Berikut hasil distribusi skor kecerdasan **{{childName}}** (skala 0-100):
 
 ## Lingkungan & Gaya Belajar Ideal
 
-Lingkungan belajar ideal untuk {{childName}} adalah sudut tenang dan privat yang bisa ia sebut "milikku". Sediakan meja pribadi di pojok ruangan — bukan di tengah lalu-lalang keluarga — dengan sebuah jurnal atau buku harian, pena warna kesukaannya, dan beberapa buku bacaan mandiri yang ia pilih sendiri. Biarkan ada "markas pribadi": bisa tenda kecil, tirai pembatas, atau kursi santai di dekat jendela tempat ia bisa menyendiri tanpa diganggu saat memproses sesuatu. Rak terbuka berisi buku, kartu emosi bergambar, dan lembar kosong untuk menggambar peta perasaan akan membuat dorongan mencatat dan memetakan emosi muncul tanpa hambatan. Hindari keramaian, televisi menyala, atau interupsi berulang yang memutus fokus internalnya — suara bising dan gangguan orang lain lebih mengganggunya daripada anak pada umumnya. Saat belajar, dampingi dengan pertanyaan reflektif tertulis ("apa yang sudah kamu pahami? apa yang masih bingung?") dan jurnal harian, bukan instruksi lisan berulang. Bagi {{childName}}, waktu tenang dan sebuah jurnal yang selalu siap adalah "oase" tempat ia mengecek dan menata perasaannya lewat gambar dan kata.
+Lingkungan belajar ideal untuk {{childName}} adalah sudut tenang dan privat yang bisa ia sebut "milikku". Sediakan meja pribadi di pojok ruangan — bukan di tengah lalu-lalang keluarga — dengan sebuah jurnal atau buku harian, pena warna kesukaannya, dan beberapa buku bacaan mandiri yang ia pilih sendiri.
+
+Biarkan ada "markas pribadi": bisa tenda kecil, tirai pembatas, atau kursi santai di dekat jendela tempat ia bisa menyendiri tanpa diganggu saat memproses sesuatu. Rak terbuka berisi buku, kartu emosi bergambar, dan lembar kosong untuk menggambar peta perasaan akan membuat dorongan mencatat dan memetakan emosi muncul tanpa hambatan.
+
+Hindari keramaian, televisi menyala, atau interupsi berulang yang memutus fokus internalnya — suara bising dan gangguan orang lain lebih mengganggunya daripada anak pada umumnya. Saat belajar, dampingi dengan pertanyaan reflektif tertulis ("apa yang sudah kamu pahami? apa yang masih bingung?") dan jurnal harian, bukan instruksi lisan berulang.
+
+Bagi {{childName}}, waktu tenang dan sebuah jurnal yang selalu siap adalah "oase" tempat ia mengecek dan menata perasaannya lewat gambar dan kata.
 
 ---
 
@@ -112,7 +118,7 @@ Pendekatan Intrapersonal tepat ketika {{childName}} mengalami overstimulasi sosi
 ---
 ### 🗂️ MISI TRA-04: MONUMEN KEBERANIAN
 
-**Kategori:** Kecerdasan Intrapersonal + Resiliensi (R)
+**Kategori:** Kecerdasan Intrapersonal + Resiliensi Emosi
 **Cocok Dimainkan Saat:** Anak berhasil mengatasi rasa takut/kegagalan kecil.
 
 #### 👦 Cerita untuk Dibacakan ke {{childName}}:

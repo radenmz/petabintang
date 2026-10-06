@@ -463,8 +463,8 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                 {paymentMethod === 'qris' && (
                   <div className="flex flex-col items-center gap-3 text-center">
                     <svg className="h-36 w-36" viewBox="0 0 100 100" aria-hidden>
-                      <path d="M0,0 h30 v30 h-30 z M40,0 h20 v10 h-20 z M70,0 h30 v30 h-30 z M10,10 h10 v10 h-10 z M80,10 h10 v10 h-10 z M0,40 h10 v20 h-10 z M20,40 h30 v10 h-30 z M60,40 h20 v20 h-20 z M90,40 h10 v30 h-10 z M0,70 h30 v30 h-30 z M10,80 h10 v10 h-10 z M40,70 h20 v20 h-20 z M70,80 h30 v20 h-30 z" fill="#211D17" />
-                      <rect x="42" y="42" width="16" height="16" fill="#2C6A5F" rx="2" />
+                      <path d="M0,0 h30 v30 h-30 z M40,0 h20 v10 h-20 z M70,0 h30 v30 h-30 z M10,10 h10 v10 h-10 z M80,10 h10 v10 h-10 z M0,40 h10 v20 h-10 z M20,40 h30 v10 h-30 z M60,40 h20 v20 h-20 z M90,40 h10 v30 h-10 z M0,70 h30 v30 h-30 z M10,80 h10 v10 h-10 z M40,70 h20 v20 h-20 z M70,80 h30 v20 h-30 z" fill="#1C1A2E" />
+                      <rect x="42" y="42" width="16" height="16" fill="#2A306C" rx="2" />
                     </svg>
                     <p className="max-w-sm text-secondary">
                       Pindai QRIS dengan aplikasi apa pun — GoPay, OVO, DANA, ShopeePay, LinkAja, atau mobile banking.

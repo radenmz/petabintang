@@ -23,7 +23,11 @@ Berikut hasil distribusi skor kecerdasan **{{childName}}** (skala 0-100):
 
 ## Lingkungan & Gaya Belajar Ideal
 
-Lingkungan belajar ideal untuk {{childName}} adalah ruang yang "ramai dengan kehadiran manusia" — bukan kamar tertutup untuk belajar sendirian. Sediakan meja besar yang cukup untuk dua-tiga orang, sehingga ia bisa belajar bersama Ayah Bunda, kakak, atau teman. Siapkan sudut bermain peran lengkap dengan kostum sederhana, boneka, dan properti mini — karena di sinilah ia memerankan ulang konsep yang ia pelajari. Tempelkan "peta sosial keluarga" di dinding: foto kerabat, teman, dan guru yang penting baginya, lengkap dengan pita emosi sederhana (senang, sedih, kangen) yang bisa ia geser setiap hari. Jaga akses ke telepon atau video call dengan kakek, nenek, dan sepupu — percakapan singkat dengan orang tepercaya adalah "oase" yang mengisi ulang energinya. Saat belajar, dampingi dengan diskusi ("Menurutmu, kenapa bisa begitu?"), bukan ceramah searah. Untuk {{childName}}, kehadiran orang lain bukan gangguan — melainkan bahan bakar utama untuk berpikir.
+Lingkungan belajar ideal untuk {{childName}} adalah ruang yang "ramai dengan kehadiran manusia" — bukan kamar tertutup untuk belajar sendirian. Sediakan meja besar yang cukup untuk dua-tiga orang, sehingga ia bisa belajar bersama Ayah Bunda, kakak, atau teman. Siapkan sudut bermain peran lengkap dengan kostum sederhana, boneka, dan properti mini — karena di sinilah ia memerankan ulang konsep yang ia pelajari.
+
+Tempelkan "peta sosial keluarga" di dinding: foto kerabat, teman, dan guru yang penting baginya, lengkap dengan pita emosi sederhana (senang, sedih, kangen) yang bisa ia geser setiap hari. Jaga akses ke telepon atau video call dengan kakek, nenek, dan sepupu — percakapan singkat dengan orang tepercaya adalah "oase" yang mengisi ulang energinya. Saat belajar, dampingi dengan diskusi ("Menurutmu, kenapa bisa begitu?"), bukan ceramah searah.
+
+Untuk {{childName}}, kehadiran orang lain bukan gangguan — melainkan bahan bakar utama untuk berpikir.
 
 ---
 

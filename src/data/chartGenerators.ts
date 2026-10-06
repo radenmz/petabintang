@@ -3,30 +3,32 @@ import { OceanScores, MIScores } from '../types';
 /**
  * Generate an OCEAN radar chart as a self-contained SVG string.
  *
- * Shows 5 dimensions: O, C, E, A, R (where R = 11 - N, i.e. inverted
- * neuroticism expressed as resiliency). The SVG uses inline styles so it
- * renders correctly both inside ReactMarkdown (via rehype-raw) and in the
- * static HTML exports.
+ * Shows the 5 raw OCEAN dimensions: O, C, E, A, N. The 5th axis is
+ * Neuroticism (Sensitivitas Emosi) — the SAME value shown in the text list, so
+ * the chart and the written profile never disagree. (The archetype matcher
+ * still uses Resiliensi R = 11 - N internally; that conversion is not shown to
+ * the reader.) The SVG uses inline styles so it renders correctly both inside
+ * ReactMarkdown (via rehype-raw) and in the static HTML exports.
  *
- * Palet: botanical (sesuai ebook-color-review.md & chart React di halaman hasil).
+ * Palet: brand (Jacarta/Wisteria/Casablanca) — selaras dengan `src/index.css`.
  */
 export function generateOceanRadarSVG(scores: OceanScores, size = 320): string {
   const center = size / 2;
   const radius = size * 0.32;
 
-  // Palet botanical (hardcoded — SVG self-contained untuk export HTML/PDF).
-  const BOTANICAL = '#2C6A5F';
-  const INK = '#211D17';
-  const STONE = '#6B6358';
-  const OUTLINE_VAR = '#D4CEC3';
-  const OUTLINE = '#857C70';
+  // Palet brand (hardcoded — SVG self-contained untuk export HTML/PDF).
+  const BOTANICAL = '#2A306C';
+  const INK = '#1C1A2E';
+  const STONE = '#6B6787';
+  const OUTLINE_VAR = '#D9CFC7';
+  const OUTLINE = '#8F8AA8';
 
   const dimensions = [
     { label: 'Keterbukaan (O)', short: 'O', val: scores.openness },
     { label: 'Ketelitian (C)', short: 'C', val: scores.conscientiousness },
     { label: 'Ekstraversi (E)', short: 'E', val: scores.extraversion },
     { label: 'Keramahan (A)', short: 'A', val: scores.agreeableness },
-    { label: 'Resiliensi (R)', short: 'R', val: 11 - scores.neuroticism }
+    { label: 'Sensitivitas Emosi (N)', short: 'N', val: scores.neuroticism }
   ];
 
   const totalPoints = dimensions.length;
@@ -54,7 +56,7 @@ export function generateOceanRadarSVG(scores: OceanScores, size = 320): string {
   svg += `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">`;
 
   // Background
-  svg += `<rect width="${size}" height="${size}" fill="rgba(44,106,95,0.03)" rx="16"/>`;
+  svg += `<rect width="${size}" height="${size}" fill="rgba(42,48,108,0.04)" rx="16"/>`;
 
   // Grid circles
   levels.forEach((lvl, idx) => {
@@ -70,7 +72,7 @@ export function generateOceanRadarSVG(scores: OceanScores, size = 320): string {
   });
 
   // Polygon fill
-  svg += `<polygon points="${polygonPath}" fill="rgba(44,106,95,0.16)" stroke="${BOTANICAL}" stroke-width="2.5"/>`;
+  svg += `<polygon points="${polygonPath}" fill="rgba(42,48,108,0.14)" stroke="${BOTANICAL}" stroke-width="2.5"/>`;
 
   // Points and labels
   points.forEach((p) => {
@@ -79,7 +81,7 @@ export function generateOceanRadarSVG(scores: OceanScores, size = 320): string {
   });
 
   svg += `</svg>`;
-  svg += `<p style="font-size:11px;color:${STONE};margin-top:8px;">Grafik Radar 5 Dimensi Kepribadian OCEAN (Skala 1-10)</p>`;
+  svg += `<p style="font-size:11px;color:${STONE};margin-top:8px;">Grafik Radar 5 Dimensi Kepribadian OCEAN (Skala 1-10). N tinggi = lebih peka terhadap emosi.</p>`;
   svg += `</div>`;
 
   return svg;
@@ -98,13 +100,13 @@ export function generateOceanRadarSVG(scores: OceanScores, size = 320): string {
  * (ebook-color-review.md: kurangi warna per-seri / rainbow).
  */
 export function generateMIBarSVG(scores: MIScores, width = 480): string {
-  // Palet botanical (hardcoded — SVG self-contained).
-  const BOTANICAL = '#2C6A5F';
-  const STARLIGHT = '#B8993E';
-  const STARLIGHT_DEEP = '#8F7730';
-  const INK = '#211D17';
-  const STONE = '#6B6358';
-  const TRACK = '#E9E5DD';
+  // Palet brand (hardcoded — SVG self-contained).
+  const BOTANICAL = '#2A306C';
+  const STARLIGHT = '#F8BB53';
+  const STARLIGHT_DEEP = '#D99A2B';
+  const INK = '#1C1A2E';
+  const STONE = '#6B6787';
+  const TRACK = '#EDDFD5';
 
   const miList = [
     { key: 'linguistic', label: 'Linguistik', icon: '🗣️', val: scores.linguistic },
@@ -132,7 +134,7 @@ export function generateMIBarSVG(scores: MIScores, width = 480): string {
   svg += `<svg width="${width}" height="${totalHeight}" viewBox="0 0 ${width} ${totalHeight}" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">`;
 
   // Background
-  svg += `<rect width="${width}" height="${totalHeight}" fill="rgba(44,106,95,0.03)" rx="12"/>`;
+  svg += `<rect width="${width}" height="${totalHeight}" fill="rgba(42,48,108,0.04)" rx="12"/>`;
 
   miList.forEach((item, idx) => {
     const isTop3 = idx < 3;

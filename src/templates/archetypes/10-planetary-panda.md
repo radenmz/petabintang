@@ -3,7 +3,13 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang tenang dan mantap: kombinasi Ketelitian sangat tinggi ({{oceanC}}/10, {{statusC}}) dan Keramahan sangat tinggi ({{oceanA}}/10, {{statusA}}), berpadu dengan Sensitivitas Emosi rendah ({{oceanN}}/10, {{statusN}}). Artinya, {{childName}} bertemu dunia dengan langkah yang pelan namun pasti — bukan dengan berlari atau melompat, melainkan dengan menempatkan setiap kaki di tanah dengan sengaja. Ketelitian sangat tinggi membuatnya menjaga janji, menepati rutinitas, dan menyelesaikan apa yang ia mulai dengan konsistensi yang mengagumkan. Keramahan sangat tinggi membuatnya penuh kasih dan setia kepada orang-orang yang ia pedulikan — ia mengingat hal-hal kecil tentang temannya dan hadir tepat saat dibutuhkan. Sementara Sensitivitas Emosi yang rendah bukan berarti ia tidak merasa, melainkan ia memiliki resiliensi tinggi — ketenangannya menstabilkan lingkungan sekitarnya saat orang lain mulai gelisah. Namun bayangannya lahir dari sumber yang sama: Keterbukaan rendah ({{oceanO}}/10, {{statusO}}) membuatnya tidak nyaman dengan hal baru dan perubahan, dan Ekstraversi rendah ({{oceanE}}/10, {{statusE}}) membuatnya terlalu pemalu memulai interaksi — ia bisa terlewat atau diabaikan karena terlalu tenang.
+Skor OCEAN {{childName}} mengungkapkan profil yang tenang dan mantap: kombinasi Ketelitian sangat tinggi ({{oceanC}}/10, {{statusC}}) dan Keramahan sangat tinggi ({{oceanA}}/10, {{statusA}}), berpadu dengan Sensitivitas Emosi rendah ({{oceanN}}/10, {{statusN}}). Artinya, {{childName}} bertemu dunia dengan langkah yang pelan namun pasti — bukan dengan berlari atau melompat, melainkan dengan menempatkan setiap kaki di tanah dengan sengaja.
+
+Ketelitian sangat tinggi membuatnya menjaga janji, menepati rutinitas, dan menyelesaikan apa yang ia mulai dengan konsistensi yang mengagumkan. Keramahan sangat tinggi membuatnya penuh kasih dan setia kepada orang-orang yang ia pedulikan — ia mengingat hal-hal kecil tentang temannya dan hadir tepat saat dibutuhkan.
+
+Sementara Sensitivitas Emosi yang rendah bukan berarti ia tidak merasa, melainkan ia memiliki resiliensi tinggi — ketenangannya menstabilkan lingkungan sekitarnya saat orang lain mulai gelisah.
+
+Namun bayangannya lahir dari sumber yang sama: Keterbukaan rendah ({{oceanO}}/10, {{statusO}}) membuatnya tidak nyaman dengan hal baru dan perubahan, dan Ekstraversi rendah ({{oceanE}}/10, {{statusE}}) membuatnya terlalu pemalu memulai interaksi — ia bisa terlewat atau diabaikan karena terlalu tenang.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +37,11 @@ Skor OCEAN {{childName}} mengungkapkan profil yang tenang dan mantap: kombinasi 
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah didiskusikan atau diam-diam bertanya-tanya mengapa {{childName}} begitu pemalu, begitu lambat menerima perubahan, atau mengapa ia sering terlewat dalam keramaian karena suaranya terlalu pelan. Mungkin ada yang menyebutnya "terlalu kaku" atau "kurang fleksibel". Tenang — ketenangan itu bukan kelemahan, melainkan cara kerja hatinya yang tulus. Di balik langkahnya yang pelan, sedang berjalan keandalan yang langka: ia menepati janji, menjaga rutinitas, dan setia kepada orang yang ia cintai dengan kesetiaan yang dalam. Dunia yang bergerak cepat sering melewati anak-anak seperti {{childName}} — bukan karena mereka tidak berharga, melainkan karena mereka tidak bersuara keras. Tugas Ayah Bunda bukan menjadikannya lebih cepat atau lebih ramai, melainkan menjaga rutinitas yang membuatnya merasa aman, memberi tahu jauh-jauh hari sebelum ada perubahan, dan — yang paling penting — tidak mengabaikannya karena ia terlalu tenang. Tanyakan pendapatnya langsung, panggil namanya, beri ia ruang untuk menjawab. Anak ini tidak butuh didorong menjadi orang lain; ia butuh dilihat.
+{{parentName}}, mungkin Ayah Bunda pernah didiskusikan atau diam-diam bertanya-tanya mengapa {{childName}} begitu pemalu, begitu lambat menerima perubahan, atau mengapa ia sering terlewat dalam keramaian karena suaranya terlalu pelan. Mungkin ada yang menyebutnya "terlalu kaku" atau "kurang fleksibel". Tenang — ketenangan itu bukan kelemahan, melainkan cara kerja hatinya yang tulus.
+
+Di balik langkahnya yang pelan, sedang berjalan keandalan yang langka: ia menepati janji, menjaga rutinitas, dan setia kepada orang yang ia cintai dengan kesetiaan yang dalam. Dunia yang bergerak cepat sering melewati anak-anak seperti {{childName}} — bukan karena mereka tidak berharga, melainkan karena mereka tidak bersuara keras.
+
+Tugas Ayah Bunda bukan menjadikannya lebih cepat atau lebih ramai, melainkan menjaga rutinitas yang membuatnya merasa aman, memberi tahu jauh-jauh hari sebelum ada perubahan, dan — yang paling penting — tidak mengabaikannya karena ia terlalu tenang. Tanyakan pendapatnya langsung, panggil namanya, beri ia ruang untuk menjawab. Anak ini tidak butuh didorong menjadi orang lain; ia butuh dilihat.
 
 ---
 
@@ -110,7 +120,9 @@ Jika ia harus menghadapi hal baru, jangan paksa langsung. Beri jembatan: "Coba d
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, disiplin yang berubah-ubah atau konsekuensi yang tidak terprediksi bukan sekadar tidak adil — ia mengalaminya seperti tanah yang tiba-tiba bergerak di bawah kakinya. Karena itu, disiplin untuknya harus berbentuk rutinitas konsisten dan konsekuensi logis yang terprediksi — bukan hukuman yang muncul mendadak. Saat harus menegur, lakukan dengan nada tenang dan jelas, bukan tinggi dan mendadak. Sampaikan peringatan dini sebelum ada perubahan aturan: "Mulai besok, kita tidak menonton setelah pukul tujuh." Beri ia waktu mempersiapkan diri. Hargai keandalannya — ia anak yang menepati janji, dan ia akan menaati aturan yang konsisten jauh lebih baik daripada aturan yang berubah-ubah. Ia bukan anak yang membangkang; ia anak yang butuh kejelasan yang berulang.
+Bagi {{childName}}, disiplin yang berubah-ubah atau konsekuensi yang tidak terprediksi bukan sekadar tidak adil — ia mengalaminya seperti tanah yang tiba-tiba bergerak di bawah kakinya. Karena itu, disiplin untuknya harus berbentuk rutinitas konsisten dan konsekuensi logis yang terprediksi — bukan hukuman yang muncul mendadak. Saat harus menegur, lakukan dengan nada tenang dan jelas, bukan tinggi dan mendadak.
+
+Sampaikan peringatan dini sebelum ada perubahan aturan: "Mulai besok, kita tidak menonton setelah pukul tujuh." Beri ia waktu mempersiapkan diri. Hargai keandalannya — ia anak yang menepati janji, dan ia akan menaati aturan yang konsisten jauh lebih baik daripada aturan yang berubah-ubah. Ia bukan anak yang membangkang; ia anak yang butuh kejelasan yang berulang.
 
 ---
 
@@ -154,7 +166,11 @@ Karena hal baru adalah tantangan terbesar {{childName}}, setiap kali ia berani m
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} bukan anak yang masuk ruangan dengan menyapa keras. Ia masuk dengan diam, mengamati dari pinggir, dan menunggu sampai ia merasa cukup familiar baru bersuara. Ia terlalu pemalu untuk memulai interaksi — bukan karena ia tidak ingin berteman, melainkan karena memulai terasa terlalu besar untuknya. Namun di balik keshyuannya, ia menyimpan kesetiaan yang luar biasa. Begitu ia menganggap seseorang teman, ia akan setia — ia mengingat hal-hal kecil, peka saat temannya sedih, dan hadir saat dibutuhkan. Pertemanannya tidak luas, tapi sangat dalam. Bahayanya: karena ia terlalu tenang dan jarang memulai, ia mudah terlewat atau diabaikan dalam kelompok. Bukan karena tidak diinginkan, melainkan karena suaranya tidak terdengar. Di sinilah ia butuh dampingan: bukan dipaksa menjadi ramai, melainkan dibantu memulai interaksi pertama, di lingkungan yang familiar baginya.
+{{childName}} bukan anak yang masuk ruangan dengan menyapa keras. Ia masuk dengan diam, mengamati dari pinggir, dan menunggu sampai ia merasa cukup familiar baru bersuara. Ia terlalu pemalu untuk memulai interaksi — bukan karena ia tidak ingin berteman, melainkan karena memulai terasa terlalu besar untuknya. Namun di balik keshyuannya, ia menyimpan kesetiaan yang luar biasa.
+
+Begitu ia menganggap seseorang teman, ia akan setia — ia mengingat hal-hal kecil, peka saat temannya sedih, dan hadir saat dibutuhkan. Pertemanannya tidak luas, tapi sangat dalam. Bahayanya: karena ia terlalu tenang dan jarang memulai, ia mudah terlewat atau diabaikan dalam kelompok. Bukan karena tidak diinginkan, melainkan karena suaranya tidak terdengar.
+
+Di sinilah ia butuh dampingan: bukan dipaksa menjadi ramai, melainkan dibantu memulai interaksi pertama, di lingkungan yang familiar baginya.
 
 ---
 

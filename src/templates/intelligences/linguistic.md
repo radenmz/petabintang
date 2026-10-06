@@ -23,7 +23,11 @@ Berikut hasil distribusi skor kecerdasan **{{childName}}** (skala 0-100):
 
 ## Lingkungan & Gaya Belajar Ideal
 
-Lingkungan belajar ideal untuk {{childName}} adalah rumah yang kaya kata dan cerita. Sediakan perpustakaan mini — rak buku rendah yang mudah dijangkau, berisi buku bergambar, dongeng, ensiklopedia anak, dan buku puisi sederhana. Buat sudut baca nyaman dengan bantal besar dan lampu hangat, tempat ia bisa meringkuk sendirian atau bersama Ayah Bunda. Siapkan meja menulis kecil dengan buku harian, pensil warna, dan kertas kosong agar dorongan menuangkan kata — tulis maupun gambar — selalu bisa tersalur. Lengkapi dengan kartu kata bergambar, papan tulis kecil untuk menulis rima atau pantun spontan, dan kotak boneka untuk mendongeng. Putarkan musik latar lembut saat sesi mendongeng untuk membangun suasana naratif. Hindari layar berlebihan — ganti dengan buku dan cerita lisan, karena bagi {{childName}}, halaman buku yang dibacakan dan suara yang bercerita adalah "oase" tempat imajinasi mengalir bebas.
+Lingkungan belajar ideal untuk {{childName}} adalah rumah yang kaya kata dan cerita. Sediakan perpustakaan mini — rak buku rendah yang mudah dijangkau, berisi buku bergambar, dongeng, ensiklopedia anak, dan buku puisi sederhana. Buat sudut baca nyaman dengan bantal besar dan lampu hangat, tempat ia bisa meringkuk sendirian atau bersama Ayah Bunda.
+
+Siapkan meja menulis kecil dengan buku harian, pensil warna, dan kertas kosong agar dorongan menuangkan kata — tulis maupun gambar — selalu bisa tersalur. Lengkapi dengan kartu kata bergambar, papan tulis kecil untuk menulis rima atau pantun spontan, dan kotak boneka untuk mendongeng. Putarkan musik latar lembut saat sesi mendongeng untuk membangun suasana naratif.
+
+Hindari layar berlebihan — ganti dengan buku dan cerita lisan, karena bagi {{childName}}, halaman buku yang dibacakan dan suara yang bercerita adalah "oase" tempat imajinasi mengalir bebas.
 
 ---
 

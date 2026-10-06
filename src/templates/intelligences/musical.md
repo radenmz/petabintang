@@ -23,7 +23,11 @@ Berikut hasil distribusi skor kecerdasan **{{childName}}** (skala 0-100):
 
 ## Lingkungan & Gaya Belajar Ideal
 
-Lingkungan belajar ideal untuk {{childName}} adalah ruangan yang "hidup" secara bunyi namun terkendali, bukan riuh. Sediakan sudut musik permanen — rak terbuka berisi alat musik sederhana yang mudah dijangkau seperti pianika, xilofon, drum kecil, marakas, atau triangle, lengkap dengan speaker kecil untuk musik latar. Siapkan koleksi lagu anak dan musik instrumental yang ia sukai, serta ruang cukup luas untuk bernyanyi dan menari bebas saat ide mengalir. Saat belajar, dampingi dengan musik latar lembut — instrumental klasik atau suara alam — yang membantunya fokus tanpa mengganggu konsentrasi. Hindari suara bising mendadak, TV yang menyala keras, atau dentuman yang menutup pendengarannya, karena telinga peka {{childName}} mudah terganggu. Saat menghafal, biarkan ia bersenandung atau bertepuk; biarkan telinga dan ritme menjadi "jalan masuk" ide ke otaknya. Bagi {{childName}}, alat musik yang selalu siap dan lagu yang familiar adalah "oase" tempat ide dan emosi mengalir bebas.
+Lingkungan belajar ideal untuk {{childName}} adalah ruangan yang "hidup" secara bunyi namun terkendali, bukan riuh. Sediakan sudut musik permanen — rak terbuka berisi alat musik sederhana yang mudah dijangkau seperti pianika, xilofon, drum kecil, marakas, atau triangle, lengkap dengan speaker kecil untuk musik latar.
+
+Siapkan koleksi lagu anak dan musik instrumental yang ia sukai, serta ruang cukup luas untuk bernyanyi dan menari bebas saat ide mengalir. Saat belajar, dampingi dengan musik latar lembut — instrumental klasik atau suara alam — yang membantunya fokus tanpa mengganggu konsentrasi. Hindari suara bising mendadak, TV yang menyala keras, atau dentuman yang menutup pendengarannya, karena telinga peka {{childName}} mudah terganggu.
+
+Saat menghafal, biarkan ia bersenandung atau bertepuk; biarkan telinga dan ritme menjadi "jalan masuk" ide ke otaknya. Bagi {{childName}}, alat musik yang selalu siap dan lagu yang familiar adalah "oase" tempat ide dan emosi mengalir bebas.
 
 ---
 

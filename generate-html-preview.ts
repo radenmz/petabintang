@@ -5,7 +5,8 @@
  *
  * Produces 3 self-contained, downloadable HTML files (one per sample profile)
  * in dist-preview/ that can be opened directly in a browser WITHOUT a dev
- * server — fully styled with the reader's sepia theme and embedded CSS.
+ * server — fully styled with the brand palette (Jacarta/Wisteria/Casablanca)
+ * and embedded CSS.
  *
  * Usage:
  *   npx tsx generate-html-preview.ts
@@ -266,18 +267,25 @@ const CHAPTER_QUOTES: Record<number, string> = {
   5: 'Bintang tidak bersinar dalam sekejap — ia menempa cahayanya selama miliaran tahun. Begitu pula anak Anda: sedang menjadi.'
 };
 
-// Palet botanical (satu sumber kebenaran untuk CSS embedded & divider — sesuai src/index.css).
+// PALET BRAND (satu sumber kebenaran untuk CSS embedded & divider).
+// Diselaraskan dengan `src/index.css` (White Linen / Jacarta / Wisteria /
+// Casablanca) agar PDF mencerminkan warna brand, bukan palet "botanical" hijau
+// yang lama.
+//   paper   White Linen  · ink  Jacarta gelap · botanical(→primary) Jacarta
+//   starlight Casablanca · secondary Wisteria · stone netral
 const PALETTE = {
-  paper: '#FAF9F6',
-  ink: '#211D17',
-  botanical: '#2C6A5F',
-  botanicalDeep: '#1F4D44',
-  botanicalTint: '#E8EFEB',
-  starlight: '#B8993E',
-  starlightDeep: '#8F7730',
-  stone: '#6B6358',
-  outlineVariant: '#D4CEC3',
-  surfaceContainerHigh: '#E9E5DD'
+  paper: '#FAF1EC',
+  ink: '#1C1A2E',
+  botanical: '#2A306C',
+  botanicalDeep: '#1A1E46',
+  botanicalTint: '#E8E9F3',
+  secondary: '#846BB5',
+  secondaryTint: '#ECE6F6',
+  starlight: '#F8BB53',
+  starlightDeep: '#D99A2B',
+  stone: '#6B6787',
+  outlineVariant: '#D9CFC7',
+  surfaceContainerHigh: '#EDDFD5'
 } as const;
 
 const CHAPTER_DIVIDER_STYLES: Record<number, {
@@ -289,9 +297,9 @@ const CHAPTER_DIVIDER_STYLES: Record<number, {
 }> = {
   1: { background: PALETTE.paper, accent: PALETTE.botanical, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.3em' },
   2: { background: PALETTE.botanicalTint, accent: PALETTE.botanical, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.34em' },
-  3: { background: PALETTE.paper, accent: PALETTE.starlight, text: PALETTE.ink, quoteColor: PALETTE.starlightDeep, labelSpacing: '0.28em' },
-  4: { background: PALETTE.botanicalTint, accent: PALETTE.botanical, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.32em' },
-  5: { background: PALETTE.botanicalDeep, accent: PALETTE.starlight, text: '#FFFFFF', quoteColor: '#E8EFEB', labelSpacing: '0.38em' }
+  3: { background: PALETTE.secondaryTint, accent: PALETTE.secondary, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.28em' },
+  4: { background: PALETTE.surfaceContainerHigh, accent: PALETTE.starlightDeep, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.32em' },
+  5: { background: PALETTE.botanicalDeep, accent: PALETTE.starlight, text: '#FFFFFF', quoteColor: PALETTE.botanicalTint, labelSpacing: '0.38em' }
 };
 
 function getTop3MI(mi: MIScores): { key: keyof MIScores; name: string; score: number }[] {
@@ -748,7 +756,7 @@ function buildImgTag(src: string, style: string, alt: string): string {
   return `<img src="${src}" alt="${alt}" style="${style}" onerror="this.style.display='none'" />`;
 }
 
-/** The embedded CSS — replicates the reader's sepia theme + markdown typography (palet botanical). */
+/** The embedded CSS — brand palette (Jacarta/Wisteria/Casablanca) + markdown typography. */
 const CSS = `
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -1148,6 +1156,13 @@ pre, code {
 @media print {
   /* PDF typography baseline — freeze before manual pagination review */
   body { background: white; padding: 0; max-width: none; font-family: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif; font-size: 16pt; line-height: 1.7; }
+
+  /* Readability: cap the measure so a line is ~65–72 chars instead of the
+     full ~180mm content width, and stop justify (which opens ugly gaps on
+     short lines). Applied to .module-body so the module header aligns with
+     its content; centred so the column sits evenly between the margins. */
+  .module-body { max-width: 150mm; margin-left: auto; margin-right: auto; }
+  .markdown p { text-align: left; }
   .cover {
     border-radius: 0;
     padding: 40px 20px;

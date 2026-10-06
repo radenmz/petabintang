@@ -3,7 +3,11 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang khas dan indah: kombinasi Keterbukaan tinggi ({{oceanO}}/10, {{statusO}}) dan Keramahan tinggi ({{oceanA}}/10, {{statusA}}), berpadu dengan Ekstraversi rendah ({{oceanE}}/10, {{statusE}}). Artinya, {{childName}} memproses dunia dari dalam — bukan dengan bereaksi cepat, melainkan dengan mengamati, merenungkan, lalu membentuk pemahaman yang mendalam. Keterbukaan tinggi membuatnya menyerap ide, warna, suara, dan detail kecil yang sering luput dari anak lain. Keramahan tinggi membuatnya peka pada perasaan orang di sekitarnya — sering kali terlalu peka, hingga menyerap beban emosi yang bukan miliknya. Sementara Ekstraversi rendah bukan berarti ia kurang percaya diri, melainkan energinya terisi di keheningan, bukan di keramaian. Dengan Ketelitian sedang ({{oceanC}}/10, {{statusC}}) dan Sensitivitas Emosi sedang ({{oceanN}}/10, {{statusN}}), {{childName}} mampu fokus mendalam pada hal yang menarik baginya, namun rentan goyah ketika lingkungan terlalu bising atau menuntut respons cepat.
+Skor OCEAN {{childName}} mengungkapkan profil yang khas dan indah: kombinasi Keterbukaan tinggi ({{oceanO}}/10, {{statusO}}) dan Keramahan tinggi ({{oceanA}}/10, {{statusA}}), berpadu dengan Ekstraversi rendah ({{oceanE}}/10, {{statusE}}). Artinya, {{childName}} memproses dunia dari dalam — bukan dengan bereaksi cepat, melainkan dengan mengamati, merenungkan, lalu membentuk pemahaman yang mendalam.
+
+Keterbukaan tinggi membuatnya menyerap ide, warna, suara, dan detail kecil yang sering luput dari anak lain. Keramahan tinggi membuatnya peka pada perasaan orang di sekitarnya — sering kali terlalu peka, hingga menyerap beban emosi yang bukan miliknya. Sementara Ekstraversi rendah bukan berarti ia kurang percaya diri, melainkan energinya terisi di keheningan, bukan di keramaian.
+
+Dengan Ketelitian sedang ({{oceanC}}/10, {{statusC}}) dan Sensitivitas Emosi sedang ({{oceanN}}/10, {{statusN}}), {{childName}} mampu fokus mendalam pada hal yang menarik baginya, namun rentan goyah ketika lingkungan terlalu bising atau menuntut respons cepat.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +35,9 @@ Skor OCEAN {{childName}} mengungkapkan profil yang khas dan indah: kombinasi Ket
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah merasa khawatir melihat {{childName}} lebih sering diam di pojok ruangan sementara anak lain berlarian. Tenang — keheningan itu bukan kelemahan, melainkan cara kerja otaknya yang luar biasa. Di balik tatapannya yang tenang, sedang terjadi proses observasi dan imajinasi yang jauh lebih kaya dari yang terlihat. Tugas Ayah Bunda bukan menjadikannya lebih ramai atau lebih cepat, melainkan menyediakan ruang tenang tempat kebijaksanaannya bisa tumbuh. Hormati jeda waktunya. Jangan terburu mengisi keheningan. Saat ia siap, kata-katanya akan keluar — dan Ayah Bunda akan terkejut betapa dalam pikirannya. Anak ini tidak butuh diperbaiki; ia butuh dipahami.
+{{parentName}}, mungkin Ayah Bunda pernah merasa khawatir melihat {{childName}} lebih sering diam di pojok ruangan sementara anak lain berlarian. Tenang — keheningan itu bukan kelemahan, melainkan cara kerja otaknya yang luar biasa. Di balik tatapannya yang tenang, sedang terjadi proses observasi dan imajinasi yang jauh lebih kaya dari yang terlihat.
+
+Tugas Ayah Bunda bukan menjadikannya lebih ramai atau lebih cepat, melainkan menyediakan ruang tenang tempat kebijaksanaannya bisa tumbuh. Hormati jeda waktunya. Jangan terburu mengisi keheningan. Saat ia siap, kata-katanya akan keluar — dan Ayah Bunda akan terkejut betapa dalam pikirannya. Anak ini tidak butuh diperbaiki; ia butuh dipahami.
 
 ---
 
@@ -110,7 +116,9 @@ Setelah emosinya turun (bisa 10–30 menit), pantulkan perasaannya dengan tenang
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, teguran bernada tinggi bukan sekadar tidak nyaman — ia mengalaminya seperti bentakan keras yang menggema berlama-lama di kepalanya. Satu bentakan bisa membuatnya menutup pintu komunikasi selama berhari-hari. Karena itu, disiplin untuknya harus dilakukan dengan suara serendah mungkin, bukan setinggi mungkin. Disiplin yang efektif bagi {{childName}} adalah yang menjelaskan "mengapa" dengan tenang, memberi waktu memproses, dan mengaitkan konsekuensi dengan logika yang bisa ia pahami. Ia bukan anak yang membangkang — ia anak yang butuh memahami alasan. Begitu ia mengerti, ia akan menaatinya dengan kesadaran, bukan ketakutan.
+Bagi {{childName}}, teguran bernada tinggi bukan sekadar tidak nyaman — ia mengalaminya seperti bentakan keras yang menggema berlama-lama di kepalanya. Satu bentakan bisa membuatnya menutup pintu komunikasi selama berhari-hari. Karena itu, disiplin untuknya harus dilakukan dengan suara serendah mungkin, bukan setinggi mungkin.
+
+Disiplin yang efektif bagi {{childName}} adalah yang menjelaskan "mengapa" dengan tenang, memberi waktu memproses, dan mengaitkan konsekuensi dengan logika yang bisa ia pahami. Ia bukan anak yang membangkang — ia anak yang butuh memahami alasan. Begitu ia mengerti, ia akan menaatinya dengan kesadaran, bukan ketakutan.
 
 ---
 
@@ -151,7 +159,9 @@ Bagi {{childName}}, teguran bernada tinggi bukan sekadar tidak nyaman — ia men
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} bukan anak yang bermain dalam kelompok besar. Ia berkembang dalam pertemanan yang dalam — cukup satu atau dua sahabat yang benar-benar ia kenal. Energi sosialnya habis cepat di keramaian, namun melimpah saat berdua dengan teman yang dipercayanya. Saat masuk ruangan baru, ia butuh waktu "pemanasan" — mengamati dulu dari pinggir, memetakan siapa yang aman, siapa yang terlalu ramai, baru perlahan masuk. Jangan ditafsirkan sebagai ketakutan; ini cara ia menjaga diri. Pertemanan {{childName}} berkualitas tinggi: ia mengingat detail kecil tentang sahabatnya, peka saat temannya sedih, dan setia. Ia mungkin bukan anak yang punya paling banyak teman, tapi ia yang punya teman paling dekat.
+{{childName}} bukan anak yang bermain dalam kelompok besar. Ia berkembang dalam pertemanan yang dalam — cukup satu atau dua sahabat yang benar-benar ia kenal. Energi sosialnya habis cepat di keramaian, namun melimpah saat berdua dengan teman yang dipercayanya. Saat masuk ruangan baru, ia butuh waktu "pemanasan" — mengamati dulu dari pinggir, memetakan siapa yang aman, siapa yang terlalu ramai, baru perlahan masuk.
+
+Jangan ditafsirkan sebagai ketakutan; ini cara ia menjaga diri. Pertemanan {{childName}} berkualitas tinggi: ia mengingat detail kecil tentang sahabatnya, peka saat temannya sedih, dan setia. Ia mungkin bukan anak yang punya paling banyak teman, tapi ia yang punya teman paling dekat.
 
 ---
 

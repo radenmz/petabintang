@@ -23,7 +23,13 @@ Berikut hasil distribusi skor kecerdasan **{{childName}}** (skala 0-100):
 
 ## Lingkungan & Gaya Belajar Ideal
 
-Lingkungan belajar ideal untuk {{childName}} adalah ruangan yang tertata dan kaya bahan untuk dipecahkan, bukan sekadar dilihat. Sediakan sudut problem-solving permanen — meja kecil dengan puzzle, teka-teki silang anak, kubus Rubik versi mudah, dan permainan strategi sederhana seperti halma atau tic-tac-toe. Letakkan rak terbuka berisi bahan eksperimen sains yang aman: gelas plastik, pewarna makanan, magnet, karet gelang, dan buku catatan kecil untuk "data eksperimen". Pasang papan tulis atau gulungan kertas besar di salah satu dinding agar ia bebas menggambar diagram, tabel, atau urutan langkah; sediakan kalkulator mainan, jam dinding besar, dan mainan edukatif berbasis angka dan pola yang mudah dijangkau, agar dorongan "mengurai" muncul tanpa hambatan. Siapkan juga kotak berisi benda heterogen (kancing, kerang, koin, jepitan baju) untuk diklasifikasi sesuai kategori yang ia temukan sendiri. Hindari instruksi yang kabur seperti "ya sudah saja" — selalu beri penjelasan logis "mengapa begini, mengapa begitu", karena bagi {{childName}} alasan adalah penenang; keteraturan dan rasa "masuk akal" adalah oase tempat otaknya beristirahat sekaligus bekerja.
+Lingkungan belajar ideal untuk {{childName}} adalah ruangan yang tertata dan kaya bahan untuk dipecahkan, bukan sekadar dilihat. Sediakan sudut problem-solving permanen — meja kecil dengan puzzle, teka-teki silang anak, kubus Rubik versi mudah, dan permainan strategi sederhana seperti halma atau tic-tac-toe.
+
+Letakkan rak terbuka berisi bahan eksperimen sains yang aman: gelas plastik, pewarna makanan, magnet, karet gelang, dan buku catatan kecil untuk "data eksperimen".
+
+Pasang papan tulis atau gulungan kertas besar di salah satu dinding agar ia bebas menggambar diagram, tabel, atau urutan langkah; sediakan kalkulator mainan, jam dinding besar, dan mainan edukatif berbasis angka dan pola yang mudah dijangkau, agar dorongan "mengurai" muncul tanpa hambatan. Siapkan juga kotak berisi benda heterogen (kancing, kerang, koin, jepitan baju) untuk diklasifikasi sesuai kategori yang ia temukan sendiri.
+
+Hindari instruksi yang kabur seperti "ya sudah saja" — selalu beri penjelasan logis "mengapa begini, mengapa begitu", karena bagi {{childName}} alasan adalah penenang; keteraturan dan rasa "masuk akal" adalah oase tempat otaknya beristirahat sekaligus bekerja.
 
 ---
 

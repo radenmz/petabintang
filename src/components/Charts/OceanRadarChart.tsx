@@ -10,13 +10,13 @@ export const OceanRadarChart: React.FC<OceanRadarChartProps> = ({ scores, size =
   const center = size / 2;
   const radius = size * 0.38;
 
-  // Palet terang botanical (ebook-color-review: hindari rainbow & indigo).
+  // Palet brand (Jacarta/Wisteria/Casablanca) via CSS variables — selaras PDF.
   const dimensions = [
     { label: 'Keterbukaan (O)', val: scores.openness },
     { label: 'Ketelitian (C)', val: scores.conscientiousness },
     { label: 'Ekstraversi (E)', val: scores.extraversion },
     { label: 'Keramahan (A)', val: scores.agreeableness },
-    { label: 'Resiliensi (R)', val: 11 - scores.neuroticism } // R = 11 - N (inverted neuroticism for positivity)
+    { label: 'Sensitivitas Emosi (N)', val: scores.neuroticism } // same raw value as the written profile (no R inversion shown)
   ];
 
   const totalPoints = dimensions.length;
@@ -63,7 +63,7 @@ export const OceanRadarChart: React.FC<OceanRadarChartProps> = ({ scores, size =
         })}
 
         {/* Radar Polygon */}
-        <polygon points={polygonPath} fill="rgba(44, 106, 95, 0.16)" stroke="var(--color-botanical)" strokeWidth="2.5" />
+        <polygon points={polygonPath} fill="rgba(42, 48, 108, 0.14)" stroke="var(--color-botanical)" strokeWidth="2.5" />
 
         {/* Points and Labels */}
         {points.map((p, i) => (
@@ -83,7 +83,7 @@ export const OceanRadarChart: React.FC<OceanRadarChartProps> = ({ scores, size =
         ))}
       </svg>
       <div className="mt-3 text-xs text-center" style={{ color: 'var(--color-on-surface-variant)' }}>
-        Grafik Radar 5 Dimensi Kepribadian OCEAN (Skala 1-10)
+        Grafik Radar 5 Dimensi Kepribadian OCEAN (Skala 1-10). N tinggi = lebih peka terhadap emosi.
       </div>
     </div>
   );

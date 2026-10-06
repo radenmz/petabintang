@@ -26,11 +26,13 @@ Prasyarat: Node.js 18+.
 | `npm run start` | Jalankan server produksi dari `dist/server.mjs` |
 | `npm run lint` | Typecheck (`tsc --noEmit`) |
 | `npm run gen-preview` | Generate file HTML e-book contoh ke `dist-preview/` (tooling lokal) |
+| `npm run gen-pdf` | Generate PDF dummy + screenshot warna dari 3 profil contoh ke `dist-preview/` (cek warna brand tanpa bayar) |
 
 ## Struktur
 
 - `server.ts` — server Express: API, webhook pembayaran, render PDF.
-- `generate-html-preview.ts` — generator e-book server-side + renderer HTML/CSS (dipakai jalur PDF).
+- `generate-html-preview.ts` — generator e-book server-side + renderer HTML/CSS (dipakai jalur PDF). Palet brand ada di konstanta `PALETTE` (Jacarta/Wisteria/Casablanca) — sinkron dengan `src/index.css`.
+- `generate-pdf-preview.ts` — dummy PDF generator untuk QA warna lokal (`npm run gen-pdf`).
 - `src/` — aplikasi React, data asesmen, template e-book (`src/templates/`), aset mascot (`src/assets/mascots/`).
 - `supabase/schema.sql` — skema database (idempoten).
 - `docs/AI_CONTEXT.md` — konteks arsitektur untuk agen/kontributor.

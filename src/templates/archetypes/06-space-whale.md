@@ -3,7 +3,13 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang lembut dan mendalam: kombinasi Keramahan sangat tinggi ({{oceanA}}/10, {{statusA}}) dan Ekstraversi sangat rendah ({{oceanE}}/10, {{statusE}}), berpadu dengan Sensitivitas Emosi rendah ({{oceanN}}/10, {{statusN}}). Artinya, {{childName}} bergerak di dunia dengan kepedulian yang luas seperti samudra — menyerap perasaan orang di sekitarnya, mendengarkan dengan saksama, dan menawarkan ketenangan tanpa banyak kata. Keramahan sangat tinggi membuatnya dermawan tanpa syarat: ia akan mengorbankan keinginannya demi orang lain tanpa berpikir dua kali. Ekstraversi sangat rendah bukan berarti ia tertekan — ia justru bersinar dalam keheningan, energinya terisi di ruang hening, bukan di keramaian. Sensitivitas Emosi yang rendah adalah jangkar stabilnya: ia tidak mudah goyah, tidak mudah marah, dan tetap tenang saat orang lain panik. Dengan Keterbukaan sedang ({{oceanO}}/10, {{statusO}}) dan Ketelitian sedang ({{oceanC}}/10, {{statusC}}), {{childName}} mampu menyesuaikan diri dan fokus pada hal yang penting baginya, namun memiliki bayangan yang halus — karena terlalu peduli dan terlalu tertutup, ia sering menyimpan kebutuhan dirinya sendiri, mengorbankan keinginan pribadi demi keridhaan orang lain, dan jarang mengungkapkan apa yang sebenarnya ia mau.
+Skor OCEAN {{childName}} mengungkapkan profil yang lembut dan mendalam: kombinasi Keramahan sangat tinggi ({{oceanA}}/10, {{statusA}}) dan Ekstraversi sangat rendah ({{oceanE}}/10, {{statusE}}), berpadu dengan Sensitivitas Emosi rendah ({{oceanN}}/10, {{statusN}}).
+
+Artinya, {{childName}} bergerak di dunia dengan kepedulian yang luas seperti samudra — menyerap perasaan orang di sekitarnya, mendengarkan dengan saksama, dan menawarkan ketenangan tanpa banyak kata. Keramahan sangat tinggi membuatnya dermawan tanpa syarat: ia akan mengorbankan keinginannya demi orang lain tanpa berpikir dua kali.
+
+Ekstraversi sangat rendah bukan berarti ia tertekan — ia justru bersinar dalam keheningan, energinya terisi di ruang hening, bukan di keramaian. Sensitivitas Emosi yang rendah adalah jangkar stabilnya: ia tidak mudah goyah, tidak mudah marah, dan tetap tenang saat orang lain panik.
+
+Dengan Keterbukaan sedang ({{oceanO}}/10, {{statusO}}) dan Ketelitian sedang ({{oceanC}}/10, {{statusC}}), {{childName}} mampu menyesuaikan diri dan fokus pada hal yang penting baginya, namun memiliki bayangan yang halus — karena terlalu peduli dan terlalu tertutup, ia sering menyimpan kebutuhan dirinya sendiri, mengorbankan keinginan pribadi demi keridhaan orang lain, dan jarang mengungkapkan apa yang sebenarnya ia mau.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +37,11 @@ Skor OCEAN {{childName}} mengungkapkan profil yang lembut dan mendalam: kombinas
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah merasa bingung melihat {{childName}} begitu tenang dan berkorban untuk orang lain, padahal jarang sekali ia mengungkapkan apa yang ia butuhkan. Mungkin ada kerabat atau guru yang menyebutnya "terlalu pasif", "tidak mau apa-apa", atau "tidak punya pendapat" — dan Ayah Bunda diam-diam bertanya-tanya apakah ia menyimpan sesuatu di dalam. Tenang — keheningan dan kepasrahannya itu bukan kelemahan, melainkan cara hatinya yang paling dalam. Di balik ketenangannya, sedang bekerja hati yang luar biasa peduli — ia menyerap perasaan orang di sekitarnya seperti samudra menyerap sungai. Tugas Ayah Bunda bukan menjadikannya lebih tegas atau lebih banyak berbicara, melainkan MENANYAKAN kebutuhannya secara langsung, karena ia tidak akan mengungkapkan sendiri. Jangan tafsirkan ke diamannya sebagai ketiadaan kebutuhan — justru di dalamnya banyak yang ia simpan. Hormati kestabilannya, tapi jangan biarkan ia mengorbankan diri terus-menerus. Anak ini tidak butuh diubah; ia butuh diajak mengungkapkan.
+{{parentName}}, mungkin Ayah Bunda pernah merasa bingung melihat {{childName}} begitu tenang dan berkorban untuk orang lain, padahal jarang sekali ia mengungkapkan apa yang ia butuhkan. Mungkin ada kerabat atau guru yang menyebutnya "terlalu pasif", "tidak mau apa-apa", atau "tidak punya pendapat" — dan Ayah Bunda diam-diam bertanya-tanya apakah ia menyimpan sesuatu di dalam.
+
+Tenang — keheningan dan kepasrahannya itu bukan kelemahan, melainkan cara hatinya yang paling dalam. Di balik ketenangannya, sedang bekerja hati yang luar biasa peduli — ia menyerap perasaan orang di sekitarnya seperti samudra menyerap sungai. Tugas Ayah Bunda bukan menjadikannya lebih tegas atau lebih banyak berbicara, melainkan MENANYAKAN kebutuhannya secara langsung, karena ia tidak akan mengungkapkan sendiri.
+
+Jangan tafsirkan ke diamannya sebagai ketiadaan kebutuhan — justru di dalamnya banyak yang ia simpan. Hormati kestabilannya, tapi jangan biarkan ia mengorbankan diri terus-menerus. Anak ini tidak butuh diubah; ia butuh diajak mengungkapkan.
 
 ---
 
@@ -110,7 +120,11 @@ Setelah emosinya turun, ajak ia melakukan aktivitas kecil bersama yang tenang da
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, teguran keras bukan sekadar tidak nyaman — ia akan menelaninya sebagai tanda bahwa ia telah gagal menjadi anak yang "baik", dan beban itu bisa berlama-lama ia simpan. Karena itu, disiplin untuknya harus dilakukan dengan suara serendah mungkin, bukan setinggi mungkin. Namun yang lebih penting bagi {{childName}}: disiplin harus mengajarkan HAK DIRI — bahwa ia berhak menolak, berhak punya kebutuhan, dan berhak tidak selalu mengorbankan diri. Selama ini ia terlalu sering menyerah demi menyenangkan orang lain; tugas Ayah Bunda justru mengajarkan bahwa menolak dengan sopan adalah bentuk kebaikan kepada diri sendiri. Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" dengan tenang, memberi waktu memproses, dan mengaitkan konsekuensi dengan logika yang bisa ia pahami — sembari mengajarkan bahwa kestabilannya adalah kekuatan yang layak dihargai, bukan alasan untuk selalu mengalah.
+Bagi {{childName}}, teguran keras bukan sekadar tidak nyaman — ia akan menelaninya sebagai tanda bahwa ia telah gagal menjadi anak yang "baik", dan beban itu bisa berlama-lama ia simpan. Karena itu, disiplin untuknya harus dilakukan dengan suara serendah mungkin, bukan setinggi mungkin.
+
+Namun yang lebih penting bagi {{childName}}: disiplin harus mengajarkan HAK DIRI — bahwa ia berhak menolak, berhak punya kebutuhan, dan berhak tidak selalu mengorbankan diri. Selama ini ia terlalu sering menyerah demi menyenangkan orang lain; tugas Ayah Bunda justru mengajarkan bahwa menolak dengan sopan adalah bentuk kebaikan kepada diri sendiri.
+
+Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" dengan tenang, memberi waktu memproses, dan mengaitkan konsekuensi dengan logika yang bisa ia pahami — sembari mengajarkan bahwa kestabilannya adalah kekuatan yang layak dihargai, bukan alasan untuk selalu mengalah.
 
 ---
 
@@ -155,7 +169,11 @@ Bagi {{childName}}, teguran keras bukan sekadar tidak nyaman — ia akan menelan
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} bukan anak yang mengambil inisiatif sosial — ia jarang menyapa duluan, jarang mengajak main, dan sering menunggu orang lain mendekat. Namun di balik kepasifannya, ia memiliki kesetiaan yang luar biasa. Energinya habis cepat di keramaian, namun melimpah dalam kelompok kecil yang ia rasa aman. Saat masuk ruangan baru, ia butuh waktu "pemanasan" yang lebih lama dari anak lain — mengamati dari pinggir, memetakan siapa yang bisa dipercaya, baru perlahan masuk. Jangan ditafsirkan sebagai ketakutan; ini cara ia menjaga keseimbangan. Peran sosial {{childName}} yang paling alami adalah pendukung dan mediator — ia mendengarkan dengan saksama, menenangkan saat ada konflik, dan menjadi tempat berteduh emosional bagi teman-temannya. Ia mungkin bukan anak yang paling ramai di kelompok, tapi ia yang paling dicari saat ada yang sedih. Pertemanan {{childName}} berkualitas tinggi: ia mengingat detail kecil tentang sahabatnya, setia, dan jarang mengkhianati kepercayaan.
+{{childName}} bukan anak yang mengambil inisiatif sosial — ia jarang menyapa duluan, jarang mengajak main, dan sering menunggu orang lain mendekat. Namun di balik kepasifannya, ia memiliki kesetiaan yang luar biasa. Energinya habis cepat di keramaian, namun melimpah dalam kelompok kecil yang ia rasa aman.
+
+Saat masuk ruangan baru, ia butuh waktu "pemanasan" yang lebih lama dari anak lain — mengamati dari pinggir, memetakan siapa yang bisa dipercaya, baru perlahan masuk. Jangan ditafsirkan sebagai ketakutan; ini cara ia menjaga keseimbangan. Peran sosial {{childName}} yang paling alami adalah pendukung dan mediator — ia mendengarkan dengan saksama, menenangkan saat ada konflik, dan menjadi tempat berteduh emosional bagi teman-temannya.
+
+Ia mungkin bukan anak yang paling ramai di kelompok, tapi ia yang paling dicari saat ada yang sedih. Pertemanan {{childName}} berkualitas tinggi: ia mengingat detail kecil tentang sahabatnya, setia, dan jarang mengkhianati kepercayaan.
 
 ---
 

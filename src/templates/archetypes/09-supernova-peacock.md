@@ -3,7 +3,13 @@
 
 ## Ringkasan Asesmen Karakter OCEAN
 
-Skor OCEAN {{childName}} mengungkapkan profil yang bercahaya dan berdenyut warna: kombinasi Keterbukaan sangat tinggi ({{oceanO}}/10, {{statusO}}) dan Ekstraversi tinggi ({{oceanE}}/10, {{statusE}}), berpadu dengan Ketelitian sangat rendah ({{oceanC}}/10, {{statusC}}). Artinya, {{childName}} bertemu dunia dengan seluruh tubuhnya yang bercahaya — bukan dengan diam mengamati, melainkan dengan menari ke tengah panggung dan tersenyum lebar. Keterbukaan sangat tinggi membuatnya melihat dunia sebagai kanvas: setiap warna, setiap nada, setiap gerak adalah peluang untuk menciptakan sesuatu yang indah dan belum pernah ada. Ekstraversi tinggi membuatnya memancarkan karisma yang menular — ia mengisi ruangan dengan tawa, ide, dan keberanian tampil yang sulit diabaikan. Namun Ketelitian yang sangat rendah menjadi bayangan dari cahaya ini: ia mudah terdistraksi, melompati proyek tanpa menuntaskan satu pun, dan sering lupa jadwal di tengah euforia kreasi. Dengan Keramahan sedang ({{oceanA}}/10, {{statusA}}) dan Sensitivitas Emosi tinggi ({{oceanN}}/10, {{statusN}}), {{childName}} bersinar terang saat dipuji, namun motivasinya bisa meredup drastis saat karyanya tak diapresiasi — emosinya naik turun mengikuti aliran tepuk tangan dari dunia di sekitarnya.
+Skor OCEAN {{childName}} mengungkapkan profil yang bercahaya dan berdenyut warna: kombinasi Keterbukaan sangat tinggi ({{oceanO}}/10, {{statusO}}) dan Ekstraversi tinggi ({{oceanE}}/10, {{statusE}}), berpadu dengan Ketelitian sangat rendah ({{oceanC}}/10, {{statusC}}). Artinya, {{childName}} bertemu dunia dengan seluruh tubuhnya yang bercahaya — bukan dengan diam mengamati, melainkan dengan menari ke tengah panggung dan tersenyum lebar.
+
+Keterbukaan sangat tinggi membuatnya melihat dunia sebagai kanvas: setiap warna, setiap nada, setiap gerak adalah peluang untuk menciptakan sesuatu yang indah dan belum pernah ada. Ekstraversi tinggi membuatnya memancarkan karisma yang menular — ia mengisi ruangan dengan tawa, ide, dan keberanian tampil yang sulit diabaikan.
+
+Namun Ketelitian yang sangat rendah menjadi bayangan dari cahaya ini: ia mudah terdistraksi, melompati proyek tanpa menuntaskan satu pun, dan sering lupa jadwal di tengah euforia kreasi.
+
+Dengan Keramahan sedang ({{oceanA}}/10, {{statusA}}) dan Sensitivitas Emosi tinggi ({{oceanN}}/10, {{statusN}}), {{childName}} bersinar terang saat dipuji, namun motivasinya bisa meredup drastis saat karyanya tak diapresiasi — emosinya naik turun mengikuti aliran tepuk tangan dari dunia di sekitarnya.
 
 - **Keterbukaan (Openness):** **{{oceanO}}/10** ({{statusO}})
 - **Ketelitian (Conscientiousness):** **{{oceanC}}/10** ({{statusC}})
@@ -31,7 +37,11 @@ Skor OCEAN {{childName}} mengungkapkan profil yang bercahaya dan berdenyut warna
 
 ## Sepatah Kata untuk {{parentName}}
 
-{{parentName}}, mungkin Ayah Bunda pernah merasa lelah mengikuti jejak krayon yang berserakan, kertas lukisan yang menumpuk di setiap sudut, atau jadwal yang seolah tak pernah diingat {{childName}}. Mungkin ada kerabat atau guru yang menyebutnya "berantakan", "tidak fokus", atau "drama" — dan diam-diam Ayah Bunda bertanya apakah ledakan emosinya itu tulus. Tenang — warna-warni yang memancar dari {{childName}} bukan kekacauan, melainkan keindahan yang sedang belajar menemukan bentuknya. Di balik kamar berantakan dan suasana hati yang naik turun, sedang bekerja jiwa seniman yang haus akan apresiasi dan ekspresi. Tugas Ayah Bunda bukan mematikan warnanya atau memaksanya masuk kotak rutinitas kaku, melainkan memberinya panggung yang layak sambil pelan-pelan membantunya menemukan ritme. Jangan terjebak mengkritik berantakannya — puji dulu karyanya. Beri pujian yang tulus dan spesifik, lalu arahkan dengan lembut. Anak ini tidak butuh diredam; ia butuh dilihat, diapresiasi, dan dituntun agar cahayanya bersinar tanpa membutakan dirinya sendiri.
+{{parentName}}, mungkin Ayah Bunda pernah merasa lelah mengikuti jejak krayon yang berserakan, kertas lukisan yang menumpuk di setiap sudut, atau jadwal yang seolah tak pernah diingat {{childName}}. Mungkin ada kerabat atau guru yang menyebutnya "berantakan", "tidak fokus", atau "drama" — dan diam-diam Ayah Bunda bertanya apakah ledakan emosinya itu tulus.
+
+Tenang — warna-warni yang memancar dari {{childName}} bukan kekacauan, melainkan keindahan yang sedang belajar menemukan bentuknya. Di balik kamar berantakan dan suasana hati yang naik turun, sedang bekerja jiwa seniman yang haus akan apresiasi dan ekspresi. Tugas Ayah Bunda bukan mematikan warnanya atau memaksanya masuk kotak rutinitas kaku, melainkan memberinya panggung yang layak sambil pelan-pelan membantunya menemukan ritme.
+
+Jangan terjebak mengkritik berantakannya — puji dulu karyanya. Beri pujian yang tulus dan spesifik, lalu arahkan dengan lembut. Anak ini tidak butuh diredam; ia butuh dilihat, diapresiasi, dan dituntun agar cahayanya bersinar tanpa membutakan dirinya sendiri.
 
 ---
 
@@ -110,7 +120,11 @@ Setelah cahayanya kembali, ajak ia bercerita tentang apa yang ia rasakan: "Tadi 
 
 ## Filosofi Disiplin Tanpa Kekerasan
 
-Bagi {{childName}}, disiplin yang berbentuk aturan kaku dan rutinitas terjadwal ketat bukan sekadar tidak efektif — ia terasa seperti sangkar yang mematikan warnanya. Semakin kaku formatnya, semakin besar penolakan yang ia tunjukkan, walau hanya dalam bentuk "lupa" atau "tidak fokus". Karena itu, disiplin untuknya harus berbentuk STRUKTUR KREATIF — bukan kaku, namun tetap punya kerangka. Jadwalkan aktivitas berkreasi dalam blok waktu yang jelas tapi fleksibel, bantu keteraturan dengan alat bantu visual (papan warna, daftar bergambar, alarm musik), dan beri pujian tulus setiap kali ia berhasil mengikuti kerangka itu. Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" lewat narasi kreatif, bukan perintah datar. Ia bukan anak yang membangkang — ia anak yang butuh memahami alasan lewat cerita, dan butuh merasa dilihat agar motivasinya tetap menyala. Begitu ia mengerti dan merasa dihargai, ia akan menaatinya dengan semangat, bukan kepasrahan.
+Bagi {{childName}}, disiplin yang berbentuk aturan kaku dan rutinitas terjadwal ketat bukan sekadar tidak efektif — ia terasa seperti sangkar yang mematikan warnanya. Semakin kaku formatnya, semakin besar penolakan yang ia tunjukkan, walau hanya dalam bentuk "lupa" atau "tidak fokus". Karena itu, disiplin untuknya harus berbentuk STRUKTUR KREATIF — bukan kaku, namun tetap punya kerangka.
+
+Jadwalkan aktivitas berkreasi dalam blok waktu yang jelas tapi fleksibel, bantu keteraturan dengan alat bantu visual (papan warna, daftar bergambar, alarm musik), dan beri pujian tulus setiap kali ia berhasil mengikuti kerangka itu. Disiplin yang efektif bagi {{childName}} menjelaskan "mengapa" lewat narasi kreatif, bukan perintah datar.
+
+Ia bukan anak yang membangkang — ia anak yang butuh memahami alasan lewat cerita, dan butuh merasa dilihat agar motivasinya tetap menyala. Begitu ia mengerti dan merasa dihargai, ia akan menaatinya dengan semangat, bukan kepasrahan.
 
 ---
 
@@ -154,7 +168,11 @@ Pujian luar memang menyala baginya, tapi jangan biarkan ia hanya bersinar saat a
 
 ## Karakter Sosial {{childName}}
 
-{{childName}} adalah bintang panggung yang alami. Ia masuk ruangan seperti sorot lampu menyala — hangat, terang, dan membuat semua orang menoleh. Berteman baginya semudah menari: senyum lebar, gaya yang karismatik, dan keberanian tampil yang membuat anak lain terpikat. Ia sering menjadi pusat permainan tanpa harus berusaha — energi entertainer-nya menular, dan ia tahu cara membuat suasana hidup. Pertemanannya luas karena karismanya menarik banyak orang dari berbagai sudut. Namun bayangannya: karena ia begitu nyaman di tengah panggung, ia cenderung mendominasi percakapan, terus tampil tanpa memberi giliran, atau berpindah ke "panggung" baru sebelum teman selesai bicara. Ia bukan tidak peduli — ia hanya belum belajar bahwa panggung yang paling indah adalah yang dibagi. Di sinilah ia butuh dampingan: belajar bahwa pertemanan yang sehat bukan hanya tentang bersinar sendiri, tapi juga tentang menjadi penonton yang antusias untuk teman. Saat ia menguasai keterampilan berbagi panggung ini, karismanya akan berubah dari menarik perhatian menjadi mengangkat semua orang di sekitarnya.
+{{childName}} adalah bintang panggung yang alami. Ia masuk ruangan seperti sorot lampu menyala — hangat, terang, dan membuat semua orang menoleh. Berteman baginya semudah menari: senyum lebar, gaya yang karismatik, dan keberanian tampil yang membuat anak lain terpikat. Ia sering menjadi pusat permainan tanpa harus berusaha — energi entertainer-nya menular, dan ia tahu cara membuat suasana hidup.
+
+Pertemanannya luas karena karismanya menarik banyak orang dari berbagai sudut. Namun bayangannya: karena ia begitu nyaman di tengah panggung, ia cenderung mendominasi percakapan, terus tampil tanpa memberi giliran, atau berpindah ke "panggung" baru sebelum teman selesai bicara. Ia bukan tidak peduli — ia hanya belum belajar bahwa panggung yang paling indah adalah yang dibagi.
+
+Di sinilah ia butuh dampingan: belajar bahwa pertemanan yang sehat bukan hanya tentang bersinar sendiri, tapi juga tentang menjadi penonton yang antusias untuk teman. Saat ia menguasai keterampilan berbagi panggung ini, karismanya akan berubah dari menarik perhatian menjadi mengangkat semua orang di sekitarnya.
 
 ---
 
