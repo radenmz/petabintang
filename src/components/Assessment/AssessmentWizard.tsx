@@ -1,9 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChildProfile, OceanScores, MIScores } from '../../types';
 import { OCEAN_QUESTIONS, MI_QUESTIONS } from '../../data/questions';
 import { matchArchetype } from '../../data/archetypes';
-import { ArrowRight, ArrowLeft, Clock } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Clock, RotateCcw } from 'lucide-react';
 import { Button } from '../ui/Button';
+import {
+  loadQuizProgress,
+  saveQuizProgress,
+  clearQuizProgress,
+  hasMeaningfulProgress,
+  type QuizProgress
+} from '../../lib/quizStorage';
 
 interface AssessmentWizardProps {
   currentProfile: ChildProfile | null;
@@ -112,6 +119,50 @@ export const AssessmentWizard: React.FC<AssessmentWizardProps> = ({
 
   // Answers state (1-5 per question id) — empty until user explicitly answers
   const [answers, setAnswers] = useState<Record<number, number>>({});
+
+  // Task 1: recover an interrupted quiz draft. Read once on mount; the banner
+  // stays until the parent either resumes or discards it.
+  const [resumeDraft, setResumeDraft] = useState<QuizProgress | null>(null);
+  const [showResumePrompt, setShowResumePrompt] = useState(false);
+  const [autoSaveReady, setAutoSaveReady] = useState(false);
+
+  useEffect(() => {
+    const saved = loadQuizProgress();
+    if (hasMeaningfulProgress(saved)) {
+      setResumeDraft(saved);
+      setShowResumePrompt(true);
+    }
+    setAutoSaveReady(true);
+  }, []);
+
+  const applyResumeDraft = (draft: QuizProgress) => {
+    setName(draft.name);
+    setAge(draft.age);
+    setGender(draft.gender);
+    setParentName(draft.parentName);
+    setAnswers(draft.answers);
+    setCurrentQuestionIndex(
+      Math.min(Math.max(0, draft.currentQuestionIndex), allQuestions.length - 1)
+    );
+    setShowResumePrompt(false);
+    setResumeDraft(null);
+  };
+
+  const discardResumeDraft = () => {
+    clearQuizProgress();
+    setShowResumePrompt(false);
+    setResumeDraft(null);
+  };
+
+  // Task 1: auto-save the draft whenever meaningful input changes. Gated on
+  // `autoSaveReady` so we never overwrite an on-disk draft with the empty
+  // initial state before the resume prompt has had a chance to show.
+  useEffect(() => {
+    if (!autoSaveReady || showResumePrompt) return;
+    const hasInput = name.trim().length > 0 || Object.keys(answers).length > 0;
+    if (!hasInput) return;
+    saveQuizProgress({ name, age, gender, parentName, answers, currentQuestionIndex });
+  }, [autoSaveReady, showResumePrompt, name, age, gender, parentName, answers, currentQuestionIndex]);
 
   const [oceanScores, setOceanScores] = useState<OceanScores>(currentProfile?.oceanScores ?? DEFAULT_OCEAN);
   const [miScores, setMiScores] = useState<MIScores>(currentProfile?.miScores ?? DEFAULT_MI);
@@ -256,6 +307,41 @@ export const AssessmentWizard: React.FC<AssessmentWizardProps> = ({
 
   return (
     <div className="shell shell--narrow py-8 md:py-12 space-y-6">
+      {/* Task 1: interrupted-quiz resume banner */}
+      {showResumePrompt && resumeDraft && activeSubTab === 'info' && (
+        <div className="flex flex-col gap-3 border border-primary bg-primary-container px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <RotateCcw className="mt-0.5 h-5 w-5 shrink-0 text-on-primary-container" />
+            <div>
+              <p className="font-semibold text-on-primary-container">
+                Lanjutkan kuis sebelumnya?
+              </p>
+              <p className="text-sm text-on-primary-container/80">
+                Kami menyimpan draf untuk{' '}
+                <span className="font-semibold">{resumeDraft.name || 'ananda'}</span> —{' '}
+                {Object.keys(resumeDraft.answers).length} dari {allQuestions.length} pertanyaan
+                sudah terjawab.
+              </p>
+            </div>
+          </div>
+          <div className="flex shrink-0 gap-2">
+            <Button variant="ghost" size="md" onClick={discardResumeDraft}>
+              Mulai baru
+            </Button>
+            <Button
+              variant="primary"
+              size="md"
+              onClick={() => {
+                applyResumeDraft(resumeDraft);
+                onStartQuiz();
+              }}
+            >
+              Lanjutkan
+            </Button>
+          </div>
+        </div>
+      )}
+
       {/* Top Welcome Bar — hanya tampil di awal (form info & intro kuis), hilang saat sesi soal/milestone */}
       {quizPhase === 'intro' && (
       <div className="rounded-lg border border-ink bg-ink px-6 py-7 text-paper relative overflow-hidden">

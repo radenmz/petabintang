@@ -13,16 +13,18 @@
 
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from 'fs';
+import crypto from 'crypto';import { fileURLToPath } from 'url';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import type { Page } from 'puppeteer';
 import { nanoid } from 'nanoid';
 // Load .env FIRST (before modules that read process.env at import time).
-import { PORT, IS_PRODUCTION, maskToken } from './src/lib/env';
+import { PORT, IS_PRODUCTION, maskToken, PUBLIC_BASE_URL, ADMIN_SECRET } from './src/lib/env';
 import { supabase, SUPABASE_TABLE } from './src/lib/supabaseServer';
 import type { CompleteEbook, ChildProfile } from './src/types';
 import { SAMPLE_PROFILES } from './src/data/questions';
+import { getArchetypeById } from './src/data/archetypes';
 import { renderEbookToHtml, generateEbook } from './generate-html-preview';
 import {
   createSnapTransaction,
@@ -30,14 +32,25 @@ import {
   isPaidStatus,
   isMidtransConfigured
 } from './src/lib/midtrans';
-import { sendEbookAccessEmail, isValidEmail } from './src/lib/email';
+import { sendEbookAccessEmail, isValidEmail, isEmailConfigured } from './src/lib/email';
 import { PRODUCT_BASE_PRICE } from './src/lib/config';
 import { getBrowser, closeBrowser, isBrowserLaunched, isBrowserConnected } from './src/server/puppeteerPool';
-import { isValidPersonName } from './src/server/validation';
+import { isValidPersonName, isValidWhatsapp, normalizeWhatsapp } from './src/server/validation';
 import { applyPreviewMask } from './src/server/ebookPreview';
+import { ADMIN_WA_FOLLOWUP_HTML } from './src/server/adminWaFollowup';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+/**
+ * Build an absolute URL to the reader for a given access token. Prefers the
+ * explicit PUBLIC_BASE_URL (immune to reverse-proxy header mishaps); otherwise
+ * falls back to the request's own protocol/host.
+ */
+function buildAccessUrl(req: express.Request, token: string): string {
+  const base = PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
+  return `${base}/?token=${token}`;
+}
 
 const app = express();
 
@@ -108,9 +121,25 @@ const apiLimiter = rateLimit({
 // so it can be fairly large. Allow up to 50mb.
 app.use(express.json({ limit: '50mb' }));
 
-// Serve mascot images statically so Puppeteer can fetch them via URL,
-// avoiding massive base64 payloads that cause OOM crashes.
-app.use('/mascots', express.static(path.join(__dirname, 'src', 'assets', 'mascots')));
+// Serve mascot images statically so Puppeteer can fetch them via URL (legacy
+// fallback — the ebook HTML now inlines the 4 matched poses as base64, but
+// older orders / fallback paths may still reference /mascots/...).
+// NOTE: `__dirname` differs by run mode — dev (tsx server.ts): project root;
+// production (node dist/server.mjs): dist/. Search upward for the folder that
+// actually exists instead of assuming the CWD-relative location.
+function resolveMascotsDir(startDir: string): string {
+  let dir = startDir;
+  for (let i = 0; i < 6; i++) {
+    const candidate = path.join(dir, 'src', 'assets', 'mascots');
+    if (fs.existsSync(candidate)) return candidate;
+    const parent = path.dirname(dir);
+    if (parent === dir) break;
+    dir = parent;
+  }
+  console.warn(`[server] WARNING: src/assets/mascots not found searching up from ${startDir} — /mascots will 404.`);
+  return path.join(startDir, 'src', 'assets', 'mascots');
+}
+app.use('/mascots', express.static(resolveMascotsDir(__dirname)));
 
 // ---------------------------------------------------------------------------
 // Voucher resolution (Track A4)
@@ -275,7 +304,22 @@ app.post('/api/generate-pdf', pdfLimiter, async (req, res) => {
         });
       }));
     });
-    console.log('[PDF] Step 5 done: images loaded');
+    // Observability: a broken <img> also reports `complete === true`, so the
+    // wait above CANNOT distinguish success from failure on its own. Inspect
+    // naturalWidth and log loudly — a mascot-free PDF must never ship silently
+    // again (the onerror="display:none" guard hides broken images visually).
+    const imgStats = await page.evaluate(() => {
+      const imgs = Array.from(document.querySelectorAll('img'));
+      const failed = imgs
+        .filter((img: any) => !img.naturalWidth || img.naturalWidth === 0)
+        .map((img: any) => (img.currentSrc || img.src || '').slice(0, 120));
+      return { total: imgs.length, failed };
+    });
+    if (imgStats.failed.length > 0) {
+      console.warn(`[PDF] WARNING: ${imgStats.failed.length}/${imgStats.total} images FAILED to load:`, imgStats.failed);
+    } else {
+      console.log(`[PDF] Step 5 done: images OK (${imgStats.total}/${imgStats.total})`);
+    }
 
     // 5b. Wait for webfonts (Nunito + Plus Jakarta Sans) so the PDF does not
     // snapshot with fallback fonts. Explicitly trigger each weight used, then
@@ -364,12 +408,47 @@ app.get('/api/dev/sample-ebook', (req, res) => {
 });
 
 // ---------------------------------------------------------------------------
+// Dev-only email test (preview tooling)
+// ---------------------------------------------------------------------------
+// Fires the SAME sendEbookAccessEmail() used by the paid webhook so email can
+// be verified without a real payment. Disabled in production.
+//   GET /api/dev/test-email?to=you@example.com&name=Budi
+// NOTE: with EMAIL_FROM=onboarding@resend.dev, Resend only allows sending to
+// the account owner's own address (returns 403 otherwise) — the error is
+// surfaced verbatim here so the cause is obvious.
+app.get('/api/dev/test-email', async (req, res) => {
+  if (IS_PRODUCTION) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  const to = String(req.query.to ?? '').trim();
+  const childName = String(req.query.name ?? 'Budi').trim() || 'Budi';
+  if (!isValidEmail(to)) {
+    return res.status(400).json({ error: 'Parameter `to` harus alamat email yang valid.' });
+  }
+  if (!isEmailConfigured()) {
+    return res.status(503).json({ error: 'RESEND_API_KEY tidak diisi di .env' });
+  }
+  const accessUrl = buildAccessUrl(req, 'DEV_TEST_TOKEN_123456789');
+  try {
+    await sendEbookAccessEmail({ to, childName, accessUrl });
+    res.json({ ok: true, sentTo: to, from: process.env.EMAIL_FROM || '(default)' });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('[API] /api/dev/test-email failed:', message);
+    res.status(500).json({ ok: false, error: message });
+  }
+});
+
+// ---------------------------------------------------------------------------
 // Quiz Submission — save profile + ebook to DB, return access token
 // ---------------------------------------------------------------------------
 
 app.post('/api/quiz/submit', apiLimiter, async (req, res) => {
   try {
-    const { childProfile } = req.body as { childProfile: ChildProfile };
+    const { childProfile, whatsappNumber } = req.body as {
+      childProfile: ChildProfile;
+      whatsappNumber?: string;
+    };
 
     if (!childProfile) {
       return res.status(400).json({ error: 'Invalid payload: childProfile required' });
@@ -384,6 +463,13 @@ app.post('/api/quiz/submit', apiLimiter, async (req, res) => {
     // C-02: the ebook is generated SERVER-SIDE from the (validated) profile.
     // The client no longer ships the paid templates, so any ebook body it
     // sends is ignored — the server is the single source of truth.
+    // WA lead capture is optional; validate it BEFORE the expensive generation
+    // so malformed input is rejected cheaply.
+    const normalizedWa = whatsappNumber ? normalizeWhatsapp(whatsappNumber) : null;
+    if (whatsappNumber && !normalizedWa) {
+      return res.status(400).json({ error: 'Nomor WhatsApp tidak valid.' });
+    }
+
     const ebook = generateEbook(childProfile);
 
     // Generate URL-safe token (21 chars, unguessable)
@@ -395,6 +481,7 @@ app.post('/api/quiz/submit', apiLimiter, async (req, res) => {
       child_profile: childProfile,
       ebook_json: ebook,
       archetype_id: childProfile.archetypeId,
+      whatsapp_number: normalizedWa,
       payment_status: 'pending',
       payment_amount: PRODUCT_BASE_PRICE,
       created_at: new Date().toISOString()
@@ -411,6 +498,77 @@ app.post('/api/quiz/submit', apiLimiter, async (req, res) => {
     console.error('[API] /api/quiz/submit failed:', error);
     const message = error instanceof Error ? error.message : String(error);
     res.status(500).json({ error: 'Gagal mengirim kuis.' });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Order contact — capture email / WhatsApp for an existing (pending) order
+// ---------------------------------------------------------------------------
+// Called from the result/sales page so a parent who has NOT yet reached the
+// payment popup still leaves a reachable contact. That is the prerequisite for
+// the admin WA follow-up. Gated by the same capability token that unlocks the
+// order, so only the order owner can attach a contact. Once paid, contacts are
+// frozen (the paid email flow must not be redirected).
+
+app.post('/api/order/contact', apiLimiter, async (req, res) => {
+  try {
+    const { token, email, whatsappNumber } = req.body as {
+      token?: string;
+      email?: string;
+      whatsappNumber?: string;
+    };
+
+    if (!token || token.length < 10) {
+      return res.status(400).json({ error: 'Token required' });
+    }
+
+    const normalizedEmail = (email || '').trim();
+    if (normalizedEmail && !isValidEmail(normalizedEmail)) {
+      return res.status(400).json({ error: 'Format email tidak valid.' });
+    }
+
+    const normalizedWa = whatsappNumber ? normalizeWhatsapp(whatsappNumber) : null;
+    if (whatsappNumber && !normalizedWa) {
+      return res.status(400).json({ error: 'Nomor WhatsApp tidak valid.' });
+    }
+
+    const { data, error } = await supabase
+      .from(SUPABASE_TABLE)
+      .select('payment_status')
+      .eq('token', token)
+      .single();
+
+    if (error || !data) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+    if (data.payment_status === 'paid') {
+      // Contact already settled for a paid order — nothing to lead-capture.
+      return res.status(409).json({ error: 'Order already paid' });
+    }
+
+    const updateFields: Record<string, unknown> = {};
+    if (normalizedEmail) updateFields.email = normalizedEmail;
+    if (normalizedWa) updateFields.whatsapp_number = normalizedWa;
+
+    if (Object.keys(updateFields).length === 0) {
+      return res.status(400).json({ error: 'Tidak ada kontak yang dikirim.' });
+    }
+
+    const { error: updErr } = await supabase
+      .from(SUPABASE_TABLE)
+      .update(updateFields)
+      .eq('token', token);
+
+    if (updErr) {
+      console.error('[DB] order/contact update failed:', updErr.message);
+      return res.status(500).json({ error: 'Gagal menyimpan kontak.' });
+    }
+
+    console.log(`[DB] Contact saved for token=${maskToken(token)} (wa: ${normalizedWa ? 'yes' : 'no'})`);
+    res.json({ ok: true, whatsappNumber: normalizedWa || undefined, email: normalizedEmail || undefined });
+  } catch (error) {
+    console.error('[API] /api/order/contact failed:', error);
+    res.status(500).json({ error: 'Gagal menyimpan kontak.' });
   }
 });
 
@@ -728,7 +886,7 @@ app.post('/api/webhook/midtrans', async (req, res) => {
         // webhook (Midtrans would retry, but the order is already paid). Log
         // and move on so we always return 200.
         if (data.email) {
-          const accessUrl = `${req.protocol}://${req.get('host')}/?token=${data.token}`;
+          const accessUrl = buildAccessUrl(req, data.token);
           sendEbookAccessEmail({
             to: data.email,
             childName: data.child_name,
@@ -755,6 +913,212 @@ app.post('/api/webhook/midtrans', async (req, res) => {
 });
 
 // ---------------------------------------------------------------------------
+// Resend access email (buyer-initiated recovery)
+// ---------------------------------------------------------------------------
+// Lets a paid buyer re-request the access link if the original post-payment
+// email was lost (spam filter, typo'd inbox, provider hiccup). Gated behind the
+// paid access token — the same unguessable capability that unlocks the ebook —
+// so it can only ever email the address already stored on that order, never an
+// arbitrary recipient.
+
+app.post('/api/resend-access', apiLimiter, async (req, res) => {
+  try {
+    const { token } = req.body as { token?: string };
+    if (!token || token.length < 10) {
+      return res.status(400).json({ error: 'Token required' });
+    }
+
+    const { data, error } = await supabase
+      .from(SUPABASE_TABLE)
+      .select('token, child_name, email, payment_status')
+      .eq('token', token)
+      .single();
+
+    if (error || !data) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+    if (data.payment_status !== 'paid') {
+      return res.status(403).json({ error: 'Pembayaran belum terkonfirmasi.' });
+    }
+    if (!data.email) {
+      return res.status(409).json({
+        error: 'Tidak ada email tersimpan untuk pesanan ini. Hubungi WhatsApp kami untuk bantuan.'
+      });
+    }
+    if (!isEmailConfigured()) {
+      return res.status(503).json({ error: 'Layanan email sedang tidak tersedia. Coba lagi nanti.' });
+    }
+
+    const accessUrl = buildAccessUrl(req, data.token);
+    await sendEbookAccessEmail({
+      to: data.email,
+      childName: data.child_name,
+      accessUrl
+    });
+
+    // Mask the address in logs (M-03 style) — the capability token is the only
+    // secret we never write in full; the email still identifies a person.
+    const masked = data.email.replace(/^(.).*(@.*)$/, '$1***$2');
+    console.log(`[Email] Access link re-sent for token=${maskToken(data.token)} to ${masked}`);
+
+    res.json({ ok: true, sentTo: data.email });
+  } catch (error) {
+    console.error('[API] /api/resend-access failed:', error);
+    const message = error instanceof Error ? error.message : String(error);
+    res.status(500).json({ error: 'Gagal mengirim ulang tautan email.', details: message });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Admin WA follow-up (semi-automatic — Opsi C)
+// ---------------------------------------------------------------------------
+// After 1x24h a pending buyer usually needs a nudge, but WA is only truly read
+// when sent from a real device. Rather than an unofficial bot (ban risk), these
+// endpoints feed an operator dashboard a list of overdue pending orders and a
+// ready-to-click `wa.me` deep link with a personalized message. The operator
+// sends from their own WhatsApp, then marks the row sent. Protected by a shared
+// ADMIN_SECRET (fail-closed when unset) so the lead list is never public.
+
+/** Constant-time comparison of the admin secret header (avoids timing leaks). */
+function isAdminAuthorized(req: express.Request): boolean {
+  if (!ADMIN_SECRET) return false;
+  const provided = String(req.get('x-admin-secret') || '');
+  const a = Buffer.from(provided);
+  const b = Buffer.from(ADMIN_SECRET);
+  if (a.length !== b.length) return false;
+  try {
+    return crypto.timingSafeEqual(a, b);
+  } catch {
+    return false;
+  }
+}
+
+/** Public resume/access URL for an order token (operator copy/reminder link). */
+function buildAccessUrlForToken(token: string): string {
+  return PUBLIC_BASE_URL ? `${PUBLIC_BASE_URL}/?token=${token}` : `/?token=${token}`;
+}
+
+/** Build the personalized wa.me deep link for an overdue pending order. */
+function buildWaReminderLink(row: {
+  child_name: string;
+  archetype_id: string;
+  token: string;
+  whatsapp_number: string | null;
+}): string {
+  const archetype = getArchetypeById(row.archetype_id);
+  const accessUrl = buildAccessUrlForToken(row.token);
+  const message =
+    `Halo Ayah/Bunda, salam dari Peta Bintang Anakku 🌟\n\n` +
+    `Laporan e-book untuk ${row.child_name} (${archetype.title}) sudah selesai disiapkan. ` +
+    `Apakah ada kendala saat menyelesaikan pembayaran?\n\n` +
+    `Lanjutkan dan buka e-book lengkapnya di sini:\n${accessUrl}\n\n` +
+    `Terima kasih 🙏`;
+  return `https://wa.me/${row.whatsapp_number ?? ''}?text=${encodeURIComponent(message)}`;
+}
+
+app.get('/api/admin/pending-wa-reminders', apiLimiter, async (req, res) => {
+  if (!isAdminAuthorized(req)) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  try {
+    const minHours = Math.max(1, parseInt(String(req.query.minHours ?? '24'), 10) || 24);
+    const maxDays = Math.max(1, parseInt(String(req.query.maxDays ?? '7'), 10) || 7);
+    // contact=missing → surface pending orders with NO reachable contact at all
+    // (no WA and no email). Those can't be followed up, but they reveal the
+    // drop-off volume that would otherwise be invisible. Default = orders with
+    // a WA number, which are the actionable follow-up list.
+    const contactMissing = String(req.query.contact ?? '') === 'missing';
+    const now = new Date();
+    const olderThan = new Date(now.getTime() - minHours * 3600_000).toISOString();
+    const newerThan = new Date(now.getTime() - maxDays * 86_400_000).toISOString();
+
+    let query = supabase
+      .from(SUPABASE_TABLE)
+      .select('token, child_name, archetype_id, whatsapp_number, email, created_at, payment_status')
+      .eq('payment_status', 'pending')
+      .lte('created_at', olderThan)
+      .gte('created_at', newerThan)
+      .order('created_at', { ascending: true })
+      .limit(200);
+
+    if (contactMissing) {
+      query = query.is('whatsapp_number', null).is('email', null).is('wa_reminder_sent_at', null);
+    } else {
+      query = query.not('whatsapp_number', 'is', null).is('wa_reminder_sent_at', null);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error('[Admin] pending-wa-reminders query failed:', error.message);
+      return res.status(500).json({ error: 'Gagal mengambil daftar pengingat.' });
+    }
+
+    const reminders = (data || []).map(row => ({
+      token: row.token,
+      childName: row.child_name,
+      archetype: getArchetypeById(row.archetype_id).title,
+      whatsappNumber: row.whatsapp_number,
+      email: row.email,
+      accessUrl: buildAccessUrlForToken(row.token),
+      waLink: row.whatsapp_number
+        ? buildWaReminderLink(row as {
+            child_name: string;
+            archetype_id: string;
+            token: string;
+            whatsapp_number: string | null;
+          })
+        : null,
+      createdAt: row.created_at
+    }));
+
+    console.log(`[Admin] ${reminders.length} pending reminder(s) listed (contact=${contactMissing ? 'missing' : 'wa'})`);
+    res.json({ count: reminders.length, mode: contactMissing ? 'missing' : 'wa', reminders });
+  } catch (error) {
+    console.error('[API] /api/admin/pending-wa-reminders failed:', error);
+    res.status(500).json({ error: 'Gagal mengambil daftar pengingat.' });
+  }
+});
+
+app.post('/api/admin/mark-wa-sent', apiLimiter, async (req, res) => {
+  if (!isAdminAuthorized(req)) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  try {
+    const { token, status } = req.body as { token?: string; status?: string };
+    if (!token || token.length < 10) {
+      return res.status(400).json({ error: 'Token required' });
+    }
+    const nextStatus = status === 'skipped' ? 'skipped' : 'sent';
+
+    const { error } = await supabase
+      .from(SUPABASE_TABLE)
+      .update({ wa_reminder_sent_at: new Date().toISOString(), wa_reminder_status: nextStatus })
+      .eq('token', token);
+
+    if (error) {
+      console.error('[Admin] mark-wa-sent failed:', error.message);
+      return res.status(500).json({ error: 'Gagal menandai pengingat.' });
+    }
+
+    console.log(`[Admin] WA reminder marked ${nextStatus} for token=${maskToken(token)}`);
+    res.json({ ok: true, status: nextStatus });
+  } catch (error) {
+    console.error('[API] /api/admin/mark-wa-sent failed:', error);
+    res.status(500).json({ error: 'Gagal menandai pengingat.' });
+  }
+});
+
+// Operator dashboard for the semi-automatic WA follow-up. The HTML/JS contains
+// no data; it prompts for ADMIN_SECRET and calls the protected endpoints above.
+// The page exists to be bookmarked by the operator — it exposes nothing without
+// the secret, so it can sit on the public domain. Explicit route (not the SPA
+// fallback) so a production `express.static` never shadows it with index.html.
+app.get('/admin/wa-followup', (_req, res) => {
+  res.type('html').send(ADMIN_WA_FOLLOWUP_HTML);
+});
+
+// ---------------------------------------------------------------------------
 // Payment Success (DEV-ONLY stub — Track A3 hardening)
 // ---------------------------------------------------------------------------
 // This endpoint marks an order paid WITHOUT a real Midtrans transaction. It is
@@ -775,6 +1139,19 @@ app.post('/api/payment/success', async (req, res) => {
       return res.status(400).json({ error: 'Token required' });
     }
 
+    // Read the order first so we can mirror the real webhook's behaviour: the
+    // access email is triggered off the SAME fields the webhook uses (email +
+    // child_name + token). Loading before the update also lets us only send the
+    // email on a pending→paid transition (matching the webhook's idempotency).
+    const { data: order, error: lookErr } = await supabase
+      .from(SUPABASE_TABLE)
+      .select('token, child_name, email, payment_status')
+      .eq('token', token)
+      .single();
+    if (lookErr || !order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
     const { error } = await supabase
       .from(SUPABASE_TABLE)
       .update({
@@ -789,7 +1166,29 @@ app.post('/api/payment/success', async (req, res) => {
     }
 
     console.log(`[DB][DEV] Payment marked as paid for token: ${maskToken(token)}`);
-    res.json({ success: true, message: 'Payment status updated to paid' });
+
+    // Mirror the paid webhook's best-effort access email so the dev flow matches
+    // production. Rendered out from this stub by the same sendEbookAccessEmail.
+    let emailSent = false;
+    if (order.payment_status !== 'paid' && order.email) {
+      const accessUrl = buildAccessUrl(req, order.token);
+      try {
+        await sendEbookAccessEmail({
+          to: order.email,
+          childName: order.child_name,
+          accessUrl
+        });
+        emailSent = true;
+        console.log(`[DB][DEV] Access email sent to ${order.email}`);
+      } catch (err) {
+        console.error(
+          `[DB][DEV] Access email to ${order.email} failed:`,
+          err instanceof Error ? err.message : err
+        );
+      }
+    }
+
+    res.json({ success: true, message: 'Payment status updated to paid', emailSent });
   } catch (error) {
     console.error('[API] /api/payment/success failed:', error);
     const message = error instanceof Error ? error.message : String(error);

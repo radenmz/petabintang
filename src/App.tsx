@@ -5,10 +5,12 @@ import { getArchetypeById } from './data/archetypes';
 import { SAMPLE_PROFILES } from './data/questions';
 import { Header } from './components/Header';
 import { LandingPage } from './components/LandingPage';
+import { LandingPageB } from './components/LandingPageB';
 import { AssessmentWizard } from './components/Assessment/AssessmentWizard';
 import { ResultStep } from './components/Assessment/ResultStep';
 import { PaymentStep } from './components/Payment/PaymentStep';
 import { EbookReader } from './components/Reader/EbookReader';
+import { loadActiveToken, saveActiveToken, clearActiveToken, clearQuizProgress } from './lib/quizStorage';
 
 export default function App() {
   const [step, setStep] = useState<WizardStep>('landing');
@@ -16,11 +18,28 @@ export default function App() {
   const [ebook, setEbook] = useState<CompleteEbook | null>(null);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  // A5: optional parent email captured on the result/paywall step and forwarded
-  // to create-order so the payment webhook can email the access link.
+  // Landing variant (A vs B) state initialized from URL param ?variant=B or local state
+  const [landingVariant, setLandingVariant] = useState<'A' | 'B'>(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('variant')?.toUpperCase() === 'B' ? 'B' : 'A';
+  });
+
+  // True only in the same in-memory session right after a successful payment.
+  // Drives the reader's auto PDF download + "preparing" modal. Never persisted,
+  // so a refresh/email-link reload starts the reader quietly.
+  const [justPaid, setJustPaid] = useState(false);
+
   const [parentEmail, setParentEmail] = useState<string>('');
 
-  // Preview/debug mode state — see useEffect below for URL param shortcuts
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const variantParam = params.get('variant')?.toUpperCase();
+    if (variantParam === 'B') {
+      setLandingVariant('B');
+    } else if (variantParam === 'A') {
+      setLandingVariant('A');
+    }
+  }, []);
   const [previewMode, setPreviewMode] = useState<string | null>(null);
   const [previewProfileIndex, setPreviewProfileIndex] = useState(0);
   // Dev-only preview component, loaded on demand so the paid templates it
@@ -87,10 +106,16 @@ export default function App() {
       return;
     }
 
-    // Production flow — reload ebook from DB via token in URL (?token=xxx)
-    const token = params.get('token');
+    // Production flow — reload ebook from DB via token in URL (?token=xxx).
+    // When the URL has no token (e.g. the visitor reopens petabintang.com or a
+    // family member shares the root link), fall back to the token persisted in
+    // localStorage from their earlier completed quiz so they land back on their
+    // result/checkout (or paid reader) instead of the landing page.
+    const urlToken = params.get('token');
+    const storedToken = urlToken && urlToken.length >= 10 ? null : loadActiveToken();
+    const token = urlToken && urlToken.length >= 10 ? urlToken : storedToken;
     if (token && token.length >= 10) {
-      console.log('[App] Found token in URL, loading from DB...');
+      console.log(`[App] Found token in ${urlToken ? 'URL' : 'localStorage'}, loading from DB...`);
       fetch(`/api/ebook/${token}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to load ebook');
@@ -102,15 +127,21 @@ export default function App() {
             setChildProfile(loadedEbook.childProfile);
             setEbook(loadedEbook);
             setAccessToken(token);
+            saveActiveToken(token);
             const isPaid = data.paymentStatus === 'paid';
             setIsUnlocked(isPaid);
             setStep(isPaid ? 'reader' : 'result');
+            if (!urlToken) {
+              // Reflect the resumed order in the address bar so a refresh keeps it.
+              window.history.replaceState(null, '', `?token=${token}`);
+            }
             console.log(`[App] Loaded ebook for ${data.childName} (payment: ${data.paymentStatus})`);
           }
         })
         .catch(err => {
           console.error('[App] Failed to load ebook from DB:', err);
-          // Stay on landing page if DB load fails
+          // Stale/unknown stored token — forget it and stay on landing.
+          if (storedToken) clearActiveToken();
         });
     }
   }, []);
@@ -158,6 +189,9 @@ export default function App() {
 
       const { token } = await res.json();
       setAccessToken(token);
+      saveActiveToken(token);
+      // Quiz is persisted server-side now — the local draft is no longer needed.
+      clearQuizProgress();
 
       // Update URL so refresh keeps data (replaceState = no history pollution)
       window.history.replaceState(null, '', `?token=${token}`);
@@ -195,6 +229,10 @@ export default function App() {
         // (in-memory) if the webhook is lagging; a refresh will fix it.
       }
     }
+    // Mark this as a just-completed payment so the reader auto-generates and
+    // downloads the PDF once, and shows the "PDF sedang disiapkan" modal.
+    // Deliberately in-memory only: reloading via ?token= must NOT re-trigger it.
+    setJustPaid(true);
     setIsUnlocked(true);
     setStep('reader');
   };
@@ -230,7 +268,14 @@ export default function App() {
       <main className={step === 'landing' ? '' : 'pb-16'}>
         {/* Step 0: landing — pre-quiz intro page */}
         {step === 'landing' && (
-          <LandingPage onStart={() => setStep('input')} />
+          landingVariant === 'B' ? (
+            <LandingPageB
+              onStart={() => setStep('input')}
+              onSwitchVariant={() => setLandingVariant('A')}
+            />
+          ) : (
+            <LandingPage onStart={() => setStep('input')} />
+          )
         )}
 
         {/* Steps 1 (input) & 2 (quiz) handled by AssessmentWizard — kept mounted to preserve form state */}
@@ -269,6 +314,9 @@ export default function App() {
             profile={childProfile}
             archetype={activeArchetype}
             ebook={ebook}
+            accessToken={accessToken}
+            parentEmail={parentEmail}
+            onEmailChange={setParentEmail}
             onProceedToPayment={() => setStep('payment')}
           />
         )}
@@ -291,6 +339,7 @@ export default function App() {
           <EbookReader
             ebook={ebook}
             accessToken={accessToken}
+            autoDownloadOnMount={justPaid}
             onBackToResult={() => setStep('result')}
           />
         )}

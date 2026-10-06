@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { PRODUCT_BASE_PRICE, PROMO_DISCOUNT_AMOUNT, PROMO_PRICE } from '../config.ts';
+import { PRODUCT_BASE_PRICE, PROMO_DISCOUNT_AMOUNT, PROMO_PRICE } from './config';
 
 describe('pricing config', () => {
   it('exposes the base price', () => {

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { applyPreviewMask } from '../ebookPreview.ts';
-import type { CompleteEbook, GeneratedEbookModule } from '../../types.ts';
+import { applyPreviewMask } from './ebookPreview';
+import type { CompleteEbook, GeneratedEbookModule } from '../types';
 
 function mod(moduleCode: string, markdownContent: string): GeneratedEbookModule {
   return {

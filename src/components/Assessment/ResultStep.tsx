@@ -13,8 +13,10 @@ import { OceanRadarChart } from '../Charts/OceanRadarChart';
 import { MiBarChart } from '../Charts/MiBarChart';
 import { Button } from '../ui/Button';
 import { waLink } from '../../lib/site';
+import { normalizeWhatsapp, isValidWhatsapp, formatWhatsappDisplay } from '../../lib/whatsapp';
+import { isValidEmail } from '../../lib/contact';
 import { PRODUCT_BASE_PRICE, PROMO_DISCOUNT_AMOUNT, PROMO_PRICE } from '../../lib/config';
-import { Lock, Check } from 'lucide-react';
+import { Lock, Check, MessageCircle, CheckCircle2 } from 'lucide-react';
 import astronomerCatHero from '../../assets/mascots/pb-mascot-archetype-ark-astronomer-cat-v01.webp?url';
 import cometFoxHero from '../../assets/mascots/pb-mascot-archetype-ark-comet-fox-v01.webp?url';
 import cosmicBeaverHero from '../../assets/mascots/pb-mascot-archetype-ark-cosmic-beaver-v01.webp?url';
@@ -33,6 +35,9 @@ interface ResultStepProps {
   archetype: ArchetypeDefinition;
   ebook: CompleteEbook;
   onProceedToPayment: () => void;
+  accessToken?: string | null;
+  parentEmail?: string;
+  onEmailChange?: (email: string) => void;
 }
 
 const fadeUp = {
@@ -120,11 +125,145 @@ export const ResultStep: React.FC<ResultStepProps> = ({
   profile,
   archetype,
   ebook,
-  onProceedToPayment
+  onProceedToPayment,
+  accessToken,
+  parentEmail = '',
+  onEmailChange
 }) => {
   const countdown = useCountdown(900);
 
   const mascotHero = MASCOT_HERO_BY_ARCHETYPE[archetype.id] ?? null;
+
+  // Task 2 + Task 6: contact lead capture (WA and/or email). Optional, but
+  // capturing it here (before the payment popup) is what lets us follow up
+  // 1x24h later if the buyer drops off. Sent to the server against the order
+  // token, not stored in the browser. Email is owned by App (shared with the
+  // payment modal) so there is a single source of truth.
+  const [whatsapp, setWhatsapp] = useState('');
+  const [waTouched, setWaTouched] = useState(false);
+  const [waSaved, setWaSaved] = useState<string | null>(null);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [emailSaved, setEmailSaved] = useState<string | null>(null);
+  const [savingContact, setSavingContact] = useState(false);
+  const [contactError, setContactError] = useState('');
+  // Local email fallback for dev preview where App does not wire onEmailChange.
+  const [emailLocal, setEmailLocal] = useState('');
+
+  const emailValue = onEmailChange ? parentEmail : emailLocal;
+  const setEmailValue = (v: string) => (onEmailChange ? onEmailChange(v) : setEmailLocal(v));
+
+  const waValid = isValidWhatsapp(whatsapp);
+  const emailValid = isValidEmail(emailValue);
+  const anyValid = waValid || emailValid;
+  const contactSaved = Boolean(waSaved || emailSaved);
+
+  const handleSaveContact = async () => {
+    setWaTouched(true);
+    setEmailTouched(true);
+    setContactError('');
+    if (!anyValid) return;
+    if (!accessToken) {
+      setContactError('Sesi tidak ditemukan. Muat ulang halaman lalu coba lagi.');
+      return;
+    }
+    setSavingContact(true);
+    try {
+      const payload: { token: string; whatsappNumber?: string; email?: string } = { token: accessToken };
+      if (waValid) payload.whatsappNumber = whatsapp;
+      if (emailValid) payload.email = emailValue.trim();
+      const res = await fetch('/api/order/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Gagal menyimpan kontak.');
+      if (waValid) setWaSaved(normalizeWhatsapp(whatsapp));
+      if (emailValid) setEmailSaved(emailValue.trim());
+    } catch (err) {
+      setContactError(err instanceof Error ? err.message : 'Gagal menyimpan kontak.');
+    } finally {
+      setSavingContact(false);
+    }
+  };
+
+  const resetContact = () => {
+    setWaSaved(null);
+    setEmailSaved(null);
+    setWaTouched(false);
+    setEmailTouched(false);
+    setContactError('');
+  };
+
+  const waCaptureCard = (
+    <div className="border border-outline-variant bg-surface-container/40 p-4">
+      {contactSaved ? (
+        <div className="space-y-2">
+          <p className="flex items-start gap-2 text-sm text-secondary">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            <span>
+              Kontak tersimpan.
+              {waSaved && (
+                <> WA <span className="font-semibold text-ink">{formatWhatsappDisplay(waSaved)}</span>.</>
+              )}
+              {emailSaved && (
+                <> Email <span className="font-semibold text-ink">{emailSaved}</span>.</>
+              )}{' '}
+              Kami akan mengabari bila laporan belum sempat dibuka.
+            </span>
+          </p>
+          <button type="button" onClick={resetContact} className="text-xs font-medium text-primary underline">
+            Ubah kontak
+          </button>
+        </div>
+      ) : (
+        <>
+          <span className="eyebrow flex items-center gap-1.5">
+            <MessageCircle className="h-3.5 w-3.5" /> Opsional
+          </span>
+          <p className="mt-2 text-sm text-secondary">
+            Simpan kontak agar kami bisa mengirim laporan {profile.name} bila koneksi terputus. Cukup salah satu.
+          </p>
+          <div className="mt-3 space-y-2">
+            <input
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              value={whatsapp}
+              onChange={e => { setWhatsapp(e.target.value); setWaTouched(false); setContactError(''); }}
+              placeholder="0812xxxxxxxx"
+              className={`w-full border-0 border-b bg-transparent px-0 py-2 text-sm text-ink focus:border-ink focus:outline-none ${
+                waTouched && !waValid ? 'border-rose-400' : 'border-outline-variant'
+              }`}
+            />
+            {waTouched && !waValid && (
+              <p className="text-xs text-rose-600">Masukkan nomor WhatsApp Indonesia yang valid.</p>
+            )}
+            <input
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              value={emailValue}
+              onChange={e => { setEmailValue(e.target.value); setEmailTouched(false); setContactError(''); }}
+              placeholder="email@contoh.com"
+              className={`w-full border-0 border-b bg-transparent px-0 py-2 text-sm text-ink focus:border-ink focus:outline-none ${
+                emailTouched && !emailValid ? 'border-rose-400' : 'border-outline-variant'
+              }`}
+            />
+            {emailTouched && !emailValid && (
+              <p className="text-xs text-rose-600">Masukkan email yang valid.</p>
+            )}
+          </div>
+          <div className="mt-3">
+            <Button variant="ghost" size="md" full onClick={handleSaveContact} disabled={savingContact || !anyValid}>
+              {savingContact ? 'Menyimpan…' : 'Simpan kontak'}
+            </Button>
+          </div>
+          {contactError && <p className="mt-1 text-xs text-rose-600">{contactError}</p>}
+        </>
+      )}
+    </div>
+  );
 
   const topMI = useMemo(() => {
     const entries = Object.entries(profile.miScores) as [keyof MIScores, number][];
@@ -402,26 +541,37 @@ export const ResultStep: React.FC<ResultStepProps> = ({
                 variant="ghost"
                 size="md"
                 full
-                href={waLink(`Halo, saya baru kuis ${profile.name}. Hasilnya: ${archetype.title}. Saya mau tanya tentang laporan lengkapnya.`)}
+                href={waLink(
+                  `Halo, saya baru kuis ${profile.name}. Hasilnya: ${archetype.title}.` +
+                    (accessToken
+                      ? `\nRef: ${accessToken}\nLaporan: ${window.location.origin}/?token=${accessToken}`
+                      : '') +
+                    `\nSaya mau tanya tentang laporan lengkapnya.`
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Tanya via WhatsApp
               </Button>
             </div>
+
+            <div className="mt-4">{waCaptureCard}</div>
           </div>
         </aside>
       </div>
 
       {/* ================= MOBILE STICKY CTA ================= */}
-      <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 border-t border-outline-variant bg-paper/95 px-4 py-3 backdrop-blur lg:hidden">
-        <div>
-          <div className="text-xs text-secondary line-through leading-none">{formatRupiah(ORIGINAL_PRICE)}</div>
-          <div className="font-display text-lg font-extrabold leading-tight text-ink">{formatRupiah(FINAL_PRICE)}</div>
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-outline-variant bg-paper/95 px-4 py-3 backdrop-blur lg:hidden">
+        {!contactSaved && <div className="mb-3 max-h-[40vh] overflow-y-auto">{waCaptureCard}</div>}
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <div className="text-xs leading-none text-secondary line-through">{formatRupiah(ORIGINAL_PRICE)}</div>
+            <div className="font-display text-lg font-extrabold leading-tight text-ink">{formatRupiah(FINAL_PRICE)}</div>
+          </div>
+          <Button variant="primary" size="md" onClick={onProceedToPayment} className="flex-1">
+            <Lock className="h-4 w-4" /> Buka akses
+          </Button>
         </div>
-        <Button variant="primary" size="md" onClick={onProceedToPayment} className="flex-1">
-          <Lock className="h-4 w-4" /> Buka akses
-        </Button>
       </div>
     </div>
   );

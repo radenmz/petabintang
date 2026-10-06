@@ -670,11 +670,26 @@ function escapeHtml(s: string): string {
 // ============================================================================
 
 /**
- * Resolve the 4 mascot poses for the MATCHED archetype to static URL paths
- * served by Express (`/mascots/...`). Only the matched archetype's 4 URLs are
- * produced — the actual image bytes are streamed by the server on demand, so
- * the generated HTML stays small (no base64 payloads) which avoids Puppeteer
- * OOM crashes.
+ * Resolve the 4 mascot poses for the MATCHED archetype to INLINE base64
+ * `data:` URIs read from `src/assets/mascots/` on disk.
+ *
+ * Why inline (changed from `/mascots/...` URLs served by Express):
+ * the previous URL approach required the headless Chromium page (created via
+ * `page.setContent()` with an injected `<base href>`) to fetch images over the
+ * network from the running Express server. When that fetch failed — IPv6
+ * localhost resolution, proxy/HTTPS-first interference, or the static route
+ * pointing at the wrong path in the bundled `dist/server.mjs` — the
+ * `onerror` handler silently hid the images and the PDF was produced with NO
+ * mascots and no warning. Embedding the 4 poses as base64 removes the network
+ * dependency entirely: the PDF is self-contained and works in dev, in the
+ * production bundle, and in standalone `dist-preview` files opened via
+ * `file://`.
+ *
+ * Size guard: only the matched archetype's 4 poses are embedded (webp files
+ * are ~50–120 KB each → roughly 300–400 KB of base64 per ebook HTML). The
+ * earlier "massive base64 payload" OOM concern applied to embedding ALL 40
+ * mascot images, which we do NOT do. If a file is missing on disk, the pose
+ * falls back to the site-relative `/mascots/...` URL and a warning is logged.
  *
  * Filename patterns (verified against src/assets/mascots/):
  *   hero        : pb-mascot-archetype-ark-{name}-v01.webp
@@ -685,12 +700,9 @@ function escapeHtml(s: string): string {
  * archetypeId (e.g. "ARK_NEBULA_OWL") → prefix ("ark-nebula-owl"). Note: the
  * prefix already begins with "ark-", so pose suffixes use `${prefix}-<pose>`
  * (NOT `ark-${prefix}-<pose>`, which would double the "ark-" token).
- *
- * NOTE: The returned paths are site-relative (`/mascots/...`). They load
- * correctly when the HTML is rendered by Puppeteer against the running
- * Express server. Standalone HTML files opened via `file://` will show broken
- * images — that is expected and acceptable (production PDF is the target).
  */
+const mascotDataUriCache = new Map<string, string>();
+
 function getMascotUrl(archetypeId: string): {
   hero: string;
   default: string;
@@ -700,15 +712,28 @@ function getMascotUrl(archetypeId: string): {
   // Convert archetype ID (ARK_NEBULA_OWL) to filename token (ark-nebula-owl).
   const prefix = archetypeId.toLowerCase().replace(/_/g, '-');
 
-  function getUrl(nameSuffix: string): string {
-    return `/mascots/pb-mascot-${nameSuffix}-v01.webp`;
+  function getSrc(nameSuffix: string): string {
+    const fileName = `pb-mascot-${nameSuffix}-v01.webp`;
+    let uri = mascotDataUriCache.get(fileName);
+    if (uri) return uri;
+
+    const filePath = path.join(PROJECT_ROOT, 'src', 'assets', 'mascots', fileName);
+    try {
+      const bytes = fs.readFileSync(filePath);
+      uri = `data:image/webp;base64,${bytes.toString('base64')}`;
+    } catch {
+      console.warn(`[ebook] Mascot file not found on disk, falling back to URL: ${fileName}`);
+      uri = `/mascots/${fileName}`;
+    }
+    mascotDataUriCache.set(fileName, uri);
+    return uri;
   }
 
   return {
-    hero: getUrl(`archetype-${prefix}`),
-    default: getUrl(`${prefix}-default`),
-    reading: getUrl(`${prefix}-reading`),
-    tipPointing: getUrl(`${prefix}-tip-pointing`)
+    hero: getSrc(`archetype-${prefix}`),
+    default: getSrc(`${prefix}-default`),
+    reading: getSrc(`${prefix}-reading`),
+    tipPointing: getSrc(`${prefix}-tip-pointing`)
   };
 }
 

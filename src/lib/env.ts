@@ -19,11 +19,28 @@ export const IS_PRODUCTION = NODE_ENV === 'production';
 export const PORT = Number(process.env.PORT) || 3000;
 
 /**
+ * Absolute public base URL of the app (no trailing slash), e.g.
+ * "https://petabintang.com". Used to build links that must be correct outside
+ * the request context (post-purchase access email, resume links). When unset we
+ * fall back to `${req.protocol}://${req.get('host')}`, which is correct ONLY if
+ * the reverse proxy forwards X-Forwarded-* headers (see docs/DEPLOY.md). Setting
+ * this makes the links immune to proxy misconfiguration.
+ */
+export const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || '').trim().replace(/\/+$/, '');
+
+/**
  * Absolute path to a system Chromium/Chrome binary. When set, Puppeteer uses
  * the OS-provided browser instead of its bundled download (see docs/DEPLOY.md).
  * When empty, Puppeteer falls back to its managed Chromium (local dev).
  */
 export const PUPPETEER_EXECUTABLE_PATH = process.env.PUPPETEER_EXECUTABLE_PATH || '';
+
+/**
+ * Shared secret for the admin follow-up dashboard endpoints (pending WA
+ * reminders / mark-sent). Sent by the operator in the `x-admin-secret` header.
+ * When unset, those endpoints are disabled (fail-closed).
+ */
+export const ADMIN_SECRET = (process.env.ADMIN_SECRET || '').trim();
 
 /**
  * Resolve the browser path, logging clearly if the configured path is missing

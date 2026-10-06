@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isPaidStatus } from '../midtrans.ts';
+import { isPaidStatus } from './midtrans';
 
 describe('isPaidStatus (H-03 hardening)', () => {
   it('treats settlement as paid regardless of fraud_status', () => {

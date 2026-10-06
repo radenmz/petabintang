@@ -18,5 +18,3 @@ _archive/
 # Local-only screenshots for design reference
 *.png
 supabase/.temp/
-
-supabase/.temp/

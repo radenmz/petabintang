@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isValidPersonName } from '../validation.ts';
+import { isValidPersonName, normalizeWhatsapp, isValidWhatsapp } from './validation';
 
 describe('isValidPersonName', () => {
   it('accepts normal names with letters, marks, spaces and punctuation', () => {
@@ -28,5 +28,29 @@ describe('isValidPersonName', () => {
 
   it('trims surrounding whitespace before validating', () => {
     expect(isValidPersonName('  Budi  ')).toBe(true);
+  });
+});
+
+describe('normalizeWhatsapp', () => {
+  it('normalizes Indonesian mobile formats to 628xxxxxxxxxx', () => {
+    expect(normalizeWhatsapp('081234567890')).toBe('6281234567890');
+    expect(normalizeWhatsapp('6281234567890')).toBe('6281234567890');
+    expect(normalizeWhatsapp('+62 812-3456-7890')).toBe('6281234567890');
+    expect(normalizeWhatsapp('81234567890')).toBe('6281234567890');
+    expect(normalizeWhatsapp('0812 3456 7890')).toBe('6281234567890');
+  });
+
+  it('rejects invalid, non-mobile and non-string inputs', () => {
+    expect(normalizeWhatsapp('12345')).toBeNull();
+    expect(normalizeWhatsapp('0212345678')).toBeNull();
+    expect(normalizeWhatsapp('')).toBeNull();
+    expect(normalizeWhatsapp(null)).toBeNull();
+    expect(normalizeWhatsapp(undefined)).toBeNull();
+    expect(normalizeWhatsapp(6281234567890)).toBeNull();
+  });
+
+  it('exposes an isValidWhatsapp predicate', () => {
+    expect(isValidWhatsapp('081234567890')).toBe(true);
+    expect(isValidWhatsapp('abc')).toBe(false);
   });
 });

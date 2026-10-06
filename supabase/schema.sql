@@ -30,10 +30,13 @@ create table if not exists ebook_orders (
   ebook_json         jsonb not null,
   archetype_id       text not null,
   email              text,                       -- A5: optional parent email (transactional)
+  whatsapp_number    text,                       -- WA follow-up: normalized 628xxxx (lead capture)
   payment_status     text not null default 'pending',
   payment_amount     int not null default 129000, -- harga normal IDR; voucher menurunkan (AnakHebat → 79000)
   midtrans_order_id  text,                        -- "latest attempt" reference (logs only)
   voucher_code       text,                        -- A4: applied voucher code (if any)
+  wa_reminder_sent_at timestamptz,                -- admin-marked WA follow-up timestamp (1x24h)
+  wa_reminder_status  text not null default 'none', -- none|sent|skipped
   created_at         timestamptz not null default now(),
   paid_at            timestamptz
 );
@@ -45,6 +48,12 @@ alter table ebook_orders
   add column if not exists voucher_code text;
 alter table ebook_orders
   add column if not exists midtrans_order_id text;
+alter table ebook_orders
+  add column if not exists whatsapp_number text;
+alter table ebook_orders
+  add column if not exists wa_reminder_sent_at timestamptz;
+alter table ebook_orders
+  add column if not exists wa_reminder_status text not null default 'none';
 
 -- Perbaiki default lama (49000/79000) ke harga normal 129000 di DB yang sudah ada.
 alter table ebook_orders
@@ -58,6 +67,10 @@ create index if not exists idx_ebook_orders_midtrans
 
 create index if not exists idx_ebook_orders_voucher_code
   on ebook_orders (voucher_code);
+
+-- WA follow-up: fast lookup of pending orders that still need an admin nudge.
+create index if not exists idx_ebook_orders_wa_reminder
+  on ebook_orders (payment_status, wa_reminder_sent_at, created_at);
 
 alter table ebook_orders enable row level security;
 

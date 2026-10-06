@@ -14,3 +14,8 @@ export function isValidPersonName(name: unknown): name is string {
   const trimmed = name.trim();
   return trimmed.length > 0 && trimmed.length <= 60 && PERSON_NAME_RE.test(trimmed);
 }
+
+// WhatsApp helpers live in a shared, dependency-free module so the browser and
+// server validate identically. Re-exported here so server-only imports keep
+// working through this module.
+export { normalizeWhatsapp, isValidWhatsapp } from '../lib/whatsapp';

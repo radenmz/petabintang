@@ -35,6 +35,9 @@ Buat file teks bernama `.env` (di komputer Anda, jangan commit). Isi:
 NODE_ENV=production
 PORT=3000
 
+# URL publik absolut (tanpa trailing slash) — dipakai untuk link akses di email
+PUBLIC_BASE_URL=https://domain-anda.com
+
 # Supabase
 SUPABASE_URL=https://xxxx.supabase.co
 SUPABASE_SERVICE_KEY=eyJ...service_role...
@@ -49,18 +52,24 @@ VITE_MIDTRANS_CLIENT_KEY=Mid-client-xxxx
 
 # Resend (email akses)
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Peta Bintang Anakku <no-reply@domain-anda.com>
+EMAIL_FROM=Peta Bintang Anakku <hello@domain-anda.com>
 
 # Chromium sistem (diisi di Fase 4/8)
 PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 PUPPETEER_SKIP_DOWNLOAD=true
+
+# Dashboard follow-up WhatsApp operator (/admin/wa-followup).
+# String acak kuat (mis. `openssl rand -hex 32`). Bila kosong, seluruh
+# endpoint /api/admin/* nonaktif (fail-closed). Nilai ini juga diketik
+# operator di halaman dashboard untuk otorisasi.
+ADMIN_SECRET=
 ```
 
 > **Catatan penting env:**
 > - `VITE_MIDTRANS_ENV` dan `VITE_MIDTRANS_CLIENT_KEY` **di-inline saat `npm run build`**.
 >   Jika nilainya berubah → **wajib build ulang**.
 > - `MIDTRANS_SERVER_KEY`, `MIDTRANS_ENV`, `SUPABASE_*`, `RESEND_*`, `EMAIL_FROM`,
->   `PUPPETEER_*` dibaca saat runtime → **cukup restart**.
+>   `PUBLIC_BASE_URL`, `ADMIN_SECRET`, `PUPPETEER_*` dibaca saat runtime → **cukup restart**.
 
 ---
 
@@ -152,7 +161,9 @@ nano .env
 ```
 
 Tempel isi dari Fase 0.2. Pastikan `PUPPETEER_EXECUTABLE_PATH` sesuai hasil
-Fase 4. Simpan (Ctrl+O, Enter, Ctrl+X).
+Fase 4, dan isi `ADMIN_SECRET` dengan string acak kuat (`openssl rand -hex 32`)
+— nilai ini diketik operator di `/admin/wa-followup`. Simpan (Ctrl+O, Enter,
+Ctrl+X).
 
 Amankan izin file:
 
@@ -259,6 +270,7 @@ Pilih opsi redirect HTTP → HTTPS. Renewal otomatis sudah terpasang.
 - [ ] Tombol **Unduh PDF** menghasilkan PDF (memastikan Chromium/Puppeteer OK).
 - [ ] Email akses masuk (cek log Resend).
 - [ ] `https://domain-anda.com/server.mjs` → **404** (sudah diblokir di kode).
+- [ ] `/admin/wa-followup` → masukkan `ADMIN_SECRET` → "Muat daftar" menampilkan daftar (404 bila secret salah/kosong).
 
 ---
 

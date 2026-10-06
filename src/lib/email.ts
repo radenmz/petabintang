@@ -21,15 +21,41 @@ export function isEmailConfigured(): boolean {
   return resendApiKey().length > 0;
 }
 
-/** Permissive but practical email sanity check (server-side). */
-export function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((email || '').trim());
-}
+// Single source of truth (shared with the browser via `lib/contact.ts`).
+import { isValidEmail } from './contact';
+export { isValidEmail };
 
 export interface AccessEmailArgs {
   to: string;
   childName: string;
   accessUrl: string;
+}
+
+export interface BonusLink {
+  label: string;
+  url: string;
+}
+
+/**
+ * Read the optional purchase-bonus links from `.env`. Numbered variables keep
+ * the config human-editable without JSON pitfalls, and an index that is missing
+ * a label OR url simply ends the list:
+ *
+ *   BONUS_LINK_1_LABEL=Bonus 1 — Panduan Mata Ortu
+ *   BONUS_LINK_1_URL=https://drive.google.com/xxxx
+ *
+ * Returns [] when nothing is configured, so the email template can skip the
+ * whole section. Server-only (reads process.env lazily at send time).
+ */
+export function getBonusLinks(max = 6): BonusLink[] {
+  const links: BonusLink[] = [];
+  for (let i = 1; i <= max; i++) {
+    const label = (process.env[`BONUS_LINK_${i}_LABEL`] || '').trim();
+    const url = (process.env[`BONUS_LINK_${i}_URL`] || '').trim();
+    if (!label || !url) break;
+    links.push({ label, url });
+  }
+  return links;
 }
 
 /**
@@ -48,7 +74,7 @@ export async function sendEbookAccessEmail(args: AccessEmailArgs): Promise<void>
   }
 
   const subject = `E-Book Peta Bintang untuk ${args.childName} sudah siap`;
-  const html = buildAccessEmailHtml(args.childName, args.accessUrl);
+  const html = buildAccessEmailHtml(args.childName, args.accessUrl, getBonusLinks());
 
   let res: Response;
   try {
@@ -77,7 +103,26 @@ export async function sendEbookAccessEmail(args: AccessEmailArgs): Promise<void>
   }
 }
 
-function buildAccessEmailHtml(childName: string, accessUrl: string): string {
+function buildAccessEmailHtml(childName: string, accessUrl: string, bonusLinks: BonusLink[]): string {
+  const bonusSection = bonusLinks.length
+    ? [
+        `<hr style="border:none;border-top:1px solid #e3e8f0;margin:28px 0;" />`,
+        `<h3 style="color:#2a306c;margin:0 0 6px;">🎁 Bonus Pembelian Anda</h3>`,
+        `<p style="line-height:1.6;color:#3a4768;margin:0 0 16px;">Terima kasih telah membeli. Ini tautan bonus yang menemani e-book ${escapeHtml(childName)}:</p>`,
+        `<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;">`,
+        ...bonusLinks.map(
+          (b, i) => [
+            `<tr>`,
+            `<td style="padding:10px 0;${i > 0 ? 'border-top:1px solid #eef1f6;' : ''}">`,
+            `<a href="${escapeAttr(b.url)}" style="color:#2a306c;font-weight:700;text-decoration:none;line-height:1.5;">${escapeHtml(b.label)} &rarr;</a>`,
+            `</td>`,
+            `</tr>`
+          ].join('')
+        ),
+        `</table>`
+      ].join('')
+    : '';
+
   return [
     `<div style="font-family:'Nunito',Arial,sans-serif;max-width:560px;margin:0 auto;color:#1a2540;">`,
     `<h2 style="color:#3F72AF;margin-bottom:8px;">Terima kasih! E-Book ${escapeHtml(childName)} sudah siap.</h2>`,
@@ -86,6 +131,7 @@ function buildAccessEmailHtml(childName: string, accessUrl: string): string {
     `<a href="${escapeAttr(accessUrl)}" style="display:inline-block;background:#3F72AF;color:#fff;font-weight:700;padding:12px 24px;border-radius:14px;text-decoration:none;">Buka E-Book</a>`,
     `</p>`,
     `<p style="line-height:1.6;color:#3a4768;">Simpan tautan ini agar e-book bisa dibuka kembali kapan saja. Jangan bagikan tautan ini karena bersifat pribadi untuk ${escapeHtml(childName)}.</p>`,
+    bonusSection,
     `<hr style="border:none;border-top:1px solid #e3e8f0;margin:24px 0;" />`,
     `<p style="font-size:12px;color:#8a94a6;">Email ini dikirim otomatis oleh Peta Bintang Anakku. Balas email ini atau hubungi WhatsApp kami jika butuh bantuan.</p>`,
     `</div>`

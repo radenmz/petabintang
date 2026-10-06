@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChildProfile, ArchetypeDefinition } from '../../types';
-import { QrCode, ShieldCheck, CheckCircle2, Clock, Copy, Check, X, Percent, Wallet, Building2, AlertCircle, RefreshCw, Mail } from 'lucide-react';
+import { QrCode, ShieldCheck, CheckCircle2, Clock, Copy, Check, X, Percent, Wallet, Building2, AlertCircle, RefreshCw, Mail, Pencil } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { waLink } from '../../lib/site';
+import { isValidEmail as isEmailValid } from '../../lib/contact';
 import { PRODUCT_BASE_PRICE } from '../../lib/config';
 
 declare global {
@@ -32,11 +33,6 @@ interface PaymentModalProps {
   onEmailChange: (email: string) => void;
 }
 
-// Lightweight client-side email sanity check (kept in-module to avoid pulling
-// server-only code from lib/email.ts into the browser bundle).
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const isEmailValid = (v: string) => EMAIL_RE.test((v || '').trim());
-
 export const PaymentModal: React.FC<PaymentModalProps> = ({
   isOpen,
   onClose,
@@ -59,6 +55,10 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [copiedVa, setCopiedVa] = useState<boolean>(false);
+  // Email is authored once (result page) and only confirmed here — this toggles
+  // the collapsed summary back to the editable input when the parent wants to
+  // change it. Starts expanded when empty so a fresh buyer can type it.
+  const [emailEditing, setEmailEditing] = useState<boolean>(!isEmailValid(parentEmail));
 
   // Countdown timer 15 mins
   const [timeLeft, setTimeLeft] = useState<number>(900);
@@ -389,23 +389,41 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               <p className="mt-2 text-sm text-secondary">
                 Tautan akses e-book dikirim ke alamat ini. Wajib diisi.
               </p>
-              <div className="relative mt-3">
-                <Mail className="pointer-events-none absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 text-secondary" />
-                <input
-                  id="parent-email"
-                  type="email"
-                  inputMode="email"
-                  autoComplete="email"
-                  value={parentEmail}
-                  onChange={e => onEmailChange(e.target.value)}
-                  placeholder="nama@email.com"
-                  className={`w-full border-0 border-b bg-transparent py-2.5 pl-6 text-base text-ink focus:outline-none focus:border-ink ${
-                    parentEmail && !isEmailValid(parentEmail) ? 'border-rose-400' : 'border-outline-variant'
-                  }`}
-                />
-              </div>
-              {parentEmail && !isEmailValid(parentEmail) && (
-                <p className="mt-1 text-xs text-rose-600">Format email belum benar.</p>
+              {isEmailValid(parentEmail) && !emailEditing ? (
+                <div className="mt-3 flex items-center justify-between gap-3 border-b border-outline-variant py-2.5">
+                  <span className="flex min-w-0 items-center gap-2 text-base text-ink">
+                    <Mail className="h-4 w-4 shrink-0 text-secondary" />
+                    <span className="truncate">{parentEmail.trim()}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setEmailEditing(true)}
+                    className="flex shrink-0 items-center gap-1 text-xs font-medium text-primary underline"
+                  >
+                    <Pencil className="h-3 w-3" /> Ubah
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="relative mt-3">
+                    <Mail className="pointer-events-none absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 text-secondary" />
+                    <input
+                      id="parent-email"
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      value={parentEmail}
+                      onChange={e => onEmailChange(e.target.value)}
+                      placeholder="nama@email.com"
+                      className={`w-full border-0 border-b bg-transparent py-2.5 pl-6 text-base text-ink focus:outline-none focus:border-ink ${
+                        parentEmail && !isEmailValid(parentEmail) ? 'border-rose-400' : 'border-outline-variant'
+                      }`}
+                    />
+                  </div>
+                  {parentEmail && !isEmailValid(parentEmail) && (
+                    <p className="mt-1 text-xs text-rose-600">Format email belum benar.</p>
+                  )}
+                </>
               )}
               {(paymentMethod === 'qris' || paymentMethod === 'va') && (
                 <p className="mt-2 text-xs text-secondary">
@@ -667,7 +685,10 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                   variant="wa"
                   size="md"
                   full
-                  href={waLink('Halo, saya mau tanya tentang pembayaran laporan Peta Bintang.')}
+                  href={waLink(
+                    'Halo, saya mau tanya tentang pembayaran laporan Peta Bintang.' +
+                      (accessToken ? `\nRef: ${accessToken}` : '')
+                  )}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
