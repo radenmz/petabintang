@@ -1472,11 +1472,16 @@ function main(): void {
   console.log('Buka dengan double-click di browser, atau Ctrl+P untuk cetak/PDF.');
 }
 
-// Only run main when this file is executed directly via `npx tsx generate-html-preview.ts`.
-// Uses __filename (already computed from fileURLToPath(import.meta.url)) for a
-// cross-platform path comparison — on Windows, process.argv[1] is a backslash
-// path that does NOT form a valid `file://` URL, so the naive
-// `import.meta.url === \`file://${process.argv[1]}\`` check would never match.
-if (process.argv[1] === __filename) {
+// Only run main when this file is executed directly via
+// `npx tsx generate-html-preview.ts` — NOT when it is imported by server.ts.
+//
+// IMPORTANT: do NOT compare `process.argv[1] === __filename`. In the production
+// bundle (esbuild merges this module into dist/server.mjs) both sides resolve to
+// dist/server.mjs, so the check would be true on every `node dist/server.mjs`
+// start — silently regenerating 3 large HTML files into dist-preview/ on each
+// boot. Compare the *basename* of the entrypoint instead: it is only
+// "generate-html-preview.*" when this script is run standalone.
+const entryBasename = process.argv[1] ? path.basename(process.argv[1]).toLowerCase() : '';
+if (entryBasename.startsWith('generate-html-preview')) {
   main();
 }
