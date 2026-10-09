@@ -1,4 +1,5 @@
 import { AssessmentQuestion, ChildProfile } from '../types';
+import { QUESTION_EXAMPLES } from './questionExamples';
 
 // Reverse scoring per IPIP conventions:
 // - OCEAN reverse items (8): ids 5, 6, 11, 14, 19, 21, 24, 27
@@ -109,6 +110,13 @@ export const MI_QUESTIONS: AssessmentQuestion[] = [
   { id: 74, type: 'MI', dimension: 'naturalist', statement: 'Anak tertarik membaca buku ensiklopedia hewan, dinosaurus, atau antariksa.', reverse: false },
   { id: 75, type: 'MI', dimension: 'naturalist', statement: 'Anak senang berkebun, menyiram bunga, atau memberi makan hewan.', reverse: false }
 ];
+
+// Lampirkan contoh konkret (id → QUESTION_EXAMPLES) ke setiap soal. Dipisah
+// dari definisi soal agar contoh mudah diperbarui tanpa menyentuh skoring.
+[...OCEAN_QUESTIONS, ...MI_QUESTIONS].forEach(q => {
+  const example = QUESTION_EXAMPLES[q.id];
+  if (example) q.example = example;
+});
 
 export const SAMPLE_PROFILES: ChildProfile[] = [
   {

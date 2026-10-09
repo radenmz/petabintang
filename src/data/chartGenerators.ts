@@ -51,9 +51,14 @@ export function generateOceanRadarSVG(scores: OceanScores, size = 320): string {
 
   const polygonPath = points.map(p => `${p.x},${p.y}`).join(' ');
 
-  // Build SVG string
+  // Build SVG string (unic-gradient)
+  const gradId = `pbRadarGrad-${Math.random().toString(36).slice(2, 8)}`;
   let svg = `<div style="text-align:center;margin:1.5rem 0;">`;
   svg += `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">`;
+  svg += `<defs><linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">`;
+  svg += `<stop offset="0%" stop-color="#2A306C" stop-opacity="0.30"/>`;
+  svg += `<stop offset="100%" stop-color="#846BB5" stop-opacity="0.22"/>`;
+  svg += `</linearGradient></defs>`;
 
   // Background
   svg += `<rect width="${size}" height="${size}" fill="rgba(42,48,108,0.04)" rx="16"/>`;
@@ -72,11 +77,12 @@ export function generateOceanRadarSVG(scores: OceanScores, size = 320): string {
   });
 
   // Polygon fill
-  svg += `<polygon points="${polygonPath}" fill="rgba(42,48,108,0.14)" stroke="${BOTANICAL}" stroke-width="2.5"/>`;
+  svg += `<polygon points="${polygonPath}" fill="url(#${gradId})" stroke="${BOTANICAL}" stroke-width="2.5"/>`;
 
   // Points and labels
   points.forEach((p) => {
-    svg += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="${BOTANICAL}" stroke="white" stroke-width="1.5"/>`;
+    svg += `<circle cx="${p.x}" cy="${p.y}" r="7" fill="${BOTANICAL}" fill-opacity="0.16"/>`;
+    svg += `<circle cx="${p.x}" cy="${p.y}" r="4.5" fill="${BOTANICAL}" stroke="white" stroke-width="1.5"/>`;
     svg += `<text x="${p.labelX}" y="${p.labelY}" text-anchor="middle" dominant-baseline="middle" font-size="11" font-family="sans-serif" fill="${INK}" font-weight="600">${p.d.short}: ${p.d.val}/10</text>`;
   });
 
@@ -132,6 +138,10 @@ export function generateMIBarSVG(scores: MIScores, width = 480): string {
   svg += `<span style="font-size:11px;color:${STARLIGHT_DEEP};font-weight:600;">★ Top 3 Teratas Di-Highlight</span>`;
   svg += `</div>`;
   svg += `<svg width="${width}" height="${totalHeight}" viewBox="0 0 ${width} ${totalHeight}" style="max-width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">`;
+  const barGradId = `pbBarGrad-${Math.random().toString(36).slice(2, 8)}`;
+  svg += `<defs><linearGradient id="${barGradId}" x1="0%" y1="0%" x2="100%" y2="0%">`;
+  svg += `<stop offset="0%" stop-color="#F8BB53"/><stop offset="100%" stop-color="#D99A2B"/>`;
+  svg += `</linearGradient></defs>`;
 
   // Background
   svg += `<rect width="${width}" height="${totalHeight}" fill="rgba(42,48,108,0.04)" rx="12"/>`;
@@ -145,11 +155,14 @@ export function generateMIBarSVG(scores: MIScores, width = 480): string {
     svg += `<text x="10" y="${y + barHeight / 2 + 4}" font-size="11" font-family="sans-serif" fill="${isTop3 ? STARLIGHT_DEEP : INK}" font-weight="${isTop3 ? '700' : '500'}">${item.icon} ${item.label}</text>`;
 
     // Bar background (track)
-    svg += `<rect x="${labelWidth}" y="${y}" width="${chartWidth}" height="${barHeight}" fill="${TRACK}" rx="4"/>`;
+    svg += `<rect x="${labelWidth}" y="${y}" width="${chartWidth}" height="${barHeight}" fill="${TRACK}" rx="6"/>`;
 
-    // Bar fill — botanical (non-top3), starlight (top3)
-    const barColor = isTop3 ? STARLIGHT : BOTANICAL;
-    svg += `<rect x="${labelWidth}" y="${y}" width="${barW}" height="${barHeight}" fill="${barColor}" rx="4"/>`;
+    // Bar fill — botanical (non-top3), gold gradient (top3)
+    if (isTop3) {
+      svg += `<rect x="${labelWidth}" y="${y}" width="${barW}" height="${barHeight}" fill="url(#${barGradId})" rx="6"/>`;
+    } else {
+      svg += `<rect x="${labelWidth}" y="${y}" width="${barW}" height="${barHeight}" fill="${BOTANICAL}" rx="6"/>`;
+    }
 
     // Score text
     svg += `<text x="${labelWidth + chartWidth + 8}" y="${y + barHeight / 2 + 4}" font-size="11" font-family="sans-serif" fill="${isTop3 ? STARLIGHT_DEEP : STONE}" font-weight="${isTop3 ? '700' : '500'}">${item.val}/100</text>`;

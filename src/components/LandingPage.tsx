@@ -92,7 +92,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
       </nav>
 
       {/* ===== HERO — mascot-led, asymmetrical ===== */}
-      <section className="relative overflow-hidden border-b border-outline-variant bg-primary text-paper">
+      <section className="relative overflow-hidden border-b border-outline-variant bg-gradient-to-br from-primary via-[#3d4488] to-secondary text-paper">
         <div className="shell shell--wide grid items-center gap-10 py-16 md:grid-cols-12 md:py-24">
           <div className="md:col-span-7">
             <motion.p custom={0} initial="hidden" animate="visible" variants={fadeUp} className="eyebrow text-tertiary">
@@ -129,7 +129,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
             >
               <button
                 onClick={onStart}
-                className="group inline-flex items-center gap-2 rounded-[10px] bg-tertiary px-6 py-3.5 font-semibold text-on-tertiary transition-colors hover:bg-starlight-deep"
+                className="group inline-flex items-center gap-2 rounded-[10px] bg-gradient-to-br from-starlight to-starlight-deep px-6 py-3.5 font-semibold text-on-tertiary shadow-lg hover:brightness-105 transition-all"
               >
                 Mulai kuis
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -332,7 +332,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={onStart}
-                className="group inline-flex items-center gap-2 rounded-[10px] bg-tertiary px-6 py-3.5 font-semibold text-on-tertiary transition-colors hover:bg-starlight-deep"
+                className="group inline-flex items-center gap-2 rounded-[10px] bg-gradient-to-br from-starlight to-starlight-deep px-6 py-3.5 font-semibold text-on-tertiary shadow-lg hover:brightness-105 transition-all"
               >
                 Mulai kuis gratis
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

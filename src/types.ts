@@ -96,5 +96,10 @@ export interface AssessmentQuestion {
   type: 'OCEAN' | 'MI';
   dimension: string;
   statement: string;
+  /**
+   * Contoh konkret perilaku sehari-hari agar orang tua lebih mudah menilai.
+   * Ditonjolkan di bawah pernyataan. Diambil dari `questionExamples.ts`.
+   */
+  example?: string;
   reverse: boolean; // true => reverse-scored (6 - val) per IPIP conventions
 }

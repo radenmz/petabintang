@@ -288,6 +288,24 @@ const PALETTE = {
   surfaceContainerHigh: '#EDDFD5'
 } as const;
 
+// Eksekusi modern (Opsi 3 — Modern-warm): gradasi statis + bayangan berlapis +
+// radius besar. Palet TIDAK berubah; PDF tidak pakai blur/backdrop-filter
+// (tak bisa dicetak). Sinkron dengan token modern di src/index.css.
+const GRADIENTS = {
+  primary: 'linear-gradient(135deg, #2A306C 0%, #846BB5 100%)',
+  primarySoft: 'linear-gradient(135deg, #2A306C 0%, #3D4488 100%)',
+  gold: 'linear-gradient(135deg, #F8BB53 0%, #D99A2B 100%)',
+  warmSurface: 'linear-gradient(180deg, #FFFFFF 0%, #FAF1EC 100%)',
+  warmTint: 'linear-gradient(135deg, #ECE6F6 0%, #E8E9F3 100%)',
+  coverHero: 'linear-gradient(160deg, #2A306C 0%, #4B3E86 55%, #846BB5 100%)'
+} as const;
+const SHADOWS = {
+  soft: '0 1px 2px rgba(28,26,46,0.05), 0 4px 16px rgba(28,26,46,0.06)',
+  card: '0 2px 6px rgba(28,26,46,0.05), 0 12px 32px rgba(42,48,108,0.10)',
+  lift: '0 8px 24px rgba(42,48,108,0.18)'
+} as const;
+const RADIUS = { card: '18px' } as const;
+
 const CHAPTER_DIVIDER_STYLES: Record<number, {
   background: string;
   accent: string;
@@ -295,11 +313,11 @@ const CHAPTER_DIVIDER_STYLES: Record<number, {
   quoteColor: string;
   labelSpacing: string;
 }> = {
-  1: { background: PALETTE.paper, accent: PALETTE.botanical, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.3em' },
-  2: { background: PALETTE.botanicalTint, accent: PALETTE.botanical, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.34em' },
-  3: { background: PALETTE.secondaryTint, accent: PALETTE.secondary, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.28em' },
-  4: { background: PALETTE.surfaceContainerHigh, accent: PALETTE.starlightDeep, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.32em' },
-  5: { background: PALETTE.botanicalDeep, accent: PALETTE.starlight, text: '#FFFFFF', quoteColor: PALETTE.botanicalTint, labelSpacing: '0.38em' }
+  1: { background: GRADIENTS.warmSurface, accent: PALETTE.botanical, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.3em' },
+  2: { background: GRADIENTS.warmTint, accent: PALETTE.botanical, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.34em' },
+  3: { background: GRADIENTS.warmTint, accent: PALETTE.secondary, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.28em' },
+  4: { background: GRADIENTS.warmSurface, accent: PALETTE.starlightDeep, text: PALETTE.ink, quoteColor: PALETTE.stone, labelSpacing: '0.32em' },
+  5: { background: GRADIENTS.primary, accent: PALETTE.starlight, text: '#FFFFFF', quoteColor: 'rgba(255,255,255,0.85)', labelSpacing: '0.38em' }
 };
 
 function getTop3MI(mi: MIScores): { key: keyof MIScores; name: string; score: number }[] {
@@ -779,56 +797,62 @@ a:focus-visible, button:focus-visible { outline: 2px solid ${PALETTE.botanical};
 /* ---------- Cover page ---------- */
 .cover {
   text-align: center;
-  padding: 72px 24px 56px;
-  border-bottom: 3px solid ${PALETTE.botanical};
+  padding: 84px 32px 64px;
+  border: 1px solid ${PALETTE.outlineVariant};
   margin-bottom: 48px;
-  background: linear-gradient(180deg, #FFFFFF 0%, ${PALETTE.paper} 100%);
-  border-radius: 16px;
+  background: ${GRADIENTS.coverHero};
+  border-radius: ${RADIUS.card};
+  box-shadow: ${SHADOWS.card};
+  color: #FFFFFF;
 }
 .cover .badge {
   display: inline-block;
   font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: ${PALETTE.botanical};
+  color: #FFFFFF;
   font-weight: 700;
-  background: ${PALETTE.botanicalTint};
-  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  padding: 7px 18px;
   border-radius: 999px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
-.cover img { max-width: 200px; max-height: 200px; margin: 0 auto 24px; display: block; border-radius: 16px; }
-.cover .star-divider { color: ${PALETTE.starlight}; font-size: 1.2rem; letter-spacing: 0.3em; margin: 20px 0; }
+.cover img { max-width: 200px; max-height: 200px; margin: 0 auto 24px; display: block; border-radius: 16px; box-shadow: ${SHADOWS.lift}; }
+.cover .star-divider { color: ${PALETTE.starlight}; font-size: 1.3rem; letter-spacing: 0.3em; margin: 22px 0; text-shadow: 0 2px 12px rgba(248,187,83,0.45); }
 .cover h1 {
-  font-size: 2.6rem;
+  font-size: 2.8rem;
   font-weight: 800;
-  margin: 0 0 8px;
-  color: ${PALETTE.ink};
+  margin: 0 0 10px;
+  color: #FFFFFF;
   border: none;
   padding: 0;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   font-family: 'Nunito', 'Plus Jakarta Sans', sans-serif;
+  text-shadow: 0 2px 16px rgba(28, 26, 46, 0.35);
 }
 .cover .subtitle {
-  font-size: 1.1rem;
-  color: ${PALETTE.botanical};
+  font-size: 1.12rem;
+  color: ${PALETTE.starlight};
   font-style: italic;
   margin: 4px 0 0;
 }
 .cover .meta {
-  margin-top: 32px;
+  margin-top: 34px;
   font-size: 0.92rem;
-  color: ${PALETTE.stone};
+  color: rgba(255, 255, 255, 0.82);
   line-height: 1.9;
 }
-.cover .meta strong { color: ${PALETTE.ink}; }
+.cover .meta strong { color: #FFFFFF; }
 
 /* ---------- Table of contents ---------- */
 .toc {
-  background: ${PALETTE.surfaceContainerHigh};
+  background: ${GRADIENTS.warmTint};
   border: 1px solid ${PALETTE.outlineVariant};
-  border-radius: 14px;
-  padding: 28px 32px;
+  border-radius: ${RADIUS.card};
+  box-shadow: ${SHADOWS.soft};
+  padding: 32px 36px;
   margin-bottom: 56px;
 }
 .toc h2 {
@@ -843,11 +867,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid ${PALETTE.botanical};
 .toc li.toc-chapter { margin-bottom: 14px; }
 .toc .toc-chapter-label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  color: ${PALETTE.botanical};
+  color: ${PALETTE.botanicalDeep};
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   padding: 6px 10px;
   margin-bottom: 4px;
   border-bottom: 1px solid ${PALETTE.outlineVariant};
@@ -880,9 +904,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid ${PALETTE.botanical};
 
 /* ---------- Module blocks ---------- */
 .module {
-  border-top: 3px double ${PALETTE.botanical};
+  border-top: 1px solid ${PALETTE.outlineVariant};
+  border-image: ${GRADIENTS.primary} 1;
+  border-image-slice: 1;
   margin-top: 56px;
-  padding-top: 28px;
+  padding-top: 30px;
   scroll-margin-top: 20px;
 }
 .module:first-of-type { border-top: none; margin-top: 0; }
@@ -946,9 +972,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid ${PALETTE.botanical};
   margin: 1.1rem 0;
   font-style: italic;
   color: ${PALETTE.botanicalDeep};
-  background: ${PALETTE.botanicalTint};
-  padding: 12px 18px;
-  border-radius: 0 10px 10px 0;
+  background: ${GRADIENTS.warmTint};
+  padding: 14px 20px;
+  border-radius: 0 14px 14px 0;
+  box-shadow: ${SHADOWS.soft};
 }
 .markdown blockquote p:last-child { margin-bottom: 0; }
 .markdown blockquote p { margin-bottom: 0.6rem; }
@@ -988,10 +1015,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid ${PALETTE.botanical};
 .misi-grid hr { display: none; }
 .misi-card {
   border: 1px solid ${PALETTE.outlineVariant};
-  border-radius: 12px;
-  padding: 20px 24px;
+  border-radius: ${RADIUS.card};
+  padding: 22px 26px;
   margin-bottom: 20px;
-  background: ${PALETTE.paper};
+  background: #FFFFFF;
+  box-shadow: ${SHADOWS.soft};
 }
 .misi-card h4 {
   display: flex;
@@ -1013,13 +1041,14 @@ a:focus-visible, button:focus-visible { outline: 2px solid ${PALETTE.botanical};
   margin-bottom: 0.4rem;
 }
 .misi-card blockquote {
-  background: ${PALETTE.botanicalTint};
+  background: ${GRADIENTS.warmTint};
   border-left: 3px solid ${PALETTE.starlight};
   font-size: 1rem;
-  padding: 10px 16px;
+  padding: 12px 18px;
   margin: 0.8rem 0;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 12px 12px 0;
   color: ${PALETTE.botanicalDeep};
+  box-shadow: none;
 }
 .misi-card input[type="checkbox"] {
   margin-top: 0.8rem;
@@ -1164,22 +1193,23 @@ pre, code {
   .module-body { max-width: 150mm; margin-left: auto; margin-right: auto; }
   .markdown p { text-align: left; }
   .cover {
-    border-radius: 0;
+    border-radius: ${RADIUS.card};
     padding: 40px 20px;
     min-height: calc(100vh - 30mm);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(180deg, #FFFFFF 0%, ${PALETTE.botanicalTint} 100%);
-    border-bottom: none;
+    background: ${GRADIENTS.coverHero};
+    border: 1px solid ${PALETTE.outlineVariant};
+    box-shadow: none;
     margin-bottom: 0;
     break-after: page;
     page-break-after: always;
   }
-  .cover img { max-width: 180px; max-height: 180px; margin: 0 auto 32px; display: block; border-radius: 16px; }
+  .cover img { max-width: 180px; max-height: 180px; margin: 0 auto 32px; display: block; border-radius: 16px; box-shadow: none; }
   .cover .star-divider { font-size: 1.4rem; margin: 24px 0; }
-  .toc { background: none; border: 1px solid #ccc; }
+  .toc { background: ${GRADIENTS.warmTint}; border: 1px solid ${PALETTE.outlineVariant}; border-radius: ${RADIUS.card}; }
   .toc {
     break-before: page;
     page-break-before: always;
@@ -1317,7 +1347,7 @@ ${items}
         `Ilustrasi mascot arketipe ${escapeHtml(ebook.archetype.title)} - pose pahlawan`
       );
       const chapterLabel = `BAB ${ch.chapter}: ${ch.title}`;
-      const dividerHtml = `<div class="chapter-divider" style="page-break-after:always;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 20px;background:${dividerStyle.background};color:${dividerStyle.text};border:2px solid ${dividerStyle.accent};border-radius:14px;">
+      const dividerHtml = `<div class="chapter-divider" style="page-break-after:always;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:64px 24px;background:${dividerStyle.background};color:${dividerStyle.text};border:1px solid ${PALETTE.outlineVariant};border-radius:${RADIUS.card};box-shadow:${SHADOWS.card};">
       ${heroImg}
       <p style="font-size:11px;letter-spacing:${dividerStyle.labelSpacing};color:${dividerStyle.accent};text-transform:uppercase;margin-bottom:8px;">${escapeHtml(chapterLabel)}</p>
       <p style="font-size:15px;color:${dividerStyle.quoteColor};font-style:italic;font-weight:300;margin:24px auto 0;max-width:360px;line-height:1.7;letter-spacing:0.01em;">"${CHAPTER_QUOTES[ch.chapter] || ''}"</p>

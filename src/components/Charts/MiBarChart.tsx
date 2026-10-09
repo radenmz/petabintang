@@ -38,9 +38,9 @@ export const MiBarChart: React.FC<MiBarChartProps> = ({ scores }) => {
                 {item.val}
               </span>
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-high">
+            <div className="h-2 w-full overflow-hidden rounded-full bg-surface-container-high">
               <div
-                className={`h-full rounded-full ${isTop3 ? 'bg-primary' : 'bg-primary/45'}`}
+                className={`h-full rounded-full ${isTop3 ? 'bg-gradient-to-r from-starlight to-starlight-deep' : 'bg-primary/45'}`}
                 style={{ width: `${Math.min(Math.max(item.val, 5), 100)}%` }}
               />
             </div>

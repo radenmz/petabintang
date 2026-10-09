@@ -243,6 +243,13 @@ export default function App() {
         showDevBanner ? 'pt-8' : ''
       }`}
     >
+      {step !== 'input' && step !== 'quiz' && (
+        <div className="aurora" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+      )}
       {showDevBanner && (
         <div className="fixed top-0 inset-x-0 z-50 bg-amber-500/90 text-slate-950 text-[11px] font-mono py-1 px-3 flex items-center justify-center gap-3">
           <span className="font-bold">DEV PREVIEW</span>

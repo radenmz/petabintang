@@ -40,6 +40,12 @@ export const OceanRadarChart: React.FC<OceanRadarChartProps> = ({ scores, size =
   return (
     <div className="flex flex-col items-center justify-center">
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="overflow-visible">
+        <defs>
+          <linearGradient id="pbRadarWebGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#2a306c" stopOpacity="0.30" />
+            <stop offset="100%" stopColor="#846bb5" stopOpacity="0.22" />
+          </linearGradient>
+        </defs>
         {/* Concentric Grid */}
         {levels.map((lvl, idx) => (
           <circle
@@ -63,12 +69,13 @@ export const OceanRadarChart: React.FC<OceanRadarChartProps> = ({ scores, size =
         })}
 
         {/* Radar Polygon */}
-        <polygon points={polygonPath} fill="rgba(42, 48, 108, 0.14)" stroke="var(--color-botanical)" strokeWidth="2.5" />
+        <polygon points={polygonPath} fill="url(#pbRadarWebGrad)" stroke="var(--color-botanical)" strokeWidth="2.5" />
 
         {/* Points and Labels */}
         {points.map((p, i) => (
           <g key={i}>
-            <circle cx={p.x} cy={p.y} r="5" fill="var(--color-botanical)" stroke="#fff" strokeWidth="2" />
+            <circle cx={p.x} cy={p.y} r="7" fill="var(--color-botanical)" fillOpacity="0.16" />
+            <circle cx={p.x} cy={p.y} r="4.5" fill="var(--color-botanical)" stroke="#fff" strokeWidth="2" />
             <text
               x={p.labelX}
               y={p.labelY}

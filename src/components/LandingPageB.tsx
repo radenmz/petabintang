@@ -192,7 +192,7 @@ export const LandingPageB: React.FC<LandingPageBProps> = ({ onStart, onSwitchVar
       </nav>
 
       {/* HERO SECTION — Primary Jacarta / Paper theme matching LP A */}
-      <section className="relative overflow-hidden bg-primary text-paper border-b border-outline-variant py-14 md:py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-[#3d4488] to-secondary text-paper border-b border-outline-variant py-14 md:py-20">
         <div className="shell shell--wide">
           <div className="max-w-4xl mx-auto text-center">
             <motion.p custom={0} initial="hidden" animate="visible" variants={fadeUp} className="eyebrow text-tertiary">
@@ -230,7 +230,7 @@ export const LandingPageB: React.FC<LandingPageBProps> = ({ onStart, onSwitchVar
             >
               <button
                 onClick={onStart}
-                className="w-full sm:w-auto group inline-flex items-center justify-center gap-3 rounded-[10px] bg-tertiary px-8 py-4 text-base font-bold text-on-tertiary shadow-lg hover:bg-starlight-deep transition-all hover:scale-[1.02]"
+                className="w-full sm:w-auto group inline-flex items-center justify-center gap-3 rounded-[10px] bg-gradient-to-br from-starlight to-starlight-deep px-8 py-4 text-base font-bold text-on-tertiary shadow-lg hover:brightness-105 transition-all hover:scale-[1.02]"
               >
                 <span>Mulai Kuis Peta Bintang Sekarang</span>
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -257,7 +257,7 @@ export const LandingPageB: React.FC<LandingPageBProps> = ({ onStart, onSwitchVar
           </div>
 
           {/* INTERACTIVE 30-SECOND TEASER */}
-          <div id="teaser" className="mt-14 max-w-4xl mx-auto rounded-2xl border border-outline-variant bg-paper p-6 md:p-8 text-ink shadow-xl">
+          <div id="teaser" className="mt-14 max-w-4xl mx-auto rounded-2xl border border-outline-variant bg-paper p-6 md:p-8 text-ink shadow-[var(--shadow-card)]">
             <div className="flex items-center gap-2 text-primary font-display font-bold text-xs tracking-wider uppercase">
               <Sparkles className="w-4 h-4 text-secondary" />
               <span>Simulasi Cepat (Cek 30 Detik)</span>
@@ -615,7 +615,7 @@ export const LandingPageB: React.FC<LandingPageBProps> = ({ onStart, onSwitchVar
 
               <button
                 onClick={onStart}
-                className="mt-6 w-full max-w-md group inline-flex items-center justify-center gap-3 rounded-[10px] bg-primary px-8 py-4 text-base font-bold text-paper shadow-xl hover:bg-botanical-deep transition-all hover:scale-[1.02]"
+                className="mt-6 w-full max-w-md group inline-flex items-center justify-center gap-3 rounded-[10px] bg-gradient-to-br from-primary to-secondary px-8 py-4 text-base font-bold text-paper shadow-xl hover:brightness-110 transition-all hover:scale-[1.02]"
               >
                 <span>Mulai Kuis Peta Bintang — {formatRupiah(PROMO_PRICE)}</span>
                 <ArrowRight className="h-5 w-5 text-tertiary transition-transform group-hover:translate-x-1" />

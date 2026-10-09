@@ -506,7 +506,7 @@ export const AssessmentWizard: React.FC<AssessmentWizardProps> = ({
       )}
 
       {activeSubTab === 'quiz' && quizPhase === 'milestone' && activeMilestone && (
-        <div className="rounded-2xl bg-primary px-6 py-14 text-center text-paper md:px-12">
+        <div className="rounded-2xl bg-gradient-to-br from-primary via-[#3d4488] to-secondary px-6 py-14 text-center text-paper md:px-12">
           <div className="eyebrow text-tertiary">
             Jeda · {activeMilestone.at} dari {allQuestions.length} soal
           </div>
@@ -625,6 +625,13 @@ export const AssessmentWizard: React.FC<AssessmentWizardProps> = ({
                   {personalize(currentQ.statement)}
                 </h4>
 
+                {currentQ.example && (
+                  <p className="mx-auto max-w-xl rounded-xl border border-outline-variant bg-surface-container/60 px-4 py-3 text-sm leading-relaxed text-secondary">
+                    <span className="mr-1 inline-flex align-middle text-tertiary" aria-hidden="true">💡</span>
+                    {currentQ.example}
+                  </p>
+                )}
+
                 {/* Likert 1-5 */}
                 <div className="mx-auto max-w-xl space-y-3 pt-2">
                   <div className="grid grid-cols-5 gap-2">
@@ -729,6 +736,12 @@ export const AssessmentWizard: React.FC<AssessmentWizardProps> = ({
                         </span>
                         <div>
                           <p className="text-sm text-ink">{personalize(q.statement)}</p>
+                          {q.example && (
+                            <p className="mt-1 text-xs leading-relaxed text-secondary">
+                              <span className="mr-1" aria-hidden="true">💡</span>
+                              {q.example}
+                            </p>
+                          )}
                           <span className="text-[10px] font-mono uppercase text-secondary">Dimensi: {q.dimension} ({q.type})</span>
                         </div>
                       </div>

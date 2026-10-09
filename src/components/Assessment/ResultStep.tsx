@@ -434,7 +434,7 @@ export const ResultStep: React.FC<ResultStepProps> = ({
               </div>
 
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-paper/0 via-paper/70 to-paper px-4">
-                <div className="w-full max-w-sm border border-ink bg-paper p-6 text-center">
+                <div className="w-full max-w-sm border border-ink bg-paper p-6 text-center shadow-[var(--shadow-card)]">
                   <span className="eyebrow inline-flex items-center gap-1.5">
                     <Lock className="h-3.5 w-3.5" /> Pratinjau terkunci
                   </span>
@@ -509,7 +509,7 @@ export const ResultStep: React.FC<ResultStepProps> = ({
 
         {/* ================= SIDEBAR (desktop) ================= */}
         <aside className="hidden lg:block">
-          <div className="sticky top-24 border border-outline-variant bg-paper p-6">
+          <div className="sticky top-24 border border-outline-variant bg-paper p-6 shadow-[var(--shadow-card)]">
             <span className="eyebrow">Laporan lengkap</span>
             <div className="mt-3 flex items-baseline gap-2">
               <span className="text-sm text-secondary line-through">{formatRupiah(ORIGINAL_PRICE)}</span>

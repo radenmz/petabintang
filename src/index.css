@@ -48,6 +48,27 @@
   --color-wa: #25d366;
   --color-wa-deep: #1a9e4b;
 
+  /* ============================================================
+     MODERN EXTRAS (Opsi 3 — Modern-warm)
+     Palet TIDAK berubah; hanya eksekusi (gradasi, bayangan, radius)
+     yang di-upgrade. Sinkron dengan PALETTE di generate-html-preview.ts.
+     ============================================================ */
+  --gradient-primary: linear-gradient(135deg, #2a306c 0%, #846bb5 100%);
+  --gradient-primary-soft: linear-gradient(135deg, #2a306c 0%, #3d4488 100%);
+  --gradient-gold: linear-gradient(135deg, #f8bb53 0%, #d99a2b 100%);
+  --gradient-warm-surface: linear-gradient(180deg, #ffffff 0%, #faf1ec 100%);
+  --gradient-warm-tint: linear-gradient(135deg, #ece6f6 0%, #e8e9f3 100%);
+
+  /* Layered warm shadows (premium "float" without looking AI-glossy) */
+  --shadow-soft: 0 1px 2px rgba(28, 26, 46, 0.05), 0 4px 16px rgba(28, 26, 46, 0.06);
+  --shadow-card: 0 2px 6px rgba(28, 26, 46, 0.05), 0 12px 32px rgba(42, 48, 108, 0.10);
+  --shadow-glass: 0 4px 30px rgba(28, 26, 46, 0.08), inset 0 1px 0 hsla(0, 0%, 100%, 0.6);
+  --shadow-lift: 0 8px 24px rgba(42, 48, 108, 0.18);
+
+  /* Radius scale (large, modern) */
+  --radius-card: 1.5rem;
+  --radius-pill: 999px;
+
   /* Compatibility aliases for existing utilities */
   --color-navy: #1c1a2e;
   --color-blue: #2a306c;
@@ -257,20 +278,34 @@ textarea {
 }
 
 .btn3d-primary {
-  background: var(--color-primary);
+  background: var(--gradient-primary);
   color: var(--color-on-primary);
+  box-shadow: 0 6px 18px rgba(42, 48, 108, 0.24);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 .btn3d-primary:hover:not(:disabled) {
-  background: var(--color-botanical-deep);
+  background: var(--gradient-primary-soft);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lift);
+}
+.btn3d-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(42, 48, 108, 0.22);
 }
 
 .btn3d-gold {
-  background: var(--color-tertiary);
+  background: var(--gradient-gold);
   color: var(--color-ink);
+  box-shadow: 0 6px 18px rgba(217, 154, 43, 0.28);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 .btn3d-gold:hover:not(:disabled) {
-  background: var(--color-starlight-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(217, 154, 43, 0.34);
   color: #fff;
+}
+.btn3d-gold:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .btn3d-wa {
@@ -291,7 +326,91 @@ textarea {
   border-color: var(--color-outline);
 }
 
+/* ===========================================================================
+   MODERN UTILITIES (Opsi 3 — Modern-warm)
+   Glass / aurora / card-tint. Aurora & blur dimatikan saat cetak dan untuk
+   pengguna yang minta reduced-motion.
+   =========================================================================== */
+.glass {
+  background: hsla(0, 0%, 100%, 0.62);
+  border: 1px solid hsla(0, 0%, 100%, 0.72);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+}
+.glass-strong {
+  background: hsla(0, 0%, 100%, 0.82);
+  border: 1px solid hsla(0, 0%, 100%, 0.8);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+}
+.card-tint {
+  background: var(--gradient-warm-tint);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+}
+.surface-elevated {
+  background: #ffffff;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Aurora — blob warm (Wisteria/Casablanca/Jacarta). Tempatkan sebagai latar
+   di shell marketing/result. Nir-gangguan: pointer-events none + z-index -10. */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(72px);
+  opacity: 0.4;
+  will-change: transform;
+}
+.aurora span:nth-child(1) {
+  width: 56vw; height: 56vw; max-width: 460px; max-height: 460px;
+  background: #846bb5; /* Wisteria */
+  top: -16vh; left: -20vw;
+  animation: aurora-float 18s ease-in-out infinite;
+}
+.aurora span:nth-child(2) {
+  width: 50vw; height: 50vw; max-width: 420px; max-height: 420px;
+  background: #f8bb53; /* Casablanca */
+  top: 34vh; right: -24vw;
+  animation: aurora-float 22s ease-in-out infinite reverse;
+}
+.aurora span:nth-child(3) {
+  width: 46vw; height: 46vw; max-width: 400px; max-height: 400px;
+  background: #2a306c; /* Jacarta */
+  bottom: -18vh; left: -10vw;
+  animation: aurora-float 20s ease-in-out infinite;
+}
+@keyframes aurora-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(3vw, -2vh) scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora span { animation: none !important; }
+}
+
 @media print {
+  .aurora { display: none !important; }
+  .glass, .glass-strong {
+    background: #fff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border: 1px solid var(--color-outline-variant) !important;
+  }
   body {
     background: white !important;
     color: black !important;

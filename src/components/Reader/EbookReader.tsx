@@ -29,7 +29,10 @@ const MARKDOWN_SANITIZE_SCHEMA = {
       'strokeLinecap', 'strokeLinejoin', 'opacity', 'fillOpacity',
       'rx', 'ry', 'cx', 'cy', 'r', 'x', 'y', 'x1', 'y1', 'x2', 'y2',
       'points', 'transform', 'd', 'textAnchor', 'dominantBaseline',
-      'fontSize', 'fontFamily', 'fontWeight', 'fontStyle'
+      'fontSize', 'fontFamily', 'fontWeight', 'fontStyle',
+      // SVG gradient support (OCEAN radar / MI bar use <linearGradient>)
+      'id', 'offset', 'stop-color', 'stop-opacity', 'stopColor', 'stopOpacity',
+      'gradientUnits', 'fill-opacity'
     ]
   }
 } as const;
