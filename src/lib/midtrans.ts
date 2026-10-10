@@ -110,12 +110,15 @@ export async function createSnapTransaction(args: CreateSnapArgs): Promise<strin
 
   let res: Response;
   try {
+    const notificationUrl = (process.env.PUBLIC_BASE_URL || '').trim().replace(/\/+$/, '')
+      + '/api/webhook/midtrans';
     res = await fetch(snapApiUrl(), {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: authHeader()
+        Authorization: authHeader(),
+        ...(process.env.PUBLIC_BASE_URL ? { 'X-Override-Notification': notificationUrl } : {})
       },
       body: JSON.stringify(body)
     });
