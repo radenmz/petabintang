@@ -49,6 +49,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   const [voucherError, setVoucherError] = useState<string>('');
   
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [isPolling, setIsPolling] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   // Email is authored once (result page) and only confirmed here — this toggles
   // the collapsed summary back to the editable input when the parent wants to
@@ -72,6 +73,9 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   const [snapReady, setSnapReady] = useState(false);
   const [snapError, setSnapError] = useState('');
   const [creatingOrder, setCreatingOrder] = useState(false);
+  // Saved Snap token from the first create-order call. Reused by
+  // handleContinuePayment to reopen the same popup without a new order.
+  const [savedSnapToken, setSavedSnapToken] = useState<string | null>(null);
 
   // Async-payment lifecycle (QRIS/VA). 'idle' = no active transaction; the
   // others surface a guidance panel + background polling so a slow settlement
@@ -91,6 +95,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
       pollRef.current = null;
     }
     pollTicksRef.current = 0;
+    setIsPolling(false);
   };
 
   // One-shot status check against the DB (the webhook is the source of truth;
@@ -120,7 +125,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   // unmount (useEffect below) and on success.
   const startPaidPoll = () => {
     stopPaidPoll();
-    setIsProcessing(true);
+    setIsPolling(true);
     pollTicksRef.current = 0;
     pollRef.current = setInterval(async () => {
       pollTicksRef.current += 1;
@@ -128,7 +133,6 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
       if (paid) return;
       if (pollTicksRef.current >= POLL_MAX_TICKS) {
         stopPaidPoll();
-        setIsProcessing(false);
         setPaymentPhase('expired');
       }
     }, POLL_INTERVAL_MS);
@@ -235,46 +239,11 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
     }, 1500);
   };
 
-  // Real Midtrans Snap flow (Track A3). Create a Snap order on the backend,
-  // open the Snap popup, then poll the ebook endpoint until the verified
-  // webhook flips payment_status to 'paid' — then unlock the reader. The
-  // webhook (not the client) is the source of truth; this polling just waits
-  // for it. Falls back to an in-memory unlock after a few tries so a delayed
-  // webhook doesn't block a user who genuinely completed payment.
-  const handlePayWithMidtrans = async () => {
-    if (!accessToken) {
-      setSnapError('Sesi tidak valid. Muat ulang halaman dan coba lagi.');
-      return;
-    }
-    if (!window.snap || !snapReady) {
-      setSnapError('Gateway pembayaran belum siap. Tunggu sebentar lalu coba lagi.');
-      return;
-    }
-
-    setSnapError('');
-    setCreatingOrder(true);
-    let snapToken: string;
-    try {
-      const res = await fetch('/api/payment/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          token: accessToken,
-          voucherCode: voucherCode.trim() || undefined,
-          email: parentEmail.trim() || undefined
-        })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.details || data.error || `HTTP ${res.status}`);
-      snapToken = data.snapToken;
-    } catch (err) {
-      setSnapError(err instanceof Error ? err.message : 'Gagal membuat transaksi pembayaran.');
-      setCreatingOrder(false);
-      return;
-    }
-    setCreatingOrder(false);
-
-    window.snap.pay(snapToken, {
+  // Open the Snap popup with a given token. Callbacks are shared by both
+  // handlePayWithMidtrans (new order) and handleContinuePayment (reuse token)
+  // so the behaviour is identical regardless of which entry point opened Snap.
+  const openSnap = (token: string) => {
+    window.snap!.pay(token, {
       onSuccess: () => {
         // P6: never unlock on the client's word alone — Snap "success" is a
         // gateway ack, not a settled payment. Poll until the verified webhook
@@ -311,14 +280,65 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
     });
   };
 
-  // P4: manual re-check ("Saya sudah bayar"). Polls the DB once immediately;
-  // if still unpaid, keeps the poll running so a late settlement still
-  // auto-unlocks. Resets any stale 'expired' phase when the user retries.
-  const handleCheckStatus = async () => {
+  // Real Midtrans Snap flow (Track A3). Create a Snap order on the backend,
+  // open the Snap popup, then poll the ebook endpoint until the verified
+  // webhook flips payment_status to 'paid' — then unlock the reader. The
+  // webhook (not the client) is the source of truth; this polling just waits
+  // for it. The Snap token is saved so handleContinuePayment can reopen the
+  // same popup without creating a new order.
+  const handlePayWithMidtrans = async () => {
+    if (!accessToken) {
+      setSnapError('Sesi tidak valid. Muat ulang halaman dan coba lagi.');
+      return;
+    }
+    if (!window.snap || !snapReady) {
+      setSnapError('Gateway pembayaran belum siap. Tunggu sebentar lalu coba lagi.');
+      return;
+    }
+
     setSnapError('');
-    setPaymentPhase('pending');
-    const paid = await checkPaidOnce();
-    if (!paid) startPaidPoll();
+    setCreatingOrder(true);
+    let snapToken: string;
+    try {
+      const res = await fetch('/api/payment/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: accessToken,
+          voucherCode: voucherCode.trim() || undefined,
+          email: parentEmail.trim() || undefined
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.details || data.error || `HTTP ${res.status}`);
+      snapToken = data.snapToken;
+    } catch (err) {
+      setSnapError(err instanceof Error ? err.message : 'Gagal membuat transaksi pembayaran.');
+      setCreatingOrder(false);
+      return;
+    }
+    setCreatingOrder(false);
+    setSavedSnapToken(snapToken);
+    openSnap(snapToken);
+  };
+
+  // Reopen the Snap popup with the saved token — same transaction, same order,
+  // no new charge. Midtrans allows reusing a valid, non-expired Snap token.
+  // Falls back to creating a new order if the token was lost (page reload).
+  const handleContinuePayment = () => {
+    if (!window.snap || !snapReady) {
+      setSnapError('Gateway pembayaran belum siap. Tunggu sebentar lalu coba lagi.');
+      return;
+    }
+    if (savedSnapToken) {
+      stopPaidPoll();
+      setIsProcessing(false);
+      setSnapError('');
+      openSnap(savedSnapToken);
+    } else {
+      // Token lost (page reload) — create a new order.
+      handlePayWithMidtrans();
+    }
   };
 
   // P4/P8: start a fresh payment attempt. The previous child row stays in
@@ -372,9 +392,6 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
             {/* Email */}
             <section>
               <span className="eyebrow">Email penerima</span>
-              <p className="mt-2 text-sm text-secondary">
-                Tautan akses e-book dikirim ke alamat ini. Wajib diisi.
-              </p>
               {isEmailValid(parentEmail) && !emailEditing ? (
                 <div className="mt-3 flex items-center justify-between gap-3 border-b border-outline-variant py-2.5">
                   <span className="flex min-w-0 items-center gap-2 text-base text-ink">
@@ -412,7 +429,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                 </>
               )}
               <p className="mt-2 text-xs text-secondary">
-                Pembayaran bisa memakan waktu — email memastikan tautan akses tetap terkirim bila Anda menutup halaman sebelum konfirmasi.
+                E-book dikirim ke email ini setelah pembayaran.
               </p>
             </section>
 
@@ -441,13 +458,11 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               <section className="border border-outline-variant p-4">
                 <p className="text-sm text-secondary">
                   <span className="font-semibold text-ink">Pembayaran tertunda.</span> Halaman ini terbuka otomatis begitu pembayaran dikonfirmasi. Tautan akses juga dikirim ke email Anda.
+                  {isPolling && <span className="ml-1 inline-flex items-center gap-1 text-xs"><Clock className="h-3 w-3 animate-spin" />memeriksa…</span>}
                 </p>
-                <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-                  <Button variant="primary" size="md" full disabled={isProcessing} onClick={handleCheckStatus}>
-                    {isProcessing ? <><Clock className="h-4 w-4 animate-spin" /><span>Memeriksa…</span></> : <><CheckCircle2 className="h-4 w-4" /><span>Saya sudah bayar</span></>}
-                  </Button>
-                  <Button variant="ghost" size="md" full disabled={isProcessing} onClick={handleRetryPayment}>
-                    <RefreshCw className="h-4 w-4" /><span>Bayar lagi</span>
+                <div className="mt-3">
+                  <Button variant="primary" size="md" full onClick={handleContinuePayment}>
+                    <RefreshCw className="h-4 w-4" /><span>Lanjutkan pembayaran</span>
                   </Button>
                 </div>
               </section>
@@ -457,14 +472,14 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               <section className="border border-amber-300 bg-amber-50 p-4">
                 <p className="flex items-start gap-2 text-sm text-amber-800">
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                  <span><span className="font-semibold">Transaksi belum selesai.</span> Anda bisa menyelesaikannya nanti — akses aktif otomatis setelah dikonfirmasi.</span>
+                  <span>
+                    <span className="font-semibold">Transaksi belum selesai.</span> Anda bisa melanjutkan pembayaran sekarang.
+                    {isPolling && <span className="ml-1 inline-flex items-center gap-1 text-xs"><Clock className="h-3 w-3 animate-spin" />memeriksa…</span>}
+                  </span>
                 </p>
-                <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-                  <Button variant="primary" size="md" full disabled={isProcessing} onClick={handleCheckStatus}>
-                    {isProcessing ? <><Clock className="h-4 w-4 animate-spin" /><span>Memeriksa…</span></> : <><CheckCircle2 className="h-4 w-4" /><span>Cek status</span></>}
-                  </Button>
-                  <Button variant="ghost" size="md" full disabled={isProcessing} onClick={handleRetryPayment}>
-                    <RefreshCw className="h-4 w-4" /><span>Bayar lagi</span>
+                <div className="mt-3">
+                  <Button variant="primary" size="md" full onClick={handleContinuePayment}>
+                    <RefreshCw className="h-4 w-4" /><span>Lanjutkan pembayaran</span>
                   </Button>
                 </div>
               </section>
@@ -522,13 +537,11 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                     variant="primary"
                     size="lg"
                     full
-                    disabled={isProcessing || creatingOrder || !snapReady || !isEmailValid(parentEmail)}
+                    disabled={creatingOrder || !snapReady || !isEmailValid(parentEmail)}
                     onClick={handlePayWithMidtrans}
                   >
                     {!isEmailValid(parentEmail) ? (
                       <><Mail className="h-4 w-4" /><span>Isi email dulu</span></>
-                    ) : isProcessing ? (
-                      <><Clock className="h-4 w-4 animate-spin" /><span>Menunggu pembayaran…</span></>
                     ) : creatingOrder ? (
                       <><Clock className="h-4 w-4 animate-spin" /><span>Menyiapkan transaksi…</span></>
                     ) : (

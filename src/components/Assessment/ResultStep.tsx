@@ -224,13 +224,10 @@ export const ResultStep: React.FC<ResultStepProps> = ({
       ) : (
         <>
           <span className="eyebrow">Email akses</span>
-          <p className="mt-2 text-sm text-secondary">
-            <span className="font-semibold text-ink">Wajib diisi.</span> E-book dikirim ke email ini setelah pembayaran — pastikan alamatnya benar dan aktif. Jika salah, e-book tidak akan sampai.
-          </p>
           <div className="mt-3 space-y-3">
             <div className="space-y-1.5">
               <label htmlFor="result-email" className="text-xs font-semibold text-ink">
-                Email <span className="text-rose-500">*</span> <span className="font-normal text-secondary">(wajib)</span>
+                Email <span className="text-rose-500">*</span>
               </label>
               <input
                 id="result-email"
@@ -247,10 +244,11 @@ export const ResultStep: React.FC<ResultStepProps> = ({
               {emailTouched && !emailValid && (
                 <p className="text-xs text-rose-600">Email wajib diisi untuk menerima e-book.</p>
               )}
+              <p className="text-xs text-secondary">E-book dikirim ke email ini setelah pembayaran.</p>
             </div>
             <div className="space-y-1.5">
               <span className="flex items-center gap-1.5 text-xs font-semibold text-secondary">
-                <MessageCircle className="h-3 w-3" /> WhatsApp — opsional
+                <MessageCircle className="h-3 w-3" /> WhatsApp (disarankan)
               </span>
               <input
                 type="tel"
@@ -266,7 +264,7 @@ export const ResultStep: React.FC<ResultStepProps> = ({
               {waTouched && !waValid && (
                 <p className="text-xs text-rose-600">Masukkan nomor WhatsApp Indonesia yang valid.</p>
               )}
-              <p className="text-xs text-secondary">Hanya untuk mengingatkan bila laporan belum sempat dibuka — tidak wajib.</p>
+              <p className="text-xs text-secondary">Cadangan kalau email masuk spam, dan untuk mengingatkan bila laporan belum dibuka.</p>
             </div>
           </div>
           <div className="mt-3">

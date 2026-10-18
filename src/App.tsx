@@ -1,5 +1,4 @@
 import { useState, useEffect, type ComponentType } from 'react';
-import { Loader2 } from 'lucide-react';
 import { ChildProfile, CompleteEbook, WizardStep } from './types';
 import { getArchetypeById } from './data/archetypes';
 import { SAMPLE_PROFILES } from './data/questions';
@@ -10,6 +9,7 @@ import { AssessmentWizard } from './components/Assessment/AssessmentWizard';
 import { ResultStep } from './components/Assessment/ResultStep';
 import { PaymentStep } from './components/Payment/PaymentStep';
 import { EbookReader } from './components/Reader/EbookReader';
+import { AnalysisLoader } from './components/AnalysisLoader';
 import { loadActiveToken, saveActiveToken, clearActiveToken, clearQuizProgress } from './lib/quizStorage';
 
 export default function App() {
@@ -175,6 +175,8 @@ export default function App() {
     setIsPreparingEbook(true);
     setStep('result');
 
+    const startTime = Date.now();
+
     try {
       const res = await fetch('/api/quiz/submit', {
         method: 'POST',
@@ -206,6 +208,14 @@ export default function App() {
       console.error('[App] Failed to generate/save ebook:', err);
       setEbookError(err instanceof Error ? err.message : 'Terjadi kesalahan.');
     } finally {
+      // Ensure the analysis loader animation (4 steps, ~2.6s) has time to
+      // complete before the result page replaces it. A flash of the loader
+      // would undermine the trust-building effect.
+      const elapsed = Date.now() - startTime;
+      const MIN_LOAD_MS = 3000;
+      if (elapsed < MIN_LOAD_MS) {
+        await new Promise(r => setTimeout(r, MIN_LOAD_MS - elapsed));
+      }
       setIsPreparingEbook(false);
     }
   };
@@ -296,11 +306,13 @@ export default function App() {
         )}
 
         {/* Step 3: result */}
-        {step === 'result' && isPreparingEbook && (
-          <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-navy/70">
-            <Loader2 className="w-8 h-8 animate-spin text-blue" />
-            <p className="text-sm font-medium">Menyiapkan laporan personal…</p>
-          </div>
+        {step === 'result' && isPreparingEbook && childProfile && activeArchetype && (
+          <AnalysisLoader
+            childName={childProfile.name}
+            oceanScores={childProfile.oceanScores}
+            miScores={childProfile.miScores}
+            archetype={activeArchetype}
+          />
         )}
 
         {step === 'result' && !isPreparingEbook && ebookError && (
