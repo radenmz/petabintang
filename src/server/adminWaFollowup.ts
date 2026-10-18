@@ -46,7 +46,7 @@ export const ADMIN_WA_FOLLOWUP_HTML = `<!doctype html>
 <body>
 <header>
   <h1>Follow-up WhatsApp — Peta Bintang</h1>
-  <p>Daftar pesanan pending ≥ 24 jam yang belum ditindaklanjuti. Kirim pesan dari WhatsApp Anda, lalu tandai terkirim.</p>
+  <p>Pesanan pending untuk ditindaklanjuti: follow-up ≥ 24 jam (ber-WA), tanpa kontak, atau belum bayar (ada kontak). Tombol &ldquo;Bersihkan&rdquo; menghapus email/WA order pending &gt; 30 hari (UU PDP).</p>
 </header>
 <main>
   <div class="bar">
@@ -55,6 +55,7 @@ export const ADMIN_WA_FOLLOWUP_HTML = `<!doctype html>
       <select id="mode">
         <option value="wa" selected>Perlu follow-up (ber-WA)</option>
         <option value="missing">Tanpa kontak</option>
+        <option value="abandoned">Belum bayar (ada kontak)</option>
       </select>
     </label>
     <label style="font-size:13px">Batas mundur (jam)
@@ -66,6 +67,7 @@ export const ADMIN_WA_FOLLOWUP_HTML = `<!doctype html>
       </select>
     </label>
     <button id="load">Muat daftar</button>
+    <button id="purge" class="ghost">Bersihkan kontak &gt; 30 hari</button>
     <span id="count" class="count"></span>
   </div>
   <div id="err" class="err"></div>
@@ -90,11 +92,21 @@ export const ADMIN_WA_FOLLOWUP_HTML = `<!doctype html>
     const minHours = $('minHours').value;
     const mode = $('mode').value;
     try {
-      const res = await fetch('/api/admin/pending-wa-reminders?minHours=' + minHours + '&contact=' + encodeURIComponent(mode), { headers: headers() });
+      let url, dataKey;
+      if (mode === 'abandoned') {
+        // Abandoned checkout: order pending yang mengisi kontak tapi tidak bayar.
+        // minHours di sini diterjemahkan ke ambang abandoned (default 2 jam).
+        url = '/api/admin/abandoned-orders?minHours=' + Math.max(1, Math.round(parseInt(minHours, 10) / 12) || 2);
+        dataKey = 'orders';
+      } else {
+        url = '/api/admin/pending-wa-reminders?minHours=' + minHours + '&contact=' + encodeURIComponent(mode);
+        dataKey = 'reminders';
+      }
+      const res = await fetch(url, { headers: headers() });
       if (res.status === 404) { $('list').innerHTML = '<div class="empty">Tidak diizinkan (secret salah atau endpoint nonaktif).</div>'; return; }
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
-      render(data.reminders || [], mode);
+      render(data[dataKey] || [], mode);
     } catch (e) {
       $('list').innerHTML = '';
       $('err').textContent = e.message || 'Gagal memuat.';
@@ -104,23 +116,34 @@ export const ADMIN_WA_FOLLOWUP_HTML = `<!doctype html>
   function render(rows, mode) {
     $('count').textContent = rows.length + ' pesanan';
     if (!rows.length) {
-      $('list').innerHTML = '<div class="empty">' +
-        (mode === 'missing' ? 'Semua pesanan pending punya kontak. 🎉' : 'Tidak ada pengingat yang tertunda. 🎉') +
-        '</div>';
+      const msg = mode === 'missing'
+        ? 'Semua pesanan pending punya kontak. 🎉'
+        : mode === 'abandoned'
+        ? 'Tidak ada pesanan abandoned. 🎉'
+        : 'Tidak ada pengingat yang tertunda. 🎉';
+      $('list').innerHTML = '<div class="empty">' + msg + '</div>';
       return;
     }
     $('list').innerHTML = rows.map(function (r) {
       const since = new Date(r.createdAt).toLocaleString('id-ID');
-      const contact = mode === 'missing'
-        ? 'tanpa kontak'
-        : escapeHtml(r.whatsappNumber || '') + (r.email ? ' · ' + escapeHtml(r.email) : '');
-      const actions = mode === 'missing'
-        ? '<button class="ghost" data-copy="' + escapeHtml(r.accessUrl) + '">Salin link akses</button>' +
-          '<button class="ghost" data-token="' + r.token + '" data-status="skipped">Lewati</button>'
-        : '<a class="wa-link" target="_blank" rel="noopener" href="' + r.waLink + '"><button class="wa">Buka WhatsApp</button></a>' +
+      let contact, actions;
+      if (mode === 'missing') {
+        contact = 'tanpa kontak';
+        actions = '<button class="ghost" data-copy="' + escapeHtml(r.accessUrl) + '">Salin link akses</button>' +
+          '<button class="ghost" data-token="' + r.token + '" data-status="skipped">Lewati</button>';
+      } else if (mode === 'abandoned') {
+        // Abandoned: ada kontak (email/WA) tapi belum bayar. Tampilkan link WA bila ada,
+        // plus salin link akses. Tidak ada tombol "tandai terkirim" — ini bukan WA reminder.
+        contact = escapeHtml(r.email || '') + (r.whatsappNumber ? ' · WA ' + escapeHtml(r.whatsappNumber) : '');
+        actions = (r.waLink ? '<a class="wa-link" target="_blank" rel="noopener" href="' + r.waLink + '"><button class="wa">Buka WhatsApp</button></a>' : '') +
+          '<button class="ghost" data-copy="' + escapeHtml(r.accessUrl) + '">Salin link</button>';
+      } else {
+        contact = escapeHtml(r.whatsappNumber || '') + (r.email ? ' · ' + escapeHtml(r.email) : '');
+        actions = '<a class="wa-link" target="_blank" rel="noopener" href="' + r.waLink + '"><button class="wa">Buka WhatsApp</button></a>' +
           '<button class="ghost" data-copy="' + escapeHtml(r.accessUrl) + '">Salin link</button>' +
           '<button class="ghost" data-token="' + r.token + '" data-status="sent">Tandai terkirim</button>' +
           '<button class="ghost" data-token="' + r.token + '" data-status="skipped">Lewati</button>';
+      }
       return '<div class="card">' +
         '<div class="meta"><b>' + escapeHtml(r.childName) + ' — ' + escapeHtml(r.archetype) + '</b>' +
         '<span>' + contact + ' · dibuat ' + since + '</span>' +
@@ -133,6 +156,21 @@ export const ADMIN_WA_FOLLOWUP_HTML = `<!doctype html>
     $('list').querySelectorAll('button[data-copy]').forEach(function (btn) {
       btn.addEventListener('click', function () { copyLink(btn.getAttribute('data-copy'), btn); });
     });
+  }
+
+  async function purge() {
+    const secret = secretInput.value.trim();
+    if (!secret) { $('err').textContent = 'Masukkan ADMIN_SECRET dulu.'; return; }
+    if (!confirm('Bersihkan email & WhatsApp pesanan pending yang lebih tua dari 30 hari? Baris order tetap ada untuk statistik.')) return;
+    $('err').textContent = '';
+    try {
+      const res = await fetch('/api/admin/purge-stale-contacts', { method: 'POST', headers: headers(), body: JSON.stringify({ olderThanDays: 30 }) });
+      if (res.status === 404) { $('err').textContent = 'Tidak diizinkan (secret salah).'; return; }
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Gagal');
+      $('err').textContent = data.purged + ' kontak dibersihkan.';
+      if ($('mode').value === 'abandoned') load();
+    } catch (e) { $('err').textContent = e.message || 'Gagal membersihkan.'; }
   }
 
   async function copyLink(url, btn) {
@@ -161,6 +199,7 @@ export const ADMIN_WA_FOLLOWUP_HTML = `<!doctype html>
 
   $('load').addEventListener('click', load);
   $('mode').addEventListener('change', load);
+  $('purge').addEventListener('click', purge);
   secretInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') load(); });
 </script>
 </body>

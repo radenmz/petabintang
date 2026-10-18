@@ -358,8 +358,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStart }) => {
 
       <footer className="bg-ink text-paper/60">
         <div className="shell shell--wide flex flex-col gap-3 border-t border-white/10 py-8 text-xs sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Peta Bintang Anakku</span>
-          <a href={waLink('Halo, saya ingin bertanya tentang Peta Bintang Anakku.')} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-paper">
+          <span>© {new Date().getFullYear()} Peta Bintang</span>
+          <a href={waLink('Halo, saya ingin bertanya tentang Peta Bintang.')} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-paper">
             Butuh bantuan? Hubungi kami
           </a>
         </div>

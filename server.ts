@@ -38,6 +38,7 @@ import { getBrowser, closeBrowser, isBrowserLaunched, isBrowserConnected } from 
 import { isValidPersonName, isValidWhatsapp, normalizeWhatsapp } from './src/server/validation';
 import { applyPreviewMask } from './src/server/ebookPreview';
 import { ADMIN_WA_FOLLOWUP_HTML } from './src/server/adminWaFollowup';
+import { ADMIN_WA_ACCESS_HTML } from './src/server/adminWaAccess';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -100,6 +101,18 @@ app.use(
     crossOriginEmbedderPolicy: false
   })
 );
+
+// SEO: prevent search engines from indexing admin pages. The header is set
+// before both the Vite dev middleware and the production static handler, so
+// it applies in every environment. X-Robots-Tag is respected by Google, Bing,
+// and other major crawlers — equivalent to <meta name="robots" content="noindex">
+// but works without modifying the SPA HTML.
+app.use((req, res, next) => {
+  if (req.path.startsWith('/admin/')) {
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+  }
+  next();
+});
 
 // M-01: rate limits for expensive / abuse-prone endpoints.
 const pdfLimiter = rateLimit({
@@ -224,6 +237,104 @@ async function resolveVoucher(rawCode: string): Promise<ResolvedVoucher> {
 // PDF Generation Endpoint
 // ---------------------------------------------------------------------------
 
+interface WatermarkMeta {
+  email: string;
+  orderShort: string;
+  date: string;
+}
+
+/**
+ * Masking email untuk tampilan footer yang terlihat saat dicetak:
+ * "b***@domain.com" — cukup mengidentifikasi, tidak membocorkan alamat penuh.
+ */
+function maskEmailForFooter(email: string): string {
+  if (!email) return 'pembeli';
+  const [local, domain] = email.split('@');
+  if (!domain) return email.slice(0, 1) + '***';
+  return (local ? local.slice(0, 1) : '') + '***@' + domain;
+}
+
+/**
+ * Sisipkan watermark diagonal halus ke dalam HTML ebook sebelum render PDF.
+ * Opacity ~5% supaya tidak merusak tampilan e-book anak (palet brand + maskot),
+ * namun teks tetap bisa dibaca bila PDF diperbesar — melacak ke pembeli.
+ *
+ * Overlay dipasang position:fixed sehingga tampil di setiap halaman PDF.
+ * Dua lapis teks (atas-bawah) menutupi halaman yang panjang.
+ */
+function applyPdfWatermark(html: string, meta: WatermarkMeta): string {
+  const label = `${meta.email || 'pembeli'} · #${meta.orderShort}`;
+  const overlay = `
+<style id="pb-watermark">
+@page { margin: 15mm; }
+.pb-wm {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 38pt;
+  font-weight: 900;
+  color: #1C1A2E;
+  opacity: 0.05;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 9999;
+  letter-spacing: 1px;
+}
+.pb-wm-2 {
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-family: 'Nunito', Arial, sans-serif;
+  font-size: 28pt;
+  font-weight: 800;
+  color: #2A306C;
+  opacity: 0.04;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 9999;
+}
+@media print {
+  .pb-wm, .pb-wm-2 { opacity: 0.05; }
+}
+</style>
+<div class="pb-wm" aria-hidden="true">${escapeHtmlAttr(label)}</div>
+<div class="pb-wm-2" aria-hidden="true">Peta Bintang · ${escapeHtmlAttr(meta.date)}</div>`;
+  // Sisipkan tepat setelah <body> bila ada; bila tidak ada, tempel di akhir.
+  if (/<body[^>]*>/i.test(html)) {
+    return html.replace(/(<body[^>]*>)/i, `$1${overlay}`);
+  }
+  return html + overlay;
+}
+
+function escapeHtmlAttr(s: string): string {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
+ * Footer template untuk Puppeteer page.pdf({ displayHeaderFooter: true }).
+ * Dirender di konteks CSS terpisah — TIDAK mewarisi CSS ebook. Semua gaya
+ * HARUS di-inline. Footer muncul di setiap halaman pada area margin bawah.
+ *
+ * Footer menampilkan: "Diunduh oleh {email-masked} · {tanggal} · #{orderShort}"
+ * plus nomor halaman. Email di-mask karena footer terlihat saat dicetak.
+ */
+function buildPdfFooterTemplate(meta: WatermarkMeta): string {
+  const masked = maskEmailForFooter(meta.email);
+  return `
+<div style="width: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 7pt; color: #8a94a6; padding: 0 15mm; display: flex; justify-content: space-between; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+  <span>Diunduh oleh ${escapeHtmlAttr(masked)} · ${escapeHtmlAttr(meta.date)} · #${escapeHtmlAttr(meta.orderShort)}</span>
+  <span>Hal. <span class="pageNumber"></span>/<span class="totalPages"></span></span>
+</div>`;
+}
+
 app.post('/api/generate-pdf', pdfLimiter, async (req, res) => {
   let page: Page | null = null;
 
@@ -238,7 +349,7 @@ app.post('/api/generate-pdf', pdfLimiter, async (req, res) => {
 
     const { data, error } = await supabase
       .from(SUPABASE_TABLE)
-      .select('ebook_json, payment_status')
+      .select('ebook_json, payment_status, email, token, created_at')
       .eq('token', token)
       .single();
 
@@ -255,6 +366,16 @@ app.post('/api/generate-pdf', pdfLimiter, async (req, res) => {
       console.error('[PDF] Stored ebook data invalid for token');
       return res.status(500).json({ error: 'Stored ebook data invalid' });
     }
+
+    // Watermark metadata: identitas pembeli untuk menekan penyebaran PDF.
+    // Teks watermark diformat dari email + potongan token (8 char terakhir).
+    const wmEmail = (data.email || '').trim();
+    const wmOrder = token.slice(-8);
+    const wmMeta = {
+      email: wmEmail,
+      orderShort: wmOrder,
+      date: new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
+    };
 
     console.log(`[PDF] Starting for: ${ebook.childProfile.name}, modules: ${ebook.modules?.length || 0}`);
 
@@ -287,9 +408,13 @@ app.post('/api/generate-pdf', pdfLimiter, async (req, res) => {
     // tag so those URLs resolve against the running server. The existing
     // img.complete evaluate wait (Step 5) then loads them over the network.
     const htmlWithBase = htmlContent.replace('<head>', `<head><base href="http://localhost:${PORT}/">`);
+    // Watermark: sisipkan overlay diagonal halus ke dalam HTML sebelum render.
+    // Opacity sangat rendah (~5%) supaya tidak merusak tampilan e-book anak,
+    // namun tetap melacak ke pembeli bila PDF tersebar.
+    const htmlWithWatermark = applyPdfWatermark(htmlWithBase, wmMeta);
     // setContent mendukung 'load'/'domcontentloaded' saja; file font woff2
     // dimuat via document.fonts.load() eksplisit di Step 5b (lebih andal).
-    await page.setContent(htmlWithBase, { waitUntil: 'load' });
+    await page.setContent(htmlWithWatermark, { waitUntil: 'load' });
     console.log('[PDF] Step 4 done: content set');
 
     // 5. Wait for images
@@ -340,12 +465,20 @@ app.post('/api/generate-pdf', pdfLimiter, async (req, res) => {
     }
 
     // 6. Generate PDF with timeout
+    // Watermark footer: displayHeaderFooter merender footer per halaman di
+    // konteks CSS terpisah — font/warna HARUS di-inline (brand tidak berlaku).
+    // preferCSSPageSize aktif; bila interaksi aneh, footer tetap dirender
+    // karena displayHeaderFooter bekerja pada margin area, bukan page size.
+    const wmFooter = buildPdfFooterTemplate(wmMeta);
     const pdfBuffer = await Promise.race([
       page.pdf({
         format: 'A4',
         margin: { top: '15mm', right: '15mm', bottom: '15mm', left: '15mm' },
         printBackground: true,
-        preferCSSPageSize: true
+        preferCSSPageSize: true,
+        displayHeaderFooter: true,
+        headerTemplate: '<span></span>',
+        footerTemplate: wmFooter
       }),
       new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error('PDF generation timeout after 60s')), 60000)
@@ -359,6 +492,29 @@ app.post('/api/generate-pdf', pdfLimiter, async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="Peta_Bintang_${safeName}.pdf"`);
     res.send(pdfBuffer);
     console.log('[PDF] Step 7 done: sent successfully');
+
+    // Best-effort: naikkan penghitung unduhan + catat timestamp. Jangan
+    // gagalkan respons bila update DB error (PDF sudah dikirim ke klien).
+    void (async () => {
+      try {
+        const { data: row } = await supabase
+          .from(SUPABASE_TABLE)
+          .select('pdf_download_count')
+          .eq('token', token)
+          .single();
+        const next = (row?.pdf_download_count ?? 0) + 1;
+        const { error: cntErr } = await supabase
+          .from(SUPABASE_TABLE)
+          .update({
+            pdf_download_count: next,
+            pdf_last_download_at: new Date().toISOString()
+          })
+          .eq('token', token);
+        if (cntErr) console.error('[DB] pdf_download_count increment failed:', cntErr.message);
+      } catch (e) {
+        console.error('[DB] pdf_download_count increment threw:', e instanceof Error ? e.message : e);
+      }
+    })();
 
   } catch (error) {
     console.error('[PDF] FAILED:', error);
@@ -512,10 +668,11 @@ app.post('/api/quiz/submit', apiLimiter, async (req, res) => {
 
 app.post('/api/order/contact', apiLimiter, async (req, res) => {
   try {
-    const { token, email, whatsappNumber } = req.body as {
+    const { token, email, whatsappNumber, source } = req.body as {
       token?: string;
       email?: string;
       whatsappNumber?: string;
+      source?: string;
     };
 
     if (!token || token.length < 10) {
@@ -549,9 +706,26 @@ app.post('/api/order/contact', apiLimiter, async (req, res) => {
     const updateFields: Record<string, unknown> = {};
     if (normalizedEmail) updateFields.email = normalizedEmail;
     if (normalizedWa) updateFields.whatsapp_number = normalizedWa;
+    // Abandoned checkout: catat pertama kali kontak dikirim + dari tahap mana.
+    // checkout_started_at hanya di-set bila belum ada (jangan timpa timestamp awal).
+    if (source === 'result' || source === 'payment') {
+      updateFields.contact_source = source;
+    }
 
     if (Object.keys(updateFields).length === 0) {
       return res.status(400).json({ error: 'Tidak ada kontak yang dikirim.' });
+    }
+
+    // Set checkout_started_at hanya bila masih null. Supabase tidak punya
+    // "set if null" langsung, jadi lakukan dua langkah: baca dulu, lalu update
+    // kondisional. Tapi untuk hemat round-trip, pakai filter `.is()` — bila
+    // baris tidak cocok (sudah ada timestamp), update no-op aman.
+    if (normalizedEmail || normalizedWa) {
+      await supabase
+        .from(SUPABASE_TABLE)
+        .update({ checkout_started_at: new Date().toISOString() })
+        .eq('token', token)
+        .is('checkout_started_at', null);
     }
 
     const { error: updErr } = await supabase
@@ -564,7 +738,7 @@ app.post('/api/order/contact', apiLimiter, async (req, res) => {
       return res.status(500).json({ error: 'Gagal menyimpan kontak.' });
     }
 
-    console.log(`[DB] Contact saved for token=${maskToken(token)} (wa: ${normalizedWa ? 'yes' : 'no'})`);
+    console.log(`[DB] Contact saved for token=${maskToken(token)} (wa: ${normalizedWa ? 'yes' : 'no'}, source: ${source || 'none'})`);
     res.json({ ok: true, whatsappNumber: normalizedWa || undefined, email: normalizedEmail || undefined });
   } catch (error) {
     console.error('[API] /api/order/contact failed:', error);
@@ -1008,11 +1182,34 @@ function buildWaReminderLink(row: {
   const archetype = getArchetypeById(row.archetype_id);
   const accessUrl = buildAccessUrlForToken(row.token);
   const message =
-    `Halo Ayah/Bunda, salam dari Peta Bintang Anakku 🌟\n\n` +
+    `Halo Ayah/Bunda, salam dari Peta Bintang 🌟\n\n` +
     `Laporan e-book untuk ${row.child_name} (${archetype.title}) sudah selesai disiapkan. ` +
     `Apakah ada kendala saat menyelesaikan pembayaran?\n\n` +
     `Lanjutkan dan buka e-book lengkapnya di sini:\n${accessUrl}\n\n` +
     `Terima kasih 🙏`;
+  return `https://wa.me/${row.whatsapp_number ?? ''}?text=${encodeURIComponent(message)}`;
+}
+
+/**
+ * Build the personalized wa.me deep link for DELIVERING the e-book access link
+ * to a PAID order (post-payment). Different intent from buildWaReminderLink
+ * (which nudges unpaid buyers): this confirms payment is complete and sends
+ * the access link. Format wajib pakai buildAccessUrlForToken supaya token valid.
+ */
+function buildWaAccessLink(row: {
+  child_name: string;
+  archetype_id: string;
+  token: string;
+  whatsapp_number: string | null;
+}): string {
+  const archetype = getArchetypeById(row.archetype_id);
+  const accessUrl = buildAccessUrlForToken(row.token);
+  const message =
+    `Halo Ayah/Bunda, terima kasih sudah membuka laporan Peta Bintang untuk ${row.child_name} 🌟\n\n` +
+    `Pembayaran Anda telah kami terima. E-book lengkap (${archetype.title}) siap dibuka:\n${accessUrl}\n\n` +
+    `Simpan tautan ini agar bisa dibuka kembali kapan saja. ` +
+    `Tautan bersifat pribadi untuk ${row.child_name} — mohon tidak dibagikan.\n\n` +
+    `Salam hangat dari Peta Bintang 🙏`;
   return `https://wa.me/${row.whatsapp_number ?? ''}?text=${encodeURIComponent(message)}`;
 }
 
@@ -1109,6 +1306,196 @@ app.post('/api/admin/mark-wa-sent', apiLimiter, async (req, res) => {
   }
 });
 
+// ---------------------------------------------------------------------------
+// WA delivery for PAID orders (Scalev-parity fitur 2)
+// ---------------------------------------------------------------------------
+// Cadangan bila email akses gagal terkirim (spam/salah ketik domain). Operator
+// melihat order berbayar yang punya WA tapi belum dikirimi tautan akses, klik
+// wa.me, kirim dari WhatsApp sendiri, lalu tandai terkirim. Kolom wa_access_*
+// DIPISAH dari wa_reminder_* (yang untuk order belum bayar) supaya tidak tertukar.
+
+app.get('/api/admin/paid-wa-pending', apiLimiter, async (req, res) => {
+  if (!isAdminAuthorized(req)) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  try {
+    const { data, error } = await supabase
+      .from(SUPABASE_TABLE)
+      .select('token, child_name, archetype_id, email, whatsapp_number, paid_at, created_at')
+      .eq('payment_status', 'paid')
+      .not('whatsapp_number', 'is', null)
+      .is('wa_access_sent_at', null)
+      .order('paid_at', { ascending: true, nullsFirst: false })
+      .limit(200);
+
+    if (error) {
+      console.error('[Admin] paid-wa-pending query failed:', error.message);
+      return res.status(500).json({ error: 'Gagal mengambil daftar pengiriman WA.' });
+    }
+
+    const orders = (data || []).map(row => ({
+      token: row.token,
+      childName: row.child_name,
+      archetype: getArchetypeById(row.archetype_id).title,
+      email: row.email,
+      whatsappNumber: row.whatsapp_number,
+      accessUrl: buildAccessUrlForToken(row.token),
+      waLink: buildWaAccessLink(row as {
+        child_name: string;
+        archetype_id: string;
+        token: string;
+        whatsapp_number: string | null;
+      }),
+      paidAt: row.paid_at,
+      createdAt: row.created_at
+    }));
+
+    console.log(`[Admin] ${orders.length} paid order(s) awaiting WA access delivery`);
+    res.json({ count: orders.length, orders });
+  } catch (error) {
+    console.error('[API] /api/admin/paid-wa-pending failed:', error);
+    res.status(500).json({ error: 'Gagal mengambil daftar pengiriman WA.' });
+  }
+});
+
+app.post('/api/admin/mark-wa-access-sent', apiLimiter, async (req, res) => {
+  if (!isAdminAuthorized(req)) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  try {
+    const { token, status } = req.body as { token?: string; status?: string };
+    if (!token || token.length < 10) {
+      return res.status(400).json({ error: 'Token required' });
+    }
+    const nextStatus = status === 'skipped' ? 'skipped' : 'sent';
+
+    const { error } = await supabase
+      .from(SUPABASE_TABLE)
+      .update({
+        wa_access_sent_at: new Date().toISOString(),
+        wa_access_status: nextStatus
+      })
+      .eq('token', token)
+      .eq('payment_status', 'paid');
+
+    if (error) {
+      console.error('[Admin] mark-wa-access-sent failed:', error.message);
+      return res.status(500).json({ error: 'Gagal menandai pengiriman.' });
+    }
+
+    console.log(`[Admin] WA access marked ${nextStatus} for token=${maskToken(token)}`);
+    res.json({ ok: true, status: nextStatus });
+  } catch (error) {
+    console.error('[API] /api/admin/mark-wa-access-sent failed:', error);
+    res.status(500).json({ error: 'Gagal menandai pengiriman.' });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Abandoned checkout capture + UU PDP contact purge (Scalev-parity fitur 1)
+// ---------------------------------------------------------------------------
+// Orang tua yang mengisi kontak di halaman hasil tapi tidak menyelesaikan
+// pembayaran. Daftar ini untuk follow-up manual. Purge membersihkan data
+// pribadi order pending yang > 30 hari (retensi UU PDP) — baris order tetap
+// ada untuk statistik drop-off, hanya email/WA yang di-null-kan.
+
+app.get('/api/admin/abandoned-orders', apiLimiter, async (req, res) => {
+  if (!isAdminAuthorized(req)) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  try {
+    const minHours = Math.max(1, parseInt(String(req.query.minHours ?? '2'), 10) || 2);
+    const maxDays = Math.max(1, parseInt(String(req.query.maxDays ?? '30'), 10) || 30);
+    const now = new Date();
+    const olderThan = new Date(now.getTime() - minHours * 3600_000).toISOString();
+    const newerThan = new Date(now.getTime() - maxDays * 86_400_000).toISOString();
+
+    const { data, error } = await supabase
+      .from(SUPABASE_TABLE)
+      .select('token, child_name, archetype_id, email, whatsapp_number, checkout_started_at, created_at, payment_status')
+      .eq('payment_status', 'pending')
+      .lte('created_at', olderThan)
+      .gte('created_at', newerThan)
+      .not('email', 'is', null)
+      .order('created_at', { ascending: false })
+      .limit(200);
+
+    if (error) {
+      console.error('[Admin] abandoned-orders query failed:', error.message);
+      return res.status(500).json({ error: 'Gagal mengambil daftar abandoned.' });
+    }
+
+    const orders = (data || []).map(row => {
+      const archetype = getArchetypeById(row.archetype_id);
+      return {
+        token: row.token,
+        childName: row.child_name,
+        archetype: archetype.title,
+        email: row.email,
+        whatsappNumber: row.whatsapp_number,
+        accessUrl: buildAccessUrlForToken(row.token),
+        waLink: row.whatsapp_number
+          ? buildWaReminderLink(row as {
+              child_name: string;
+              archetype_id: string;
+              token: string;
+              whatsapp_number: string | null;
+            })
+          : null,
+        checkoutStartedAt: row.checkout_started_at,
+        createdAt: row.created_at
+      };
+    });
+
+    console.log(`[Admin] ${orders.length} abandoned order(s) listed`);
+    res.json({ count: orders.length, orders });
+  } catch (error) {
+    console.error('[API] /api/admin/abandoned-orders failed:', error);
+    res.status(500).json({ error: 'Gagal mengambil daftar abandoned.' });
+  }
+});
+
+app.post('/api/admin/purge-stale-contacts', apiLimiter, async (req, res) => {
+  if (!isAdminAuthorized(req)) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+  try {
+    const olderThanDays = Math.max(1, parseInt(String((req.body as { olderThanDays?: number })?.olderThanDays ?? '30'), 10) || 30);
+    const cutoff = new Date(Date.now() - olderThanDays * 86_400_000).toISOString();
+
+    // Null-kan data pribadi (email, WA, contact_source) untuk order pending
+    // yang lebih tua dari cutoff. Baris order tetap ada untuk statistik.
+    const { data, error } = await supabase
+      .from(SUPABASE_TABLE)
+      .update({
+        email: null,
+        whatsapp_number: null,
+        contact_source: 'purged'
+      })
+      .eq('payment_status', 'pending')
+      .lt('created_at', cutoff)
+      .is('contact_source', 'result')
+      .select('token');
+
+    // Catatan: select('token') agar respons berisi jumlah baris yang diubah.
+    // Filter contact_source = 'result' agar tidak menyentuh order yang belum
+    // pernah mengirim kontak (tidak ada yang dibersihkan).
+    void data;
+
+    if (error) {
+      console.error('[Admin] purge-stale-contacts failed:', error.message);
+      return res.status(500).json({ error: 'Gagal membersihkan kontak.' });
+    }
+
+    const count = data ? data.length : 0;
+    console.log(`[Admin] Purged ${count} stale pending contact(s) older than ${olderThanDays}d`);
+    res.json({ ok: true, purged: count, olderThanDays });
+  } catch (error) {
+    console.error('[API] /api/admin/purge-stale-contacts failed:', error);
+    res.status(500).json({ error: 'Gagal membersihkan kontak.' });
+  }
+});
+
 // Operator dashboard for the semi-automatic WA follow-up. The HTML/JS contains
 // no data; it prompts for ADMIN_SECRET and calls the protected endpoints above.
 // The page exists to be bookmarked by the operator — it exposes nothing without
@@ -1116,6 +1503,12 @@ app.post('/api/admin/mark-wa-sent', apiLimiter, async (req, res) => {
 // fallback) so a production `express.static` never shadows it with index.html.
 app.get('/admin/wa-followup', (_req, res) => {
   res.type('html').send(ADMIN_WA_FOLLOWUP_HTML);
+});
+
+// Sibling dashboard for WA access delivery to PAID orders (fitur 2). Explicit
+// route so production express.static never shadows it with index.html.
+app.get('/admin/wa-access', (_req, res) => {
+  res.type('html').send(ADMIN_WA_ACCESS_HTML);
 });
 
 // ---------------------------------------------------------------------------

@@ -154,23 +154,31 @@ export const ResultStep: React.FC<ResultStepProps> = ({
 
   const waValid = isValidWhatsapp(whatsapp);
   const emailValid = isValidEmail(emailValue);
-  const anyValid = waValid || emailValid;
-  const contactSaved = Boolean(waSaved || emailSaved);
+  // Email is REQUIRED — it is the delivery channel for the e-book access link
+  // (Midtrans webhook → sendEbookAccessEmail). WA is optional and only used
+  // for the 1x24h follow-up reminder, so it alone never counts as "saved".
+  const contactSaved = Boolean(emailSaved);
 
   const handleSaveContact = async () => {
     setWaTouched(true);
     setEmailTouched(true);
     setContactError('');
-    if (!anyValid) return;
+    if (!emailValid) {
+      setContactError('Email wajib diisi untuk menerima akses e-book.');
+      return;
+    }
     if (!accessToken) {
       setContactError('Sesi tidak ditemukan. Muat ulang halaman lalu coba lagi.');
       return;
     }
     setSavingContact(true);
     try {
-      const payload: { token: string; whatsappNumber?: string; email?: string } = { token: accessToken };
+      const payload: { token: string; email: string; whatsappNumber?: string; source: string } = {
+        token: accessToken,
+        email: emailValue.trim(),
+        source: 'result'
+      };
       if (waValid) payload.whatsappNumber = whatsapp;
-      if (emailValid) payload.email = emailValue.trim();
       const res = await fetch('/api/order/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -202,14 +210,11 @@ export const ResultStep: React.FC<ResultStepProps> = ({
           <p className="flex items-start gap-2 text-sm text-secondary">
             <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
             <span>
-              Kontak tersimpan.
+              Email tersimpan: <span className="font-semibold text-ink">{emailSaved}</span>.
               {waSaved && (
-                <> WA <span className="font-semibold text-ink">{formatWhatsappDisplay(waSaved)}</span>.</>
-              )}
-              {emailSaved && (
-                <> Email <span className="font-semibold text-ink">{emailSaved}</span>.</>
+                <> WhatsApp <span className="font-semibold text-ink">{formatWhatsappDisplay(waSaved)}</span> (opsional).</>
               )}{' '}
-              Kami akan mengabari bila laporan belum sempat dibuka.
+              Tautan akses e-book dikirim ke email ini setelah pembayaran.
             </span>
           </p>
           <button type="button" onClick={resetContact} className="text-xs font-medium text-primary underline">
@@ -218,44 +223,54 @@ export const ResultStep: React.FC<ResultStepProps> = ({
         </div>
       ) : (
         <>
-          <span className="eyebrow flex items-center gap-1.5">
-            <MessageCircle className="h-3.5 w-3.5" /> Opsional
-          </span>
+          <span className="eyebrow">Email akses</span>
           <p className="mt-2 text-sm text-secondary">
-            Simpan kontak agar kami bisa mengirim laporan {profile.name} bila koneksi terputus. Cukup salah satu.
+            <span className="font-semibold text-ink">Wajib diisi.</span> E-book dikirim ke email ini setelah pembayaran — pastikan alamatnya benar dan aktif. Jika salah, e-book tidak akan sampai.
           </p>
-          <div className="mt-3 space-y-2">
-            <input
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              value={whatsapp}
-              onChange={e => { setWhatsapp(e.target.value); setWaTouched(false); setContactError(''); }}
-              placeholder="0812xxxxxxxx"
-              className={`w-full border-0 border-b bg-transparent px-0 py-2 text-sm text-ink focus:border-ink focus:outline-none ${
-                waTouched && !waValid ? 'border-rose-400' : 'border-outline-variant'
-              }`}
-            />
-            {waTouched && !waValid && (
-              <p className="text-xs text-rose-600">Masukkan nomor WhatsApp Indonesia yang valid.</p>
-            )}
-            <input
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              value={emailValue}
-              onChange={e => { setEmailValue(e.target.value); setEmailTouched(false); setContactError(''); }}
-              placeholder="email@contoh.com"
-              className={`w-full border-0 border-b bg-transparent px-0 py-2 text-sm text-ink focus:border-ink focus:outline-none ${
-                emailTouched && !emailValid ? 'border-rose-400' : 'border-outline-variant'
-              }`}
-            />
-            {emailTouched && !emailValid && (
-              <p className="text-xs text-rose-600">Masukkan email yang valid.</p>
-            )}
+          <div className="mt-3 space-y-3">
+            <div className="space-y-1.5">
+              <label htmlFor="result-email" className="text-xs font-semibold text-ink">
+                Email <span className="text-rose-500">*</span> <span className="font-normal text-secondary">(wajib)</span>
+              </label>
+              <input
+                id="result-email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                value={emailValue}
+                onChange={e => { setEmailValue(e.target.value); setEmailTouched(false); setContactError(''); }}
+                placeholder="email@contoh.com"
+                className={`w-full border-0 border-b bg-transparent px-0 py-2 text-sm text-ink focus:border-ink focus:outline-none ${
+                  emailTouched && !emailValid ? 'border-rose-400' : 'border-outline-variant'
+                }`}
+              />
+              {emailTouched && !emailValid && (
+                <p className="text-xs text-rose-600">Email wajib diisi untuk menerima e-book.</p>
+              )}
+            </div>
+            <div className="space-y-1.5">
+              <span className="flex items-center gap-1.5 text-xs font-semibold text-secondary">
+                <MessageCircle className="h-3 w-3" /> WhatsApp — opsional
+              </span>
+              <input
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                value={whatsapp}
+                onChange={e => { setWhatsapp(e.target.value); setWaTouched(false); setContactError(''); }}
+                placeholder="0812xxxxxxxx"
+                className={`w-full border-0 border-b bg-transparent px-0 py-2 text-sm text-ink focus:border-ink focus:outline-none ${
+                  waTouched && !waValid ? 'border-rose-400' : 'border-outline-variant'
+                }`}
+              />
+              {waTouched && !waValid && (
+                <p className="text-xs text-rose-600">Masukkan nomor WhatsApp Indonesia yang valid.</p>
+              )}
+              <p className="text-xs text-secondary">Hanya untuk mengingatkan bila laporan belum sempat dibuka — tidak wajib.</p>
+            </div>
           </div>
           <div className="mt-3">
-            <Button variant="ghost" size="md" full onClick={handleSaveContact} disabled={savingContact || !anyValid}>
+            <Button variant="ghost" size="md" full onClick={handleSaveContact} disabled={savingContact || !emailValid}>
               {savingContact ? 'Menyimpan…' : 'Simpan kontak'}
             </Button>
           </div>
@@ -454,10 +469,13 @@ export const ResultStep: React.FC<ResultStepProps> = ({
                     ))}
                   </ul>
                   <div className="mt-5">
-                    <Button variant="primary" size="lg" full onClick={onProceedToPayment}>
+                    <Button variant="primary" size="lg" full onClick={onProceedToPayment} disabled={!emailValid}>
                       <Lock className="h-4 w-4" /> Buka sekarang
                     </Button>
                   </div>
+                  {!emailValid && (
+                    <p className="mt-2 text-xs font-medium text-rose-600">Isi email dulu untuk membuka akses.</p>
+                  )}
                   <p className="mt-3 font-mono text-[11px] text-secondary">
                     Promo berakhir dalam {countdown}
                   </p>
@@ -527,10 +545,15 @@ export const ResultStep: React.FC<ResultStepProps> = ({
             </ul>
 
             <div className="mt-6">
-              <Button variant="primary" size="lg" full onClick={onProceedToPayment}>
+              <Button variant="primary" size="lg" full onClick={onProceedToPayment} disabled={!emailValid}>
                 <Lock className="h-4 w-4" /> Buka akses lengkap
               </Button>
             </div>
+            {!emailValid && (
+              <p className="mt-2 text-xs font-medium text-rose-600">Isi email dulu untuk lanjut ke pembayaran.</p>
+            )}
+
+            <div className="mt-4">{waCaptureCard}</div>
 
             <p className="mt-3 text-center font-mono text-[11px] text-secondary">
               Harga naik dalam {countdown}
@@ -554,8 +577,6 @@ export const ResultStep: React.FC<ResultStepProps> = ({
                 Tanya via WhatsApp
               </Button>
             </div>
-
-            <div className="mt-4">{waCaptureCard}</div>
           </div>
         </aside>
       </div>
@@ -568,7 +589,7 @@ export const ResultStep: React.FC<ResultStepProps> = ({
             <div className="text-xs leading-none text-secondary line-through">{formatRupiah(ORIGINAL_PRICE)}</div>
             <div className="font-display text-lg font-extrabold leading-tight text-ink">{formatRupiah(FINAL_PRICE)}</div>
           </div>
-          <Button variant="primary" size="md" onClick={onProceedToPayment} className="flex-1">
+          <Button variant="primary" size="md" onClick={onProceedToPayment} className="flex-1" disabled={!emailValid}>
             <Lock className="h-4 w-4" /> Buka akses
           </Button>
         </div>

@@ -13,7 +13,7 @@ function resendApiKey(): string {
   return process.env.RESEND_API_KEY || '';
 }
 function emailFrom(): string {
-  return process.env.EMAIL_FROM || 'Peta Bintang Anakku <no-reply@petabintang.com>';
+  return process.env.EMAIL_FROM || 'Peta Bintang <no-reply@petabintang.com>';
 }
 const RESEND_ENDPOINT = 'https://api.resend.com/emails';
 
@@ -133,7 +133,7 @@ function buildAccessEmailHtml(childName: string, accessUrl: string, bonusLinks: 
     `<p style="line-height:1.6;color:#3a4768;">Simpan tautan ini agar e-book bisa dibuka kembali kapan saja. Jangan bagikan tautan ini karena bersifat pribadi untuk ${escapeHtml(childName)}.</p>`,
     bonusSection,
     `<hr style="border:none;border-top:1px solid #e3e8f0;margin:24px 0;" />`,
-    `<p style="font-size:12px;color:#8a94a6;">Email ini dikirim otomatis oleh Peta Bintang Anakku. Balas email ini atau hubungi WhatsApp kami jika butuh bantuan.</p>`,
+    `<p style="font-size:12px;color:#8a94a6;">Email ini dikirim otomatis oleh Peta Bintang. Balas email ini atau hubungi WhatsApp kami jika butuh bantuan.</p>`,
     `</div>`
   ].join('');
 }

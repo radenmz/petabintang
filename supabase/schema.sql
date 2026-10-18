@@ -1,5 +1,5 @@
 -- =============================================================================
--- PETA BINTANG ANAKKU — Database Schema (idempotent / migration-safe)
+-- PETA BINTANG — Database Schema (idempotent / migration-safe)
 -- =============================================================================
 -- CARA PAKAI (Supabase Dashboard):
 --   1. Buka project → SQL Editor → "+ New query" (atau query kosong).
@@ -55,6 +55,28 @@ alter table ebook_orders
 alter table ebook_orders
   add column if not exists wa_reminder_status text not null default 'none';
 
+-- Fitur: abandoned checkout capture. checkout_started_at menandai pertama kali
+-- user mengisi kontak di halaman hasil (sebelum bayar). contact_source mencatat
+-- dari tahap mana kontak dikirim ('result'|'payment'|'none').
+alter table ebook_orders
+  add column if not exists checkout_started_at timestamptz;
+alter table ebook_orders
+  add column if not exists contact_source text default 'none';
+
+-- Fitur: WA pengiriman akses e-book (post-paid). Dipisah dari wa_reminder_*
+-- yang menagih order BELUM bayar; kolom ini untuk mengirim e-book ke order
+-- yang SUDAH bayar. Mencampur keduanya berisiko salah kirim pesan.
+alter table ebook_orders
+  add column if not exists wa_access_sent_at timestamptz;
+alter table ebook_orders
+  add column if not exists wa_access_status text not null default 'none';
+
+-- Fitur: pelacakan unduhan PDF (watermark tracking).
+alter table ebook_orders
+  add column if not exists pdf_download_count int not null default 0;
+alter table ebook_orders
+  add column if not exists pdf_last_download_at timestamptz;
+
 -- Perbaiki default lama (49000/79000) ke harga normal 129000 di DB yang sudah ada.
 alter table ebook_orders
   alter column payment_amount set default 129000;
@@ -71,6 +93,15 @@ create index if not exists idx_ebook_orders_voucher_code
 -- WA follow-up: fast lookup of pending orders that still need an admin nudge.
 create index if not exists idx_ebook_orders_wa_reminder
   on ebook_orders (payment_status, wa_reminder_sent_at, created_at);
+
+-- Abandoned checkout: order pending yang mengisi kontak tapi tidak menyelesaikan
+-- pembayaran. Digunakan daftar admin follow-up + purge retensi UU PDP.
+create index if not exists idx_ebook_orders_abandoned
+  on ebook_orders (payment_status, checkout_started_at, created_at);
+
+-- WA pengiriman akses: order berbayar yang belum dikirim tautan e-book via WA.
+create index if not exists idx_ebook_orders_wa_access
+  on ebook_orders (payment_status, wa_access_sent_at);
 
 alter table ebook_orders enable row level security;
 

@@ -47,7 +47,6 @@ export const Header: React.FC<HeaderProps> = ({ step, activeProfile, activeArche
           <span className="font-display text-base font-extrabold tracking-tight text-ink">
             Peta Bintang
           </span>
-          <span className="hidden text-xs text-secondary sm:inline">Anakku</span>
 
           {activeProfile && activeArchetype && (
             <span className="hidden items-center gap-2 border-l border-outline-variant pl-3 text-xs text-secondary md:inline-flex">

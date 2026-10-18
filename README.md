@@ -1,4 +1,4 @@
-# Peta Bintang Anakku
+# Peta Bintang
 
 Aplikasi web asesmen pengasuhan yang menghasilkan e-book personalisasi: orang tua mengisi kuis 75 pertanyaan (OCEAN + Multiple Intelligences) untuk anak, lalu aplikasi menghasilkan laporan/e-book berisi grafik, profil arketipe, dan panduan praktis. E-book lengkap dapat diunduh sebagai PDF setelah pembayaran.
 

@@ -13,7 +13,7 @@
 #### 👨‍👩‍👧 PETUNJUK AKSI ORANG TUA (ACTIONABLE):
 - **Langkah 1 (Persiapan Wisuda):** Siapkan sertifikat/lencana sederhana (bisa digambar di kertas). Buat suasana spesial — bisa menyalakan lilin, memutar musik lembut, atau duduk di tempat favorit {{childName}}.
 - **Langkah 2 (Refleksi Bersama):** Tanyakan kepada {{childName}}: *"Dari semua misi yang kita lakukan, misi mana yang paling kamu suka? Dan misi mana yang menurutmu paling sulit?"* Dengarkan jawabannya dengan penuh perhatian.
-- **Langkah 3 (Pemberian Lencana):** Tempelkan atau berikan lencana/sertifikat kepada {{childName}} sambil berkata: *"Atas nama Bintang Anakku, aku menganugerahkan Lencana Kapten Bintang kepada Agen {{childName}}, karena telah belajar memahami diri sendiri dan tumbuh menjadi bintang yang bersinar dengan cahayanya sendiri."*
+- **Langkah 3 (Pemberian Lencana):** Tempelkan atau berikan lencana/sertifikat kepada {{childName}} sambil berkata: *"Atas nama Peta Bintang, aku menganugerahkan Lencana Kapten Bintang kepada Agen {{childName}}, karena telah belajar memahami diri sendiri dan tumbuh menjadi bintang yang bersinar dengan cahayanya sendiri."*
 - **Langkah 4 (Janji Berkelanjutan):** Sepakati bersama bahwa petualangan tidak berakhir di sini. Pilih 1–2 misi favorit untuk diulang secara berkala.
 - 💡 **Tips Ahli:** Refleksi adalah bagian penting dari belajar lewat pengalaman. Dengan menanyakan misi favorit dan terberat, anak belajar memahami cara belajarnya sendiri — keterampilan mengenal diri yang sangat berharga.
 

@@ -52,7 +52,7 @@ VITE_MIDTRANS_CLIENT_KEY=Mid-client-xxxx
 
 # Resend (email akses)
 RESEND_API_KEY=re_xxxx
-EMAIL_FROM=Peta Bintang Anakku <hello@domain-anda.com>
+EMAIL_FROM=Peta Bintang <hello@domain-anda.com>
 
 # Chromium sistem (diisi di Fase 4/8)
 PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
@@ -274,6 +274,31 @@ Pilih opsi redirect HTTP → HTTPS. Renewal otomatis sudah terpasang.
 
 ---
 
+## Catatan penting setelah deploy
+
+- Repo GitHub sempat dibuat public agar dapat di-clone tanpa token. Kembalikan repo menjadi **private** setelah deployment selesai.
+- Secret yang pernah digunakan di komputer atau dikirim dalam percakapan harus dianggap terekspos. Rotate Supabase service key, Resend API key, Midtrans server key, dan `ADMIN_SECRET`, lalu simpan nilai baru hanya di `.env` VPS.
+- Midtrans saat ini menggunakan mode `sandbox`. Untuk menerima pembayaran nyata, ubah `MIDTRANS_ENV`, `VITE_MIDTRANS_ENV`, dan key Midtrans ke kredensial production. Karena variabel `VITE_*` dibaca saat build, jalankan build ulang sebelum restart.
+- Sender Resend harus berasal dari domain yang sudah diverifikasi. Pastikan `EMAIL_FROM` memakai alamat yang telah diverifikasi di Resend.
+- Deployment menggunakan user `ubuntu`, bukan `deploy`. Path aplikasi adalah `/home/ubuntu/apps/petabintang` dan Chromium berada di `/snap/bin/chromium`.
+- Perubahan variabel runtime cukup memerlukan restart service. Perubahan variabel `VITE_*` memerlukan build ulang dan restart.
+- Perintah update aplikasi:
+
+  ```bash
+  cd ~/apps/petabintang
+  git pull origin main
+  npm ci
+  npm run build
+  sudo systemctl restart petabintang
+  sudo systemctl status petabintang
+  ```
+
+- Cek kesehatan aplikasi dengan `curl https://petabintang.com/api/health`.
+- Lihat log aplikasi dengan `sudo journalctl -u petabintang -f`.
+- Sertifikat HTTPS dikelola Certbot dan diperbarui otomatis. Cek status renewal dengan `sudo certbot renew --dry-run`.
+
+---
+
 ## Memperbarui aplikasi (setelah ada perubahan kode)
 
 ```bash
@@ -282,6 +307,28 @@ git pull
 npm ci
 npm run build
 sudo systemctl restart petabintang
+```
+
+Jika repository GitHub private, saat `git pull` diminta kredensial gunakan:
+
+- Username: username GitHub Anda
+- Password: GitHub Personal Access Token, bukan password akun GitHub
+
+Token sebaiknya fine-grained, dibatasi hanya ke repository `petabintang` dengan
+permission `Contents: Read-only` dan masa berlaku terbatas. Jangan menaruh token
+di URL remote, file `.env`, atau file service systemd.
+
+Verifikasi setelah update:
+
+```bash
+sudo systemctl status petabintang
+curl https://petabintang.com/api/health
+```
+
+Jika build atau service gagal, lihat log:
+
+```bash
+sudo journalctl -u petabintang -n 100 --no-pager
 ```
 
 > Jika Anda mengubah `VITE_*` (mis. ganti Midtrans ke production), langkah

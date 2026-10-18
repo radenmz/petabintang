@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChildProfile, ArchetypeDefinition } from '../../types';
-import { QrCode, ShieldCheck, CheckCircle2, Clock, Copy, Check, X, Percent, Wallet, Building2, AlertCircle, RefreshCw, Mail, Pencil } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Clock, X, Percent, AlertCircle, RefreshCw, Mail, Pencil } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { waLink } from '../../lib/site';
 import { isValidEmail as isEmailValid } from '../../lib/contact';
@@ -43,10 +43,6 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   parentEmail,
   onEmailChange
 }) => {
-  const [paymentMethod, setPaymentMethod] = useState<'qris' | 'ewallet' | 'va'>('qris');
-  const [selectedEwallet, setSelectedEwallet] = useState<'gopay' | 'ovo' | 'dana' | 'shopeepay'>('gopay');
-  const [selectedBank, setSelectedBank] = useState<'bca' | 'mandiri' | 'bri' | 'bni'>('bca');
-  
   const [voucherCode, setVoucherCode] = useState<string>('');
   const [appliedDiscount, setAppliedDiscount] = useState<number>(0); // no default promo; 79k only via coupon
   const [voucherSuccess, setVoucherSuccess] = useState<string>('');
@@ -54,7 +50,6 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [copiedVa, setCopiedVa] = useState<boolean>(false);
   // Email is authored once (result page) and only confirmed here — this toggles
   // the collapsed summary back to the editable input when the parent wants to
   // change it. Starts expanded when empty so a fresh buyer can type it.
@@ -337,15 +332,6 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
     handlePayWithMidtrans();
   };
 
-  const getVaNumber = () => {
-    switch (selectedBank) {
-      case 'bca': return '88012 0812 3456 7890';
-      case 'mandiri': return '89008 0812 3456 7890';
-      case 'bri': return '10234 0812 3456 7890';
-      case 'bni': return '98801 0812 3456 7890';
-    }
-  };
-
   return (
     <div className="shell shell--content py-8 md:py-12">
       {/* Header */}
@@ -425,131 +411,9 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                   )}
                 </>
               )}
-              {(paymentMethod === 'qris' || paymentMethod === 'va') && (
-                <p className="mt-2 text-xs text-secondary">
-                  Pembayaran QRIS/VA bisa memakan waktu — email memastikan tautan tetap terkirim bila Anda menutup halaman sebelum konfirmasi.
-                </p>
-              )}
-            </section>
-
-            {/* Payment method */}
-            <section>
-              <span className="eyebrow">Metode pembayaran</span>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {([
-                  { id: 'qris', label: 'QRIS', Icon: QrCode },
-                  { id: 'ewallet', label: 'E-Wallet', Icon: Wallet },
-                  { id: 'va', label: 'Virtual Account', Icon: Building2 },
-                ] as const).map(({ id, label, Icon }) => {
-                  const active = paymentMethod === id;
-                  return (
-                    <button
-                      key={id}
-                      onClick={() => setPaymentMethod(id)}
-                      className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition-colors ${
-                        active
-                          ? 'border-ink bg-ink text-paper'
-                          : 'border-outline-variant text-secondary hover:border-ink hover:text-ink'
-                      }`}
-                    >
-                      <Icon className="h-4 w-4" />
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="mt-5 border-t border-outline-variant pt-5 text-sm">
-                {paymentMethod === 'qris' && (
-                  <div className="flex flex-col items-center gap-3 text-center">
-                    <svg className="h-36 w-36" viewBox="0 0 100 100" aria-hidden>
-                      <path d="M0,0 h30 v30 h-30 z M40,0 h20 v10 h-20 z M70,0 h30 v30 h-30 z M10,10 h10 v10 h-10 z M80,10 h10 v10 h-10 z M0,40 h10 v20 h-10 z M20,40 h30 v10 h-30 z M60,40 h20 v20 h-20 z M90,40 h10 v30 h-10 z M0,70 h30 v30 h-30 z M10,80 h10 v10 h-10 z M40,70 h20 v20 h-20 z M70,80 h30 v20 h-30 z" fill="#1C1A2E" />
-                      <rect x="42" y="42" width="16" height="16" fill="#2A306C" rx="2" />
-                    </svg>
-                    <p className="max-w-sm text-secondary">
-                      Pindai QRIS dengan aplikasi apa pun — GoPay, OVO, DANA, ShopeePay, LinkAja, atau mobile banking.
-                    </p>
-                  </div>
-                )}
-
-                {paymentMethod === 'ewallet' && (
-                  <div className="space-y-3">
-                    <p className="text-secondary">Pilih aplikasi e-wallet:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        { id: 'gopay', label: 'GoPay' },
-                        { id: 'ovo', label: 'OVO' },
-                        { id: 'dana', label: 'DANA' },
-                        { id: 'shopeepay', label: 'ShopeePay' },
-                      ].map(ew => {
-                        const active = selectedEwallet === ew.id;
-                        return (
-                          <button
-                            key={ew.id}
-                            onClick={() => setSelectedEwallet(ew.id as any)}
-                            className={`inline-flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm transition-colors ${
-                              active
-                                ? 'border-ink bg-ink text-paper'
-                                : 'border-outline-variant text-secondary hover:border-ink hover:text-ink'
-                            }`}
-                          >
-                            {active && <Check className="h-3.5 w-3.5" />}
-                            {ew.label}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {paymentMethod === 'va' && (
-                  <div className="space-y-3">
-                    <p className="text-secondary">Pilih bank:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {[
-                        { id: 'bca', label: 'BCA' },
-                        { id: 'mandiri', label: 'Mandiri' },
-                        { id: 'bri', label: 'BRI' },
-                        { id: 'bni', label: 'BNI' },
-                      ].map(bk => {
-                        const active = selectedBank === bk.id;
-                        return (
-                          <button
-                            key={bk.id}
-                            onClick={() => setSelectedBank(bk.id as any)}
-                            className={`inline-flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm transition-colors ${
-                              active
-                                ? 'border-ink bg-ink text-paper'
-                                : 'border-outline-variant text-secondary hover:border-ink hover:text-ink'
-                            }`}
-                          >
-                            {active && <Check className="h-3.5 w-3.5" />}
-                            {bk.label}
-                          </button>
-                        );
-                      })}
-                    </div>
-
-                    <div className="mt-2 flex items-center justify-between border-y border-outline-variant py-3">
-                      <div>
-                        <p className="eyebrow">Nomor Virtual Account</p>
-                        <p className="mt-1 font-mono text-sm font-semibold text-ink">{getVaNumber()}</p>
-                      </div>
-                      <button
-                        onClick={() => {
-                          navigator.clipboard.writeText(getVaNumber());
-                          setCopiedVa(true);
-                          setTimeout(() => setCopiedVa(false), 2000);
-                        }}
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-outline-variant px-3 py-1.5 text-xs text-secondary transition-colors hover:border-ink hover:text-ink"
-                      >
-                        {copiedVa ? <Check className="h-3.5 w-3.5 text-primary" /> : <Copy className="h-3.5 w-3.5" />}
-                        {copiedVa ? 'Tersalin' : 'Salin'}
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <p className="mt-2 text-xs text-secondary">
+                Pembayaran bisa memakan waktu — email memastikan tautan akses tetap terkirim bila Anda menutup halaman sebelum konfirmasi.
+              </p>
             </section>
 
             {/* Voucher */}
