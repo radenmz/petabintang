@@ -1439,7 +1439,7 @@ ${CSS}
     <p class="subtitle">${escapeHtml(ebook.subtitle)}</p>
     <p class="star-divider">✦ ✦ ✦ ✦ ✦</p>
     <div class="meta">
-      <p><strong>Anak:</strong> ${escapeHtml(child.name)} (${child.age} Tahun, ${escapeHtml(child.gender)})</p>
+      <p><strong>Anak:</strong> ${escapeHtml(child.name)} (${escapeHtml(String(child.age))} Tahun, ${escapeHtml(child.gender)})</p>
       <p><strong>Orang Tua:</strong> ${escapeHtml(child.parentName || 'Orang Tua')}</p>
       <p><strong>Arketipe:</strong> ${escapeHtml(ebook.archetype.title)} &mdash; &ldquo;${escapeHtml(ebook.archetype.slogan)}&rdquo;</p>
       <p><strong>Diterbitkan:</strong> ${escapeHtml(ebook.generatedAt)}</p>

@@ -129,6 +129,15 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
   message: { error: 'Terlalu banyak permintaan. Coba lagi sebentar lagi.' }
 });
+// Webhook limiter: Midtrans sends legitimate retry bursts, so allow more than
+// apiLimiter. Still caps flooding that would cause Supabase query + SHA-512 load.
+const webhookLimiter = rateLimit({
+  windowMs: 60_000,
+  max: 100,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  message: { error: 'Rate limit exceeded.' }
+});
 
 // The ebook payload includes interpolated markdown + base64 mascot data URIs,
 // so it can be fairly large. Allow up to 50mb.
@@ -616,6 +625,30 @@ app.post('/api/quiz/submit', apiLimiter, async (req, res) => {
       return res.status(400).json({ error: 'Nama orang tua tidak valid.' });
     }
 
+    // Runtime validation for fields not covered by isValidPersonName.
+    // TypeScript types are NOT enforced at the API boundary — a crafted
+    // payload could inject unexpected values into the ebook generation.
+    if (typeof childProfile.age !== 'number' || childProfile.age < 3 || childProfile.age > 12) {
+      return res.status(400).json({ error: 'Usia anak tidak valid (3-12 tahun).' });
+    }
+    if (childProfile.gender !== 'Laki-laki' && childProfile.gender !== 'Perempuan') {
+      return res.status(400).json({ error: 'Jenis kelamin tidak valid.' });
+    }
+    const oceanKeys = ['openness', 'conscientiousness', 'extraversion', 'agreeableness', 'neuroticism'] as const;
+    if (!childProfile.oceanScores || !oceanKeys.every(k =>
+      typeof childProfile.oceanScores[k] === 'number' &&
+      childProfile.oceanScores[k] >= 1 && childProfile.oceanScores[k] <= 10
+    )) {
+      return res.status(400).json({ error: 'Skor OCEAN tidak valid.' });
+    }
+    const miKeys = ['linguistic', 'logical', 'spatial', 'kinesthetic', 'musical', 'interpersonal', 'intrapersonal', 'naturalist'] as const;
+    if (!childProfile.miScores || !miKeys.every(k =>
+      typeof childProfile.miScores[k] === 'number' &&
+      childProfile.miScores[k] >= 0 && childProfile.miScores[k] <= 100
+    )) {
+      return res.status(400).json({ error: 'Skor kecerdasan tidak valid.' });
+    }
+
     // C-02: the ebook is generated SERVER-SIDE from the (validated) profile.
     // The client no longer ships the paid templates, so any ebook body it
     // sends is ignored — the server is the single source of truth.
@@ -939,7 +972,7 @@ app.post('/api/payment/create-order', apiLimiter, async (req, res) => {
 // Midtrans Payment Notification Webhook (Track A3)
 // ---------------------------------------------------------------------------
 
-app.post('/api/webhook/midtrans', async (req, res) => {
+app.post('/api/webhook/midtrans', webhookLimiter, async (req, res) => {
   try {
     const body = req.body as {
       order_id?: string;
@@ -1139,7 +1172,7 @@ app.post('/api/resend-access', apiLimiter, async (req, res) => {
   } catch (error) {
     console.error('[API] /api/resend-access failed:', error);
     const message = error instanceof Error ? error.message : String(error);
-    res.status(500).json({ error: 'Gagal mengirim ulang tautan email.', details: message });
+    res.status(500).json({ error: 'Gagal mengirim ulang tautan email.' });
   }
 });
 
@@ -1159,10 +1192,18 @@ function isAdminAuthorized(req: express.Request): boolean {
   const provided = String(req.get('x-admin-secret') || '');
   const a = Buffer.from(provided);
   const b = Buffer.from(ADMIN_SECRET);
-  if (a.length !== b.length) return false;
+  if (a.length !== b.length) {
+    console.warn(`[Admin] Unauthorized access attempt from IP: ${req.ip}`);
+    return false;
+  }
   try {
-    return crypto.timingSafeEqual(a, b);
+    const authorized = crypto.timingSafeEqual(a, b);
+    if (!authorized) {
+      console.warn(`[Admin] Unauthorized access attempt from IP: ${req.ip}`);
+    }
+    return authorized;
   } catch {
+    console.warn(`[Admin] Unauthorized access attempt from IP: ${req.ip}`);
     return false;
   }
 }
