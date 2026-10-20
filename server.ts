@@ -108,7 +108,9 @@ app.use(
 // and other major crawlers — equivalent to <meta name="robots" content="noindex">
 // but works without modifying the SPA HTML.
 app.use((req, res, next) => {
-  if (req.path.startsWith('/admin/')) {
+  // Match `/admin` exactly AND any `/admin/...` subpath, so a bare
+  // `/admin` (no trailing slash) is also de-indexed.
+  if (req.path === '/admin' || req.path.startsWith('/admin/')) {
     res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   }
   next();
